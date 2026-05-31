@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Tous les prestataires — Raktakk</title>
+  <meta name="description" content="Découvrez tous les prestataires, vendeurs et entreprises vérifiées sur Raktakk en Afrique de l'Ouest." />
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect fill='%23FF5A1F' width='100' height='100' rx='22'/><text y='.9em' font-size='70' x='12'>R</text></svg>" />
+  <link rel="stylesheet" href="assets/css/style.css" />
+  <style>
+    .listing-page { padding-top: var(--header-h); }
+    .listing-hero { background: var(--brand-secondary); padding: 48px 0; }
+    .filter-chips { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 20px; }
+    .chip { padding: 8px 16px; border-radius: var(--radius-full); border: 1.5px solid var(--border-light); background: var(--bg-white); font-size: .82rem; font-weight: 600; cursor: pointer; transition: var(--transition); color: var(--text-secondary); }
+    .chip:hover, .chip.active { background: var(--brand-primary); border-color: var(--brand-primary); color: #fff; }
+    .alphabet-bar { display: flex; flex-wrap: wrap; gap: 4px; margin-bottom: 20px; }
+    .alpha-btn { width: 32px; height: 32px; border-radius: 6px; border: 1px solid var(--border-light); background: var(--bg-white); font-size: .78rem; font-weight: 700; cursor: pointer; transition: var(--transition); display: flex; align-items: center; justify-content: center; color: var(--text-secondary); }
+    .alpha-btn:hover { border-color: var(--brand-primary); color: var(--brand-primary); }
+    .section-letter { font-family: var(--font-display); font-size: 2rem; font-weight: 900; color: var(--brand-primary); margin: 40px 0 16px; padding-bottom: 10px; border-bottom: 2px solid var(--brand-primary); }
+  </style>
+</head>
+<body>
+
+<header class="header">
+  <div class="container">
+    <div class="header-inner">
+      <a href="index.html" class="logo"><div class="logo-mark">R</div>Raktak<span>k</span></a>
+      <nav class="nav">
+        <a href="search.html">Rechercher</a>
+        <a href="categories.html">Catégories</a>
+        <a href="listing.html" class="active">Prestataires</a>
+        <a href="pricing.html">Tarifs</a>
+        <a href="contact.html">Contact</a>
+      </nav>
+      <div class="header-actions">
+        <a href="login.html" class="btn btn-ghost btn-sm">Connexion</a>
+        <a href="register-vendor.html" class="btn btn-primary btn-sm">Inscrire mon entreprise</a>
+      </div>
+      <button class="mobile-toggle"><span></span><span></span><span></span></button>
+    </div>
+  </div>
+</header>
+
+<div class="listing-page">
+  <!-- Hero -->
+  <div class="listing-hero">
+    <div class="container">
+      <div style="display:flex;align-items:flex-end;justify-content:space-between;flex-wrap:wrap;gap:16px;">
+        <div>
+          <span class="section-label" style="color:#FF8A5B;background:rgba(255,90,31,.15);">📋 Annuaire complet</span>
+          <h1 style="color:#fff;font-size:1.8rem;font-weight:800;margin-top:10px;">Tous les prestataires</h1>
+          <p style="color:rgba(255,255,255,.6);margin-top:6px;">3 420 professionnels vérifiés en Afrique de l'Ouest</p>
+        </div>
+        <a href="register-vendor.html" class="btn btn-primary">+ Inscrire mon entreprise</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="container" style="padding-top:32px;padding-bottom:80px;">
+    <!-- City filter chips -->
+    <h3 style="font-size:.85rem;font-weight:700;color:var(--text-muted);text-transform:uppercase;letter-spacing:.08em;margin-bottom:10px;">Filtrer par ville</h3>
+    <div class="filter-chips" id="city-chips">
+      <div class="chip active" onclick="filterCity('',this)">Toutes les villes</div>
+      <div class="chip" onclick="filterCity('Dakar',this)">📍 Dakar</div>
+      <div class="chip" onclick="filterCity('Abidjan',this)">📍 Abidjan</div>
+      <div class="chip" onclick="filterCity('Bamako',this)">📍 Bamako</div>
+      <div class="chip" onclick="filterCity('Lomé',this)">📍 Lomé</div>
+      <div class="chip" onclick="filterCity('Cotonou',this)">📍 Cotonou</div>
+      <div class="chip" onclick="filterCity('Conakry',this)">📍 Conakry</div>
+      <div class="chip" onclick="filterCity('Thiès',this)">📍 Thiès</div>
+      <div class="chip" onclick="filterCity('Saint-Louis',this)">📍 Saint-Louis</div>
+    </div>
+
+    <!-- Category chips -->
+    <h3 style="font-size:.85rem;font-weight:700;color:var(--text-muted);text-transform:uppercase;letter-spacing:.08em;margin:16px 0 10px;">Filtrer par catégorie</h3>
+    <div class="filter-chips" id="cat-chips">
+      <div class="chip active" onclick="filterCat('',this)">Toutes</div>
+      <div class="chip" onclick="filterCat('Marketing Digital',this)">📢 Marketing Digital</div>
+      <div class="chip" onclick="filterCat('BTP',this)">🏗️ BTP</div>
+      <div class="chip" onclick="filterCat('Informatique',this)">💻 Informatique</div>
+      <div class="chip" onclick="filterCat('Restauration',this)">🍽️ Restauration</div>
+      <div class="chip" onclick="filterCat('Immobilier',this)">🏠 Immobilier</div>
+      <div class="chip" onclick="filterCat('Beauté',this)">💄 Beauté</div>
+      <div class="chip" onclick="filterCat('Formation',this)">📚 Formation</div>
+    </div>
+
+    <!-- Sort + view toggle -->
+    <div style="display:flex;align-items:center;justify-content:space-between;margin:20px 0;flex-wrap:wrap;gap:12px;">
+      <div style="font-size:.88rem;color:var(--text-muted);" id="listing-count">Affichage de <strong>20</strong> prestataires</div>
+      <div style="display:flex;gap:10px;align-items:center;">
+        <select onchange="sortVendors(this.value)" style="padding:8px 14px;border:1.5px solid var(--border-light);border-radius:var(--radius-full);font-size:.85rem;background:var(--bg-white);">
+          <option value="rating">Mieux notés</option>
+          <option value="leads">Plus de leads</option>
+          <option value="newest">Plus récents</option>
+          <option value="name">Alphabétique</option>
+        </select>
+      </div>
+    </div>
+
+    <!-- Vendors grid -->
+    <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:20px;" id="listing-grid"></div>
+
+    <!-- Load more -->
+    <div style="text-align:center;margin-top:40px;">
+      <button class="btn btn-secondary btn-lg" onclick="loadMore()" id="load-more">Charger plus de prestataires</button>
+    </div>
+  </div>
+</div>
+
+<!-- CTA Banner -->
+<div style="background:linear-gradient(135deg,var(--brand-primary),#ff8c00);padding:60px 0;text-align:center;">
+  <div class="container">
+    <h2 style="color:#fff;font-size:1.8rem;font-weight:800;margin-bottom:10px;">Votre entreprise n'est pas encore listée ?</h2>
+    <p style="color:rgba(255,255,255,.8);margin-bottom:28px;">Inscrivez-vous gratuitement en 5 minutes et commencez à recevoir des leads dès aujourd'hui.</p>
+    <a href="register-vendor.html" class="btn btn-xl" style="background:#fff;color:var(--brand-primary);border:none;">Inscrire mon entreprise →</a>
+  </div>
+</div>
+
+<footer style="background:var(--brand-secondary);padding:32px 0;">
+  <div class="container">
+    <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:16px;">
+      <a href="index.html" class="logo" style="color:#fff;"><div class="logo-mark">R</div>Raktak<span>k</span></a>
+      <p style="font-size:.82rem;color:rgba(255,255,255,.4);">© 2024 Raktakk</p>
+    </div>
+  </div>
+</footer>
+
+<div class="toast-container"></div>
+
+<script src="assets/data/mock-data.js"></script>
+<script>
+let vendors = [];
+let filtered = [];
+let displayed = 0;
+const PER_PAGE = 12;
+let cityFilter = '';
+let catFilter = '';
+
+function init() {
+  vendors = typeof RAKTAKK !== 'undefined' ? [...RAKTAKK.vendors] : [];
+  // Add extra mock vendors to fill the listing
+  const extras = ['🏢','🏗️','💻','📸','✂️','🏥','🚗','🌿','⚡','💰'].map((e, i) => ({
+    id: 100 + i, name: `Entreprise Pro ${i+1}`, emoji: e,
+    category: RAKTAKK?.categories[i % 18]?.name || 'Services',
+    city: ['Dakar','Abidjan','Bamako','Thiès','Lomé'][i%5],
+    country: ['Sénégal','Côte d\'Ivoire','Mali','Sénégal','Togo'][i%5],
+    rating: (4 + Math.random()).toFixed(1), reviews: Math.floor(Math.random()*80+10),
+    leads: Math.floor(Math.random()*200+20), views: Math.floor(Math.random()*3000+500),
+    services: ['Service 1','Service 2','Service 3'], price: 'Sur devis',
+    badge: ['Top','Vérifié','Nouveau',''][i%4], verified: i%3===0,
+    plan: ['free','pro','business'][i%3], available: true,
+    whatsapp: '+221770000000', joined: '2024-01-01', description: 'Prestataire professionnel.'
+  }));
+  vendors = [...vendors, ...extras];
+  filtered = [...vendors];
+  renderGrid();
+}
+
+function renderGrid() {
+  const grid = document.getElementById('listing-grid');
+  const batch = filtered.slice(displayed, displayed + PER_PAGE);
+  batch.forEach(v => {
+    const el = document.createElement('div');
+    el.innerHTML = `
+      <div class="card card-vendor">
+        <div class="card-vendor-banner" style="background:linear-gradient(135deg,#0D1B2A,#1a3a5c);">
+          ${v.sponsored ? '<div style="position:absolute;top:8px;left:8px;"><span class="badge badge-sponsored">Sponsorisé</span></div>' : ''}
+        </div>
+        <div class="card-vendor-logo">${v.emoji}</div>
+        <div class="card-vendor-body">
+          <div class="card-vendor-name">${v.name} ${v.verified ? '<span style="color:var(--brand-teal);font-size:.85rem;">✓</span>' : ''}</div>
+          <div class="card-vendor-meta">📍 ${v.city} · ${v.category}</div>
+          <div class="card-vendor-rating"><span class="stars">${'★'.repeat(Math.round(v.rating))}</span><span class="rating-num">${v.rating}</span><span class="review-count">(${v.reviews})</span></div>
+          <div class="card-vendor-tags">${v.services.slice(0,3).map(s=>`<span class="tag">${s}</span>`).join('')}</div>
+          <div class="card-vendor-footer">
+            <span style="font-size:.82rem;color:var(--text-muted);">${v.price}</span>
+            <a href="profile.html?id=${v.id}" class="btn btn-primary btn-sm">Voir →</a>
+          </div>
+        </div>
+        ${v.badge ? `<div style="position:absolute;top:12px;right:12px;z-index:2;"><span class="badge badge-${v.badge==='Top'?'top':v.badge==='Vérifié'?'verified':'new'}">${v.badge}</span></div>` : ''}
+      </div>`;
+    grid.appendChild(el.firstElementChild);
+  });
+  displayed += batch.length;
+  document.getElementById('listing-count').innerHTML = `Affichage de <strong>${displayed}</strong> sur <strong>${filtered.length}</strong> prestataires`;
+  document.getElementById('load-more').style.display = displayed >= filtered.length ? 'none' : 'inline-flex';
+}
+
+function filterCity(city, el) {
+  document.querySelectorAll('#city-chips .chip').forEach(c => c.classList.remove('active'));
+  el.classList.add('active');
+  cityFilter = city;
+  applyFilters();
+}
+
+function filterCat(cat, el) {
+  document.querySelectorAll('#cat-chips .chip').forEach(c => c.classList.remove('active'));
+  el.classList.add('active');
+  catFilter = cat;
+  applyFilters();
+}
+
+function applyFilters() {
+  filtered = vendors.filter(v => {
+    const matchCity = !cityFilter || v.city === cityFilter;
+    const matchCat = !catFilter || v.category.toLowerCase().includes(catFilter.toLowerCase());
+    return matchCity && matchCat;
+  });
+  displayed = 0;
+  document.getElementById('listing-grid').innerHTML = '';
+  renderGrid();
+}
+
+function sortVendors(val) {
+  if (val === 'rating') filtered.sort((a,b) => b.rating - a.rating);
+  if (val === 'leads') filtered.sort((a,b) => b.leads - a.leads);
+  if (val === 'newest') filtered.sort((a,b) => new Date(b.joined) - new Date(a.joined));
+  if (val === 'name') filtered.sort((a,b) => a.name.localeCompare(b.name));
+  displayed = 0;
+  document.getElementById('listing-grid').innerHTML = '';
+  renderGrid();
+}
+
+function loadMore() { renderGrid(); }
+
+window.addEventListener('scroll', () => document.querySelector('.header')?.classList.toggle('scrolled', scrollY > 20));
+document.querySelector('.mobile-toggle')?.addEventListener('click', () => document.querySelector('.nav')?.classList.toggle('open'));
+
+init();
+</script>
+</body>
+</html>

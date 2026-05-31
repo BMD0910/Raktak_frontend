@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Inscrire mon entreprise — Raktakk</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect fill='%23FF5A1F' width='100' height='100' rx='22'/><text y='.9em' font-size='70' x='12'>R</text></svg>" />
+  <link rel="stylesheet" href="assets/css/style.css" />
+  <style>
+    body { background: var(--bg-base); }
+    .reg-page { padding-top: var(--header-h); min-height: 100vh; }
+    .reg-hero { background: var(--brand-secondary); padding: 48px 0; }
+    .reg-steps { display: flex; gap: 0; background: rgba(255,255,255,.06); border-radius: var(--radius-xl); padding: 6px; margin-bottom: 40px; }
+    .reg-step {
+      flex: 1; display: flex; align-items: center; justify-content: center; gap: 10px;
+      padding: 12px; border-radius: var(--radius-lg); font-size: .85rem; font-weight: 600;
+      color: rgba(255,255,255,.4); transition: var(--transition); cursor: pointer;
+    }
+    .reg-step.active { background: rgba(255,255,255,.1); color: #fff; }
+    .reg-step.done { color: var(--brand-teal); }
+    .reg-step-num { width: 26px; height: 26px; border-radius: 50%; background: rgba(255,255,255,.1); display: flex; align-items: center; justify-content: center; font-size: .78rem; font-weight: 800; }
+    .reg-step.active .reg-step-num { background: var(--brand-primary); }
+    .reg-step.done .reg-step-num { background: var(--brand-teal); }
+
+    .form-section { display: none; }
+    .form-section.active { display: block; animation: fadeInUp .4s ease; }
+
+    .plan-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 14px; margin-bottom: 24px; }
+    .plan-option {
+      border: 2px solid var(--border-light); border-radius: var(--radius-lg); padding: 20px;
+      cursor: pointer; transition: var(--transition); position: relative;
+    }
+    .plan-option:hover { border-color: var(--brand-primary); }
+    .plan-option.selected { border-color: var(--brand-primary); background: rgba(255,90,31,.04); }
+    .plan-option input { position: absolute; opacity: 0; }
+    .plan-option-name { font-weight: 700; margin-bottom: 4px; }
+    .plan-option-price { font-size: 1.2rem; font-weight: 800; color: var(--brand-primary); }
+    .plan-option-check { position: absolute; top: 12px; right: 12px; width: 20px; height: 20px; border-radius: 50%; background: var(--brand-primary); color: #fff; font-size: .7rem; display: none; align-items: center; justify-content: center; }
+    .plan-option.selected .plan-option-check { display: flex; }
+
+    .upload-area {
+      border: 2px dashed var(--border-medium); border-radius: var(--radius-lg); padding: 32px;
+      text-align: center; cursor: pointer; transition: var(--transition);
+    }
+    .upload-area:hover { border-color: var(--brand-primary); background: rgba(255,90,31,.02); }
+
+    .success-screen { display: none; text-align: center; padding: 60px 24px; }
+    .success-screen.show { display: block; animation: fadeInUp .5s ease; }
+
+    @media (max-width: 600px) {
+      .plan-grid { grid-template-columns: 1fr; }
+      .reg-steps { flex-direction: column; }
+    }
+  </style>
+</head>
+<body>
+
+<header class="header">
+  <div class="container">
+    <div class="header-inner">
+      <a href="index.html" class="logo"><div class="logo-mark">R</div>Raktak<span>k</span></a>
+      <div class="header-actions">
+        <a href="login.html" class="btn btn-ghost btn-sm">Déjà inscrit ? Connexion</a>
+      </div>
+    </div>
+  </div>
+</header>
+
+<div class="reg-page">
+  <div class="reg-hero">
+    <div class="container">
+      <div style="text-align:center;margin-bottom:32px;">
+        <span class="section-label" style="color:#FF8A5B;background:rgba(255,90,31,.15);">🚀 Espace Professionnel</span>
+        <h1 style="color:#fff;font-size:2rem;font-weight:800;margin:12px 0 8px;">Inscrivez votre entreprise sur Raktakk</h1>
+        <p style="color:rgba(255,255,255,.6);">Gratuit en 5 minutes. Commencez à recevoir des leads dès aujourd'hui.</p>
+      </div>
+      <!-- Steps -->
+      <div class="reg-steps" id="steps-bar">
+        <div class="reg-step active" id="step-1"><div class="reg-step-num">1</div><span class="step-label">Votre entreprise</span></div>
+        <div class="reg-step" id="step-2"><div class="reg-step-num">2</div><span class="step-label">Vos services</span></div>
+        <div class="reg-step" id="step-3"><div class="reg-step-num">3</div><span class="step-label">Votre plan</span></div>
+        <div class="reg-step" id="step-4"><div class="reg-step-num">4</div><span class="step-label">Confirmation</span></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="container" style="padding-top:40px;padding-bottom:80px;">
+    <div style="max-width:720px;margin:0 auto;">
+
+      <!-- Progress -->
+      <div class="progress-bar" style="margin-bottom:32px;">
+        <div class="progress-fill" id="progress-bar" style="width:25%;"></div>
+      </div>
+
+      <!-- STEP 1 — Business info -->
+      <div class="form-section active" id="section-1">
+        <div style="background:var(--bg-white);border-radius:var(--radius-xl);border:1px solid var(--border-light);padding:40px;margin-bottom:20px;">
+          <h2 style="font-size:1.2rem;font-weight:800;margin-bottom:4px;">Informations sur votre entreprise</h2>
+          <p style="color:var(--text-muted);font-size:.88rem;margin-bottom:28px;">Ces informations seront visibles sur votre profil public.</p>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label">Nom de l'entreprise <span>*</span></label>
+              <input class="form-input" type="text" placeholder="ex: Dakar Digital Studio" required />
+            </div>
+            <div class="form-group">
+              <label class="form-label">Catégorie principale <span>*</span></label>
+              <select class="form-select" required>
+                <option value="">Choisir une catégorie</option>
+                <option>Marketing Digital</option><option>BTP & Construction</option>
+                <option>Informatique & Tech</option><option>Restauration & Traiteur</option>
+                <option>Automobile & Mécanique</option><option>Immobilier</option>
+                <option>Santé & Médecine</option><option>Formation & Éducation</option>
+                <option>Photographie & Vidéo</option><option>Événementiel</option>
+                <option>Mode & Couture</option><option>Agriculture</option>
+                <option>Transport & Logistique</option><option>Beauté & Bien-être</option>
+                <option>Énergie & Solaire</option><option>Finance & Comptabilité</option>
+                <option>Juridique & Notariat</option><option>Électronique & High-Tech</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Description de votre entreprise <span>*</span></label>
+            <textarea class="form-input form-textarea" placeholder="Décrivez votre activité, vos spécialités et ce qui vous différencie..." required></textarea>
+            <div class="form-hint">Minimum 80 caractères. Une bonne description attire plus de clients.</div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label">Pays <span>*</span></label>
+              <select class="form-select" required>
+                <option>Sénégal</option><option>Côte d'Ivoire</option><option>Mali</option>
+                <option>Togo</option><option>Bénin</option><option>Guinée</option>
+                <option>Burkina Faso</option><option>Niger</option><option>Mauritanie</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Ville <span>*</span></label>
+              <input class="form-input" type="text" placeholder="ex: Dakar" required />
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label">Téléphone <span>*</span></label>
+              <input class="form-input" type="tel" placeholder="+221 77 000 00 00" required />
+            </div>
+            <div class="form-group">
+              <label class="form-label">WhatsApp</label>
+              <input class="form-input" type="tel" placeholder="+221 77 000 00 00" />
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label">Email professionnel <span>*</span></label>
+              <input class="form-input" type="email" placeholder="contact@monentreprise.com" required />
+            </div>
+            <div class="form-group">
+              <label class="form-label">Site web</label>
+              <input class="form-input" type="url" placeholder="https://monentreprise.com" />
+            </div>
+          </div>
+        </div>
+        <div style="display:flex;justify-content:flex-end;">
+          <button class="btn btn-primary btn-lg" onclick="nextStep(2)">Étape suivante →</button>
+        </div>
+      </div>
+
+      <!-- STEP 2 — Services -->
+      <div class="form-section" id="section-2">
+        <div style="background:var(--bg-white);border-radius:var(--radius-xl);border:1px solid var(--border-light);padding:40px;margin-bottom:20px;">
+          <h2 style="font-size:1.2rem;font-weight:800;margin-bottom:4px;">Vos services et offres</h2>
+          <p style="color:var(--text-muted);font-size:.88rem;margin-bottom:28px;">Ajoutez les services que vous proposez à vos clients.</p>
+
+          <div id="services-container">
+            <div class="service-entry" style="border:1.5px solid var(--border-light);border-radius:var(--radius-lg);padding:20px;margin-bottom:14px;">
+              <div class="form-row">
+                <div class="form-group" style="margin-bottom:0;">
+                  <label class="form-label">Nom du service</label>
+                  <input class="form-input" type="text" placeholder="ex: Création de site web" />
+                </div>
+                <div class="form-group" style="margin-bottom:0;">
+                  <label class="form-label">Prix indicatif</label>
+                  <input class="form-input" type="text" placeholder="ex: Depuis 150 000 FCFA" />
+                </div>
+              </div>
+              <div class="form-group" style="margin-top:12px;margin-bottom:0;">
+                <label class="form-label">Description courte</label>
+                <input class="form-input" type="text" placeholder="En quelques mots..." />
+              </div>
+            </div>
+          </div>
+
+          <button onclick="addService()" class="btn btn-secondary btn-sm" style="margin-bottom:28px;">
+            + Ajouter un service
+          </button>
+
+          <div class="form-group">
+            <label class="form-label">Photos / Galerie</label>
+            <div class="upload-area" onclick="showToast('Upload disponible après inscription','info')">
+              <div style="font-size:2.5rem;margin-bottom:10px;">📸</div>
+              <div style="font-weight:600;margin-bottom:4px;">Ajoutez des photos de vos travaux</div>
+              <div style="font-size:.82rem;color:var(--text-muted);">JPG, PNG — max 5 Mo chacune</div>
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label">Fourchette de prix</label>
+              <select class="form-select">
+                <option>Depuis 10 000 FCFA</option><option>Depuis 25 000 FCFA</option>
+                <option>Depuis 50 000 FCFA</option><option>Depuis 100 000 FCFA</option>
+                <option>Depuis 500 000 FCFA</option><option>Sur devis</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Zone de couverture</label>
+              <select class="form-select">
+                <option>Ma ville uniquement</option><option>Ma région</option>
+                <option>Mon pays</option><option>Afrique de l'Ouest</option>
+                <option>International</option>
+              </select>
+            </div>
+          </div>
+        </div>
+        <div style="display:flex;justify-content:space-between;">
+          <button class="btn btn-secondary btn-lg" onclick="nextStep(1)">← Retour</button>
+          <button class="btn btn-primary btn-lg" onclick="nextStep(3)">Étape suivante →</button>
+        </div>
+      </div>
+
+      <!-- STEP 3 — Plan -->
+      <div class="form-section" id="section-3">
+        <div style="background:var(--bg-white);border-radius:var(--radius-xl);border:1px solid var(--border-light);padding:40px;margin-bottom:20px;">
+          <h2 style="font-size:1.2rem;font-weight:800;margin-bottom:4px;">Choisissez votre plan</h2>
+          <p style="color:var(--text-muted);font-size:.88rem;margin-bottom:28px;">Commencez gratuitement. Passez à un plan supérieur à tout moment.</p>
+
+          <div class="plan-grid">
+            <label class="plan-option selected">
+              <input type="radio" name="plan" value="free" checked />
+              <div class="plan-option-check">✓</div>
+              <div style="font-size:1.4rem;margin-bottom:8px;">🆓</div>
+              <div class="plan-option-name">Gratuit</div>
+              <div class="plan-option-price">0 FCFA</div>
+              <div style="font-size:.78rem;color:var(--text-muted);margin-top:6px;">10 leads/mois · Profil basique</div>
+            </label>
+            <label class="plan-option" onclick="selectPlan(this,'pro')">
+              <input type="radio" name="plan" value="pro" />
+              <div class="plan-option-check">✓</div>
+              <div style="font-size:1.4rem;margin-bottom:8px;">⭐</div>
+              <div class="plan-option-name">Pro</div>
+              <div class="plan-option-price">29 900 FCFA<small style="font-size:.7rem;font-weight:400;color:var(--text-muted);">/mois</small></div>
+              <div style="font-size:.78rem;color:var(--text-muted);margin-top:6px;">50 leads/mois · Badge Vérifié</div>
+            </label>
+            <label class="plan-option" onclick="selectPlan(this,'business')">
+              <input type="radio" name="plan" value="business" />
+              <div class="plan-option-check">✓</div>
+              <div style="font-size:1.4rem;margin-bottom:8px;">💼</div>
+              <div class="plan-option-name">Business <span style="font-size:.68rem;background:var(--brand-primary);color:#fff;padding:2px 6px;border-radius:10px;margin-left:4px;">POPULAIRE</span></div>
+              <div class="plan-option-price">79 900 FCFA<small style="font-size:.7rem;font-weight:400;color:var(--text-muted);">/mois</small></div>
+              <div style="font-size:.78rem;color:var(--text-muted);margin-top:6px;">Leads illimités · Badge Top</div>
+            </label>
+            <label class="plan-option" onclick="selectPlan(this,'sponsored')">
+              <input type="radio" name="plan" value="sponsored" />
+              <div class="plan-option-check">✓</div>
+              <div style="font-size:1.4rem;margin-bottom:8px;">🏆</div>
+              <div class="plan-option-name">Sponsorisé</div>
+              <div class="plan-option-price">149 900 FCFA<small style="font-size:.7rem;font-weight:400;color:var(--text-muted);">/mois</small></div>
+              <div style="font-size:.78rem;color:var(--text-muted);margin-top:6px;">Homepage · Visibilité maximale</div>
+            </label>
+          </div>
+          <p style="text-align:center;font-size:.8rem;color:var(--text-muted);">
+            <a href="pricing.html" style="color:var(--brand-primary);">Comparer tous les plans en détail →</a>
+          </p>
+
+          <div style="background:var(--bg-subtle);border-radius:var(--radius-lg);padding:20px;margin-top:24px;">
+            <h4 style="font-weight:700;font-size:.9rem;margin-bottom:12px;">Créez votre compte administrateur</h4>
+            <div class="form-row">
+              <div class="form-group">
+                <label class="form-label">Prénom <span>*</span></label>
+                <input class="form-input" type="text" placeholder="Prénom" required />
+              </div>
+              <div class="form-group">
+                <label class="form-label">Nom <span>*</span></label>
+                <input class="form-input" type="text" placeholder="Nom" required />
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Email <span>*</span></label>
+              <input class="form-input" type="email" placeholder="votre@email.com" required />
+            </div>
+            <div class="form-row">
+              <div class="form-group">
+                <label class="form-label">Mot de passe <span>*</span></label>
+                <input class="form-input" type="password" placeholder="Min. 8 caractères" required />
+              </div>
+              <div class="form-group">
+                <label class="form-label">Confirmer <span>*</span></label>
+                <input class="form-input" type="password" placeholder="Confirmer..." required />
+              </div>
+            </div>
+          </div>
+        </div>
+        <div style="display:flex;justify-content:space-between;">
+          <button class="btn btn-secondary btn-lg" onclick="nextStep(2)">← Retour</button>
+          <button class="btn btn-primary btn-lg" onclick="submitForm()">Créer mon profil →</button>
+        </div>
+      </div>
+
+      <!-- SUCCESS -->
+      <div class="success-screen" id="success-screen">
+        <div style="font-size:4rem;margin-bottom:20px;">🎉</div>
+        <h2 style="font-size:1.8rem;font-weight:800;margin-bottom:12px;">Bienvenue sur Raktakk !</h2>
+        <p style="color:var(--text-muted);font-size:1rem;margin-bottom:32px;max-width:400px;margin-left:auto;margin-right:auto;">Votre profil professionnel a été créé avec succès. Vous allez recevoir un email de confirmation dans les prochaines minutes.</p>
+        <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap;">
+          <a href="dashboard-vendor.html" class="btn btn-primary btn-lg">Accéder à mon dashboard →</a>
+          <a href="profile.html" class="btn btn-secondary btn-lg">Voir mon profil public</a>
+        </div>
+        <div style="margin-top:40px;background:var(--bg-white);border:1px solid var(--border-light);border-radius:var(--radius-xl);padding:24px;max-width:400px;margin-left:auto;margin-right:auto;">
+          <h4 style="font-weight:700;margin-bottom:16px;font-size:.9rem;">Prochaines étapes recommandées</h4>
+          <div style="display:flex;flex-direction:column;gap:10px;text-align:left;">
+            <div style="display:flex;align-items:center;gap:10px;font-size:.85rem;"><span style="color:var(--brand-teal);">✓</span> Profil créé</div>
+            <div style="display:flex;align-items:center;gap:10px;font-size:.85rem;color:var(--text-muted);"><span>→</span> Ajouter votre logo et photos</div>
+            <div style="display:flex;align-items:center;gap:10px;font-size:.85rem;color:var(--text-muted);"><span>→</span> Compléter votre vérification KYC</div>
+            <div style="display:flex;align-items:center;gap:10px;font-size:.85rem;color:var(--text-muted);"><span>→</span> Partager votre profil sur WhatsApp</div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<div class="toast-container"></div>
+
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="assets/js/supabase-config.js"></script>
+<script src="assets/js/supabase-client.js"></script>
+<script src="assets/js/pro-core.js"></script>
+<script src="assets/js/pro-auth.js"></script>
+</body>
+</html>

@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8"/><meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+  <title>Dashboard Annonceur — Raktakk</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect fill='%23FF5A1F' width='100' height='100' rx='22'/><text y='.9em' font-size='70' x='12'>R</text></svg>"/>
+  <link rel="stylesheet" href="assets/css/style.css"/>
+  <link rel="stylesheet" href="assets/css/dashboard.css"/>
+</head>
+<body>
+<div class="dash-layout">
+<aside class="dash-sidebar" id="dash-sidebar">
+  <div class="sidebar-header"><a href="index.html" class="sidebar-logo"><div class="sidebar-logo-mark">R</div>Raktak<span>k</span></a></div>
+  <div class="sidebar-user">
+    <div class="sidebar-avatar">🟠</div>
+    <div><div class="sidebar-user-name">Orange Sénégal</div><div class="sidebar-user-role">Annonceur Premium</div><div class="sidebar-plan">Budget: 5M FCFA</div></div>
+  </div>
+  <nav class="sidebar-nav">
+    <div class="sidebar-section-label">Publicité</div>
+    <a class="sidebar-link" data-page="overview"><span class="sidebar-icon">📊</span><span>Vue d'ensemble</span></a>
+    <a class="sidebar-link" data-page="campaigns"><span class="sidebar-icon">🎯</span><span>Mes campagnes</span></a>
+    <a class="sidebar-link" data-page="new-campaign"><span class="sidebar-icon">✨</span><span>Nouvelle campagne</span></a>
+    <a class="sidebar-link" data-page="analytics"><span class="sidebar-icon">📈</span><span>Analytics</span></a>
+    <div class="sidebar-section-label">Compte</div>
+    <a class="sidebar-link" data-page="billing"><span class="sidebar-icon">💳</span><span>Facturation</span></a>
+    <a class="sidebar-link" data-page="settings"><span class="sidebar-icon">⚙️</span><span>Paramètres</span></a>
+    <a class="sidebar-link" href="index.html"><span class="sidebar-icon">🏠</span><span>Retour au site</span></a>
+    <a class="sidebar-link" href="login.html" style="margin-top:8px;"><span class="sidebar-icon">🚪</span><span>Déconnexion</span></a>
+  </nav>
+</aside>
+<main class="dash-main">
+  <div class="dash-topbar">
+    <div style="display:flex;align-items:center;gap:12px;">
+      <button style="display:none;background:none;border:none;font-size:1.3rem;cursor:pointer;" class="sidebar-toggle" onclick="document.getElementById('dash-sidebar').classList.toggle('open')">☰</button>
+      <span class="topbar-title" id="topbar-title">Dashboard Annonceur</span>
+    </div>
+    <div class="topbar-actions">
+      <button class="btn btn-primary btn-sm" onclick="switchPage('new-campaign')">+ Nouvelle campagne</button>
+      <div class="topbar-avatar">🟠</div>
+    </div>
+  </div>
+  <div class="dash-content">
+
+    <!-- OVERVIEW -->
+    <div class="dash-page active" id="overview">
+      <div class="dash-welcome">
+        <div class="dash-welcome-emoji">📢</div>
+        <h2>Orange Sénégal — Tableau de bord</h2>
+        <p>Vos campagnes atteignent <strong style="color:var(--brand-primary);">987 234 personnes</strong> ce mois. CTR moyen: <strong style="color:var(--brand-teal);">6.47%</strong></p>
+      </div>
+      <div class="kpi-grid">
+        <div class="kpi-card"><div class="kpi-header"><div class="kpi-icon orange">👁️</div><span class="kpi-trend up">↑ 24%</span></div><div class="kpi-value">987k</div><div class="kpi-label">Impressions totales</div></div>
+        <div class="kpi-card"><div class="kpi-header"><div class="kpi-icon teal">🔗</div><span class="kpi-trend up">↑ 31%</span></div><div class="kpi-value">63 842</div><div class="kpi-label">Clics totaux</div></div>
+        <div class="kpi-card"><div class="kpi-header"><div class="kpi-icon blue">📊</div><span class="kpi-trend up">↑ 5%</span></div><div class="kpi-value">6.47%</div><div class="kpi-label">CTR moyen</div></div>
+        <div class="kpi-card"><div class="kpi-header"><div class="kpi-icon amber">🎯</div><span class="kpi-trend up">↑ 28%</span></div><div class="kpi-value">1 240</div><div class="kpi-label">Leads générés</div></div>
+        <div class="kpi-card"><div class="kpi-header"><div class="kpi-icon purple">💰</div><span class="kpi-trend down">↓ 3%</span></div><div class="kpi-value">3 025</div><div class="kpi-label">Budget restant (K FCFA)</div></div>
+        <div class="kpi-card"><div class="kpi-header"><div class="kpi-icon pink">📅</div></div><div class="kpi-value">3</div><div class="kpi-label">Campagnes actives</div></div>
+      </div>
+      <div class="flex gap-24" style="flex-wrap:wrap;">
+        <div class="dash-panel" style="flex:1;min-width:300px;">
+          <div class="panel-header"><span class="panel-title">📈 Impressions & Clics (7 mois)</span></div>
+          <div class="panel-body"><div id="perf-chart"></div></div>
+        </div>
+        <div class="dash-panel" style="flex:1;min-width:260px;">
+          <div class="panel-header"><span class="panel-title">🌍 Audience par ville</span></div>
+          <div class="panel-body">
+            <div style="display:flex;flex-direction:column;gap:12px;">
+              ${[['Dakar','45%','var(--brand-primary)'],['Thiès','18%','var(--brand-teal)'],['Ziguinchor','12%','var(--brand-blue)'],['Saint-Louis','10%','var(--brand-accent)'],['Kaolack','8%','#8B5CF6'],['Autres','7%','var(--text-muted)']].map(([city,pct,color]) => `
+              <div><div style="display:flex;justify-content:space-between;font-size:.85rem;margin-bottom:4px;"><span>${city}</span><strong>${pct}</strong></div>
+              <div class="progress-bar"><div class="progress-fill" style="width:${pct};background:${color};"></div></div></div>`).join('')}
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="dash-panel">
+        <div class="panel-header"><span class="panel-title">🎯 Campagnes actives</span><button class="btn btn-secondary btn-sm" onclick="switchPage('campaigns')">Voir toutes</button></div>
+        <div class="panel-body" style="padding:0;" id="active-campaigns-list"></div>
+      </div>
+    </div>
+
+    <!-- CAMPAIGNS -->
+    <div class="dash-page" id="campaigns">
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:24px;flex-wrap:wrap;gap:12px;">
+        <div><h2 style="font-family:var(--font-display);font-size:1.4rem;font-weight:800;">Mes campagnes</h2></div>
+        <button class="btn btn-primary" onclick="switchPage('new-campaign')">+ Nouvelle campagne</button>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:16px;" id="all-campaigns"></div>
+    </div>
+
+    <!-- NEW CAMPAIGN -->
+    <div class="dash-page" id="new-campaign">
+      <h2 style="font-family:var(--font-display);font-size:1.4rem;font-weight:800;margin-bottom:24px;">Créer une nouvelle campagne</h2>
+      <div class="dash-panel">
+        <div class="panel-body">
+          <div class="form-row">
+            <div class="form-group"><label class="form-label">Nom de la campagne <span>*</span></label><input class="form-input" placeholder="ex: Promo Orange Money Novembre"/></div>
+            <div class="form-group"><label class="form-label">Objectif <span>*</span></label>
+              <select class="form-select"><option>Notoriété (Impressions)</option><option>Trafic (Clics)</option><option>Leads (Conversions)</option><option>Engagement</option></select>
+            </div>
+          </div>
+          <div class="form-group"><label class="form-label">Texte de l'annonce <span>*</span></label><textarea class="form-input form-textarea" placeholder="Rédigez votre message publicitaire..."></textarea></div>
+          <div class="form-group"><label class="form-label">Image / Bannière</label>
+            <div class="upload-area" style="border:2px dashed var(--border-medium);border-radius:var(--radius-lg);padding:32px;text-align:center;cursor:pointer;" onclick="showToast('Upload disponible après validation du compte','info')">
+              <div style="font-size:2rem;margin-bottom:8px;">🖼️</div>
+              <div style="font-weight:600;font-size:.9rem;">Ajouter une image</div>
+              <div style="font-size:.78rem;color:var(--text-muted);">1200×628 px recommandé · Max 5 Mo</div>
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group"><label class="form-label">Budget total (FCFA) <span>*</span></label><input class="form-input" type="number" placeholder="500000"/></div>
+            <div class="form-group"><label class="form-label">Budget quotidien (FCFA)</label><input class="form-input" type="number" placeholder="25000"/></div>
+          </div>
+          <div class="form-row">
+            <div class="form-group"><label class="form-label">Date de début <span>*</span></label><input class="form-input" type="date"/></div>
+            <div class="form-group"><label class="form-label">Date de fin</label><input class="form-input" type="date"/></div>
+          </div>
+          <div class="form-row">
+            <div class="form-group"><label class="form-label">Ciblage — Villes</label>
+              <select class="form-select" multiple style="height:100px;">
+                <option selected>Dakar</option><option>Thiès</option><option>Saint-Louis</option><option>Ziguinchor</option><option>Abidjan</option>
+              </select>
+            </div>
+            <div class="form-group"><label class="form-label">Ciblage — Catégories</label>
+              <select class="form-select" multiple style="height:100px;">
+                <option selected>Toutes</option><option>Marketing Digital</option><option>Informatique</option><option>Finance</option>
+              </select>
+            </div>
+          </div>
+          <div class="form-group"><label class="form-label">URL de destination <span>*</span></label><input class="form-input" type="url" placeholder="https://www.orange.sn/promo"/></div>
+          <div style="display:flex;gap:10px;justify-content:flex-end;margin-top:8px;">
+            <button class="btn btn-secondary">Sauvegarder brouillon</button>
+            <button class="btn btn-primary btn-lg" onclick="showToast('Campagne soumise pour validation!','success')">Soumettre la campagne →</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ANALYTICS -->
+    <div class="dash-page" id="analytics">
+      <h2 style="font-family:var(--font-display);font-size:1.4rem;font-weight:800;margin-bottom:24px;">Analytics avancés</h2>
+      <div class="kpi-grid">
+        <div class="kpi-card"><div class="kpi-header"><div class="kpi-icon orange">💸</div><span class="kpi-trend down">↓ 12%</span></div><div class="kpi-value">791</div><div class="kpi-label">Coût par clic (FCFA)</div></div>
+        <div class="kpi-card"><div class="kpi-header"><div class="kpi-icon teal">🎯</div><span class="kpi-trend up">↑ 18%</span></div><div class="kpi-value">1 573</div><div class="kpi-label">Coût par lead (FCFA)</div></div>
+        <div class="kpi-card"><div class="kpi-header"><div class="kpi-icon blue">⏱️</div><span class="kpi-trend up">↑ 6%</span></div><div class="kpi-value">2m 34s</div><div class="kpi-label">Durée moy. session</div></div>
+        <div class="kpi-card"><div class="kpi-header"><div class="kpi-icon amber">📱</div></div><div class="kpi-value">78%</div><div class="kpi-label">Trafic mobile</div></div>
+      </div>
+      <div class="dash-panel">
+        <div class="panel-header"><span class="panel-title">📊 Performance par campagne</span></div>
+        <div class="panel-body" style="padding:0;">
+          <table class="data-table">
+            <thead><tr><th>Campagne</th><th>Impressions</th><th>Clics</th><th>CTR</th><th>Leads</th><th>Budget utilisé</th></tr></thead>
+            <tbody id="analytics-tbody"></tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- BILLING -->
+    <div class="dash-page" id="billing">
+      <h2 style="font-family:var(--font-display);font-size:1.4rem;font-weight:800;margin-bottom:24px;">Facturation</h2>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-bottom:24px;">
+        <div style="background:linear-gradient(135deg,var(--brand-secondary),#1a3a5c);border-radius:var(--radius-xl);padding:28px;">
+          <div style="font-size:.72rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:rgba(255,255,255,.4);margin-bottom:8px;">Budget restant</div>
+          <div style="font-size:2.5rem;font-weight:800;font-family:var(--font-display);color:#fff;">3 025 000 <span style="font-size:1rem;opacity:.5;">FCFA</span></div>
+          <div style="margin-top:16px;display:flex;gap:10px;">
+            <button class="btn btn-primary btn-sm" onclick="showToast('Recharge de compte','info')">Recharger</button>
+            <button class="btn btn-secondary btn-sm" style="color:rgba(255,255,255,.7);border-color:rgba(255,255,255,.2);">Télécharger facture</button>
+          </div>
+        </div>
+        <div class="dash-panel" style="margin-bottom:0;">
+          <div class="panel-header"><span class="panel-title">Consommation mensuelle</span></div>
+          <div class="panel-body">
+            <div style="display:flex;justify-content:space-between;font-size:.9rem;"><span>Budget total alloué</span><strong>5 000 000 FCFA</strong></div>
+            <div class="progress-bar" style="margin:12px 0;"><div class="progress-fill" style="width:40%;background:var(--brand-teal);"></div></div>
+            <div style="display:flex;justify-content:space-between;font-size:.82rem;color:var(--text-muted);"><span>Utilisé: 1 975 000 FCFA</span><span>Restant: 3 025 000 FCFA</span></div>
+          </div>
+        </div>
+      </div>
+      <div class="dash-panel">
+        <div class="panel-header"><span class="panel-title">📄 Historique des transactions</span><button class="btn btn-secondary btn-sm" onclick="showToast('Export CSV téléchargé','success')">⬇ CSV</button></div>
+        <div class="panel-body" style="padding:0;">
+          <table class="data-table">
+            <thead><tr><th>Date</th><th>Description</th><th>Montant</th><th>Statut</th></tr></thead>
+            <tbody>
+              ${[['15 Jan 2024','Rechargement budget pub','2 000 000 FCFA','Validé'],['08 Jan 2024','Rechargement budget pub','1 500 000 FCFA','Validé'],['01 Déc 2023','Rechargement budget pub','1 500 000 FCFA','Validé']].map(([d,desc,amt,status]) => `<tr><td style="color:var(--text-muted);">${d}</td><td>${desc}</td><td><strong>${amt}</strong></td><td><span class="status status-active">${status}</span></td></tr>`).join('')}
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- SETTINGS -->
+    <div class="dash-page" id="settings">
+      <h2 style="font-family:var(--font-display);font-size:1.4rem;font-weight:800;margin-bottom:24px;">Paramètres de l'annonceur</h2>
+      <div class="dash-panel">
+        <div class="panel-body">
+          <div class="form-group"><label class="form-label">Nom de l'entreprise</label><input class="form-input" value="Orange Sénégal"/></div>
+          <div class="form-row">
+            <div class="form-group"><label class="form-label">Contact principal</label><input class="form-input" value="Abdoulaye Ndao"/></div>
+            <div class="form-group"><label class="form-label">Email</label><input class="form-input" type="email" value="pub@orange.sn"/></div>
+          </div>
+          <div class="form-group"><label class="form-label">Numéro NINEA</label><input class="form-input" placeholder="Numéro fiscal"/></div>
+          <div style="display:flex;justify-content:flex-end;gap:10px;margin-top:8px;">
+            <button class="btn btn-secondary">Annuler</button>
+            <button class="btn btn-primary" onclick="showToast('Paramètres sauvegardés !','success')">Sauvegarder</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</main>
+</div>
+<div class="toast-container"></div>
+<script src="assets/data/mock-data.js"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="assets/js/supabase-config.js"></script>
+<script src="assets/js/supabase-client.js"></script>
+<script src="assets/js/pro-core.js"></script>
+<script src="assets/js/dashboard-access.js"></script>
+<script src="assets/js/dashboard.js"></script>
+<script>
+// Performance chart
+const perfChart = document.getElementById('perf-chart');
+if (perfChart && typeof RAKTAKK !== 'undefined') {
+  const data = RAKTAKK.revenue.monthly;
+  const max = Math.max(...data.map(d => d.amount));
+  perfChart.innerHTML = `<div class="chart-container">${data.map(d => `<div class="chart-bar" data-val="${(d.amount/1000).toFixed(0)}k imp" style="height:${Math.max((d.amount/max)*100,4)}%;background:linear-gradient(180deg,var(--brand-primary),rgba(255,90,31,.3));"></div>`).join('')}</div><div class="chart-labels">${data.map(d => `<div class="chart-label">${d.month.slice(0,3)}</div>`).join('')}</div>`;
+}
+
+// Campaigns
+const campaigns = typeof RAKTAKK !== 'undefined' ? RAKTAKK.advertisers : [];
+const activeCampaignsList = document.getElementById('active-campaigns-list');
+const allCampaigns = document.getElementById('all-campaigns');
+const analyticsTbody = document.getElementById('analytics-tbody');
+
+campaigns.slice(0, 3).forEach(c => {
+  const ctrPct = ((c.clicks / c.impressions) * 100).toFixed(1);
+  const row = `<div style="display:flex;align-items:center;gap:14px;padding:14px 24px;border-bottom:1px solid var(--border-light);flex-wrap:wrap;">
+    <div style="width:40px;height:40px;border-radius:10px;background:var(--bg-subtle);display:flex;align-items:center;justify-content:center;font-size:1.2rem;">${c.logo}</div>
+    <div style="flex:1;min-width:0;">
+      <div style="font-weight:600;font-size:.88rem;">${c.campaign}</div>
+      <div style="font-size:.75rem;color:var(--text-muted);">${c.impressions.toLocaleString('fr-FR')} imp · ${c.clicks.toLocaleString('fr-FR')} clics · CTR ${ctrPct}%</div>
+    </div>
+    <div style="display:flex;align-items:center;gap:10px;">
+      <div class="progress-bar" style="width:80px;"><div class="progress-fill" style="width:${(c.spent/c.budget)*100}%;"></div></div>
+      <span class="status ${c.status === 'active' ? 'status-active' : 'status-pending'}">${c.status === 'active' ? 'Actif' : 'En pause'}</span>
+    </div>
+  </div>`;
+  if (activeCampaignsList) activeCampaignsList.innerHTML += row;
+  if (analyticsTbody) analyticsTbody.innerHTML += `<tr><td><strong>${c.campaign}</strong></td><td>${c.impressions.toLocaleString('fr-FR')}</td><td>${c.clicks.toLocaleString('fr-FR')}</td><td>${ctrPct}%</td><td>${c.leads}</td><td>${((c.spent/c.budget)*100).toFixed(0)}%</td></tr>`;
+});
+
+campaigns.forEach(c => {
+  const ctrPct = ((c.clicks / c.impressions) * 100).toFixed(1);
+  if (allCampaigns) allCampaigns.innerHTML += `<div class="dash-panel" style="margin-bottom:0;">
+    <div class="panel-body">
+      <div style="display:flex;align-items:flex-start;justify-content:space-between;flex-wrap:wrap;gap:12px;">
+        <div style="display:flex;align-items:center;gap:14px;">
+          <div style="width:48px;height:48px;border-radius:12px;background:var(--bg-subtle);display:flex;align-items:center;justify-content:center;font-size:1.5rem;">${c.logo}</div>
+          <div>
+            <div style="font-weight:700;">${c.campaign}</div>
+            <div style="font-size:.78rem;color:var(--text-muted);">${c.company} · Budget: ${c.budget.toLocaleString('fr-FR')} FCFA</div>
+          </div>
+        </div>
+        <div style="display:flex;gap:8px;">
+          <button class="btn btn-secondary btn-sm" onclick="showToast('Campagne en pause','warning')">⏸ Pause</button>
+          <button class="btn btn-secondary btn-sm" onclick="showToast('Rapport exporté','success')">📊 Stats</button>
+          <span class="status ${c.status === 'active' ? 'status-active' : 'status-pending'}" style="display:flex;align-items:center;">${c.status === 'active' ? 'Actif' : 'En pause'}</span>
+        </div>
+      </div>
+      <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-top:16px;padding-top:16px;border-top:1px solid var(--border-light);text-align:center;">
+        <div><div style="font-weight:800;font-family:var(--font-display);">${c.impressions.toLocaleString('fr-FR')}</div><div style="font-size:.72rem;color:var(--text-muted);">Impressions</div></div>
+        <div><div style="font-weight:800;font-family:var(--font-display);">${c.clicks.toLocaleString('fr-FR')}</div><div style="font-size:.72rem;color:var(--text-muted);">Clics</div></div>
+        <div><div style="font-weight:800;font-family:var(--font-display);color:var(--brand-teal);">${ctrPct}%</div><div style="font-size:.72rem;color:var(--text-muted);">CTR</div></div>
+        <div><div style="font-weight:800;font-family:var(--font-display);">${c.leads}</div><div style="font-size:.72rem;color:var(--text-muted);">Leads</div></div>
+      </div>
+    </div>
+  </div>`;
+});
+
+if(window.innerWidth<768){document.querySelector('.sidebar-toggle').style.display='block';}
+</script>
+</body>
+</html>

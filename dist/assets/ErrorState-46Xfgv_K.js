@@ -1,0 +1,1 @@
+import{j as r}from"./index-CTHpUGHD.js";function c({message:e}){return r.jsx("div",{className:"card",style:{padding:"1rem 1.2rem",borderColor:"#fecaca",background:"#fff7f7"},children:r.jsx("p",{style:{color:"#b91c1c",fontSize:".9rem"},children:e})})}export{c as E};

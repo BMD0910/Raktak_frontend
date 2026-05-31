@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Profil Prestataire — Raktakk</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect fill='%23FF5A1F' width='100' height='100' rx='22'/><text y='.9em' font-size='70' x='12'>R</text></svg>" />
+  <link rel="stylesheet" href="assets/css/style.css" />
+  <style>
+    .profile-page { padding-top: var(--header-h); }
+    .profile-hero {
+      height: 260px;
+      background: linear-gradient(135deg, var(--brand-secondary), #1a3a5c);
+      position: relative; overflow: hidden;
+    }
+    .profile-hero::before {
+      content:''; position:absolute; inset:0;
+      background: radial-gradient(circle at 30% 50%, rgba(255,90,31,.2), transparent 60%);
+    }
+    .profile-main {
+      display: grid; grid-template-columns: 1fr 360px; gap: 32px;
+      padding: 32px 0 80px;
+    }
+    .profile-card-header {
+      background: var(--bg-white); border-radius: var(--radius-xl);
+      border: 1px solid var(--border-light); margin-bottom: 24px;
+      overflow: hidden;
+    }
+    .profile-avatar-big {
+      width: 96px; height: 96px; background: var(--bg-white);
+      border-radius: 22px; border: 5px solid var(--bg-white);
+      box-shadow: var(--shadow-lg); display: flex; align-items: center;
+      justify-content: center; font-size: 3rem;
+      margin-top: -48px; margin-left: 28px;
+    }
+    .profile-header-body { padding: 16px 28px 28px; }
+    .profile-name-row { display: flex; align-items: flex-start; justify-content: space-between; flex-wrap: wrap; gap: 12px; }
+    .profile-name { font-family: var(--font-display); font-size: 1.6rem; font-weight: 800; }
+    .profile-actions { display: flex; gap: 10px; flex-wrap: wrap; }
+
+    .profile-tabs {
+      display: flex; gap: 0; border-bottom: 1px solid var(--border-light);
+      margin-bottom: 24px;
+    }
+    .profile-tab {
+      padding: 14px 24px; font-size: .9rem; font-weight: 600;
+      color: var(--text-muted); cursor: pointer; border-bottom: 3px solid transparent;
+      transition: var(--transition); white-space: nowrap;
+    }
+    .profile-tab.active { color: var(--brand-primary); border-bottom-color: var(--brand-primary); }
+    .profile-tab-panel { display: none; }
+    .profile-tab-panel.active { display: block; }
+
+    .service-card {
+      border: 1.5px solid var(--border-light); border-radius: var(--radius-lg);
+      padding: 20px; margin-bottom: 16px; transition: var(--transition); cursor: pointer;
+    }
+    .service-card:hover { border-color: var(--brand-primary); transform: translateY(-2px); box-shadow: var(--shadow-sm); }
+    .service-name { font-weight: 700; font-size: .95rem; margin-bottom: 6px; }
+    .service-price { color: var(--brand-primary); font-weight: 700; font-size: .9rem; }
+
+    .review-grid { display: flex; flex-direction: column; gap: 16px; }
+    .review-item {
+      border: 1px solid var(--border-light); border-radius: var(--radius-lg); padding: 20px;
+    }
+    .review-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 10px; }
+    .reviewer { display: flex; align-items: center; gap: 10px; }
+    .reviewer-av { width: 38px; height: 38px; border-radius: 50%; background: var(--bg-subtle); display: flex; align-items: center; justify-content: center; font-size: 1.1rem; }
+
+    .contact-sidebar {
+      position: sticky; top: calc(var(--header-h) + 16px); display: flex; flex-direction: column; gap: 20px;
+    }
+    .cta-box {
+      background: var(--bg-white); border-radius: var(--radius-xl);
+      border: 1px solid var(--border-light); padding: 28px; overflow: hidden; position: relative;
+    }
+    .cta-box.featured {
+      background: linear-gradient(135deg, var(--brand-secondary), #1a3a5c);
+      border-color: rgba(255,90,31,.3);
+    }
+    .stat-row { display: flex; justify-content: space-around; text-align: center; padding: 16px 0; border-top: 1px solid var(--border-light); border-bottom: 1px solid var(--border-light); margin: 20px 0; }
+    .stat-num { font-family: var(--font-display); font-size: 1.4rem; font-weight: 800; }
+    .stat-lbl { font-size: .72rem; color: var(--text-muted); }
+    .info-row { display: flex; align-items: center; gap: 10px; padding: 10px 0; border-bottom: 1px solid var(--border-light); font-size: .88rem; }
+    .info-row:last-child { border-bottom: none; }
+    .info-icon { width: 32px; text-align: center; font-size: 1rem; }
+    .info-label { color: var(--text-muted); font-size: .75rem; }
+    .info-val { font-weight: 600; }
+
+    .gallery-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; border-radius: var(--radius-lg); overflow: hidden; }
+    .gallery-item { aspect-ratio: 1; background: var(--bg-subtle); border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 2rem; cursor: pointer; transition: var(--transition); }
+    .gallery-item:hover { transform: scale(1.03); }
+
+    @media (max-width: 900px) {
+      .profile-main { grid-template-columns: 1fr; }
+      .contact-sidebar { position: static; }
+    }
+  </style>
+</head>
+<body>
+
+<header class="header">
+  <div class="container">
+    <div class="header-inner">
+      <a href="index.html" class="logo"><div class="logo-mark">R</div>Raktak<span>k</span></a>
+      <nav class="nav">
+        <a href="search.html">Rechercher</a>
+        <a href="categories.html">Catégories</a>
+        <a href="listing.html">Prestataires</a>
+        <a href="pricing.html">Tarifs</a>
+      </nav>
+      <div class="header-actions">
+        <a href="login.html" class="btn btn-ghost btn-sm">Connexion</a>
+        <a href="register-vendor.html" class="btn btn-primary btn-sm">Inscrire mon entreprise</a>
+      </div>
+      <button class="mobile-toggle"><span></span><span></span><span></span></button>
+    </div>
+  </div>
+</header>
+
+<div class="profile-page">
+  <!-- Hero Banner -->
+  <div class="profile-hero" id="profile-hero">
+    <div style="position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,.02) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.02) 1px,transparent 1px);background-size:40px 40px;"></div>
+  </div>
+
+  <div class="container">
+    <!-- Breadcrumb -->
+    <div style="display:flex;align-items:center;gap:8px;font-size:.82rem;padding:16px 0;color:var(--text-muted);">
+      <a href="index.html" style="color:var(--text-muted);">Accueil</a> ›
+      <a href="search.html" style="color:var(--text-muted);">Prestataires</a> ›
+      <span id="bc-name" style="color:var(--text-primary);font-weight:600;"></span>
+    </div>
+
+    <div class="profile-main">
+      <!-- LEFT COLUMN -->
+      <div>
+        <!-- Profile Header Card -->
+        <div class="profile-card-header">
+          <div class="profile-avatar-big" id="p-emoji"></div>
+          <div class="profile-header-body">
+            <div class="profile-name-row">
+              <div>
+                <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:6px;">
+                  <h1 class="profile-name" id="p-name"></h1>
+                  <span id="p-badge"></span>
+                  <span id="p-verified"></span>
+                </div>
+                <div style="font-size:.88rem;color:var(--text-muted);margin-bottom:10px;" id="p-meta"></div>
+                <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;">
+                  <span style="color:#FFB547;font-size:1.1rem;" id="p-stars"></span>
+                  <span style="font-weight:700;" id="p-rating"></span>
+                  <span style="color:var(--text-muted);font-size:.85rem;" id="p-reviews"></span>
+                </div>
+              </div>
+              <div class="profile-actions">
+                <button class="btn btn-secondary btn-sm" onclick="toggleFav()" id="fav-btn">♡ Favori</button>
+                <button class="btn btn-secondary btn-sm" data-action="share-whatsapp">↗ Partager</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Tabs -->
+        <div class="profile-tabs" id="profile-tabs">
+          <div class="profile-tab active" onclick="switchTab('about')">À propos</div>
+          <div class="profile-tab" onclick="switchTab('services')">Services</div>
+          <div class="profile-tab" onclick="switchTab('gallery')">Galerie</div>
+          <div class="profile-tab" onclick="switchTab('reviews')">Avis</div>
+        </div>
+
+        <!-- About -->
+        <div class="profile-tab-panel active" id="tab-about">
+          <div class="card p-32" style="border-radius:var(--radius-xl);">
+            <h2 style="font-size:1rem;font-weight:700;margin-bottom:14px;">Présentation</h2>
+            <p style="color:var(--text-secondary);line-height:1.8;font-size:.95rem;" id="p-desc"></p>
+            <div style="margin-top:24px;">
+              <h3 style="font-size:.9rem;font-weight:700;margin-bottom:12px;">Services proposés</h3>
+              <div style="display:flex;flex-wrap:wrap;gap:8px;" id="p-services"></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Services -->
+        <div class="profile-tab-panel" id="tab-services">
+          <div id="services-list"></div>
+        </div>
+
+        <!-- Gallery -->
+        <div class="profile-tab-panel" id="tab-gallery">
+          <div class="card p-32" style="border-radius:var(--radius-xl);">
+            <h2 style="font-size:1rem;font-weight:700;margin-bottom:16px;">Galerie photos</h2>
+            <div class="gallery-grid" id="gallery-grid"></div>
+          </div>
+        </div>
+
+        <!-- Reviews -->
+        <div class="profile-tab-panel" id="tab-reviews">
+          <div class="card p-32" style="border-radius:var(--radius-xl);">
+            <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:24px;">
+              <h2 style="font-size:1rem;font-weight:700;">Avis clients</h2>
+              <button class="btn btn-primary btn-sm" onclick="showToast('Connectez-vous pour laisser un avis','info')">Laisser un avis</button>
+            </div>
+            <!-- Rating summary -->
+            <div style="background:var(--bg-subtle);border-radius:var(--radius-lg);padding:20px;margin-bottom:24px;display:flex;gap:24px;align-items:center;flex-wrap:wrap;">
+              <div style="text-align:center;">
+                <div style="font-size:3.5rem;font-family:var(--font-display);font-weight:900;" id="r-avg"></div>
+                <div style="color:#FFB547;font-size:1.3rem;" id="r-stars"></div>
+                <div style="font-size:.78rem;color:var(--text-muted);" id="r-total"></div>
+              </div>
+              <div style="flex:1;min-width:200px;" id="rating-bars"></div>
+            </div>
+            <div class="review-grid" id="reviews-list"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- RIGHT COLUMN -->
+      <div class="contact-sidebar">
+        <!-- CTA Box -->
+        <div class="cta-box featured">
+          <div style="font-size:.7rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:rgba(255,255,255,.4);margin-bottom:12px;">Disponible maintenant</div>
+          <h3 style="color:#fff;font-size:1.1rem;font-weight:700;margin-bottom:6px;">Contactez ce prestataire</h3>
+          <p style="color:rgba(255,255,255,.6);font-size:.85rem;margin-bottom:20px;">Réponse moyenne en moins de 2 heures.</p>
+          <div style="display:flex;flex-direction:column;gap:10px;">
+            <a href="login.html" class="btn btn-primary w-full" onclick="showToast('Connectez-vous pour envoyer un message','info')">
+              💬 Envoyer un message
+            </a>
+            <a id="whatsapp-btn" href="login.html" target="_blank" class="btn w-full" style="background:#25D366;color:#fff;border:none;">
+              📱 WhatsApp direct
+            </a>
+            <button class="btn btn-ghost w-full" style="color:rgba(255,255,255,.7);border:1px solid rgba(255,255,255,.1);" onclick="showToast('Numéro copié!','success')">
+              📞 Voir le numéro
+            </button>
+          </div>
+        </div>
+
+        <!-- Stats -->
+        <div class="cta-box">
+          <h4 style="font-weight:700;margin-bottom:16px;font-size:.9rem;">Statistiques</h4>
+          <div class="stat-row" id="p-stats"></div>
+          <div id="p-info"></div>
+        </div>
+
+        <!-- Report -->
+        <div style="text-align:center;">
+          <button onclick="showToast('Signalement envoyé à notre équipe','success')" style="font-size:.78rem;color:var(--text-muted);background:none;border:none;cursor:pointer;">
+            ⚐ Signaler ce profil
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Toast -->
+<div class="toast-container"></div>
+
+<script src="assets/data/mock-data.js"></script>
+<script>
+const params = new URLSearchParams(window.location.search);
+const vendorId = parseInt(params.get('id')) || 1;
+const vendor = RAKTAKK.vendors.find(v => v.id === vendorId) || RAKTAKK.vendors[0];
+
+function load() {
+  document.title = `${vendor.name} — Raktakk`;
+  document.getElementById('bc-name').textContent = vendor.name;
+  document.getElementById('p-emoji').textContent = vendor.emoji;
+  document.getElementById('p-name').textContent = vendor.name;
+  document.getElementById('p-meta').textContent = `📍 ${vendor.city}, ${vendor.country}  ·  ${vendor.category}  ·  Membre depuis ${new Date(vendor.joined).toLocaleDateString('fr-FR', {month:'long', year:'numeric'})}`;
+  document.getElementById('p-stars').textContent = '★'.repeat(Math.round(vendor.rating));
+  document.getElementById('p-rating').textContent = vendor.rating;
+  document.getElementById('p-reviews').textContent = `(${vendor.reviews} avis)`;
+  document.getElementById('p-desc').textContent = vendor.description;
+  document.getElementById('p-badge').innerHTML = vendor.badge ? `<span class="badge badge-${vendor.badge === 'Top' ? 'top' : vendor.badge === 'Vérifié' ? 'verified' : vendor.badge === 'Nouveau' ? 'new' : 'popular'}">${vendor.badge}</span>` : '';
+  document.getElementById('p-verified').innerHTML = vendor.verified ? `<span class="badge badge-verified">✓ Vérifié</span>` : '';
+
+  document.getElementById('p-services').innerHTML = vendor.services.map(s => `<span class="tag">${s}</span>`).join('');
+
+  // WhatsApp
+  document.getElementById('whatsapp-btn').href = `https://wa.me/${vendor.whatsapp?.replace(/\D/g,'')}?text=${encodeURIComponent(`Bonjour ${vendor.name}, j'ai vu votre profil sur Raktakk et j'aimerais vous contacter.`)}`;
+
+  // Stats
+  document.getElementById('p-stats').innerHTML = `
+    <div><div class="stat-num">${vendor.leads}</div><div class="stat-lbl">Leads reçus</div></div>
+    <div><div class="stat-num">${(vendor.views/1000).toFixed(1)}k</div><div class="stat-lbl">Vues</div></div>
+    <div><div class="stat-num">${vendor.reviews}</div><div class="stat-lbl">Avis</div></div>`;
+
+  // Info
+  document.getElementById('p-info').innerHTML = `
+    <div class="info-row"><span class="info-icon">📧</span><div><div class="info-label">Email</div><div class="info-val">${vendor.email}</div></div></div>
+    <div class="info-row"><span class="info-icon">📞</span><div><div class="info-label">Téléphone</div><div class="info-val">${vendor.phone}</div></div></div>
+    <div class="info-row"><span class="info-icon">💰</span><div><div class="info-label">Tarif</div><div class="info-val">${vendor.price}</div></div></div>
+    <div class="info-row"><span class="info-icon">🟢</span><div><div class="info-label">Disponibilité</div><div class="info-val">${vendor.available ? 'Disponible maintenant' : 'Sur rendez-vous'}</div></div></div>
+    <div class="info-row"><span class="info-icon">🏷️</span><div><div class="info-label">Plan</div><div class="info-val" style="text-transform:uppercase;font-size:.75rem;color:var(--brand-primary);">${vendor.plan}</div></div></div>`;
+
+  // Services tab
+  document.getElementById('services-list').innerHTML = vendor.services.map((s, i) => `
+    <div class="service-card">
+      <div style="display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:8px;">
+        <div>
+          <div class="service-name">${s}</div>
+          <p style="font-size:.85rem;color:var(--text-muted);margin:6px 0 10px;">Service professionnel proposé par ${vendor.name}. Contactez-nous pour un devis personnalisé.</p>
+        </div>
+        <span class="service-price">${i === 0 ? vendor.price : 'Sur devis'}</span>
+      </div>
+      <button class="btn btn-primary btn-sm" onclick="showToast('Demande envoyée à ${vendor.name}!','success')">Demander un devis</button>
+    </div>`).join('');
+
+  // Gallery
+  const emojis = ['🏢','📸','✨','🎯','💼','🌟','🔥','💡','🎨'];
+  document.getElementById('gallery-grid').innerHTML = emojis.map(e => `
+    <div class="gallery-item" onclick="showToast('Galerie — image agrandie','info')">${e}</div>`).join('');
+
+  // Reviews
+  const reviews = RAKTAKK.reviews.filter(r => r.vendor === vendor.id);
+  const allReviews = reviews.length ? reviews : RAKTAKK.reviews.slice(0, 4);
+  const avg = vendor.rating;
+  document.getElementById('r-avg').textContent = avg;
+  document.getElementById('r-stars').textContent = '★'.repeat(Math.round(avg));
+  document.getElementById('r-total').textContent = `${vendor.reviews} avis`;
+  document.getElementById('rating-bars').innerHTML = [5,4,3,2,1].map(n => `
+    <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px;">
+      <span style="font-size:.75rem;width:20px;text-align:right;">${n}★</span>
+      <div class="progress-bar" style="flex:1;"><div class="progress-fill" style="width:${n === 5 ? 70 : n === 4 ? 20 : n === 3 ? 7 : 2}%"></div></div>
+      <span style="font-size:.72rem;color:var(--text-muted);width:28px;">${n === 5 ? '70%' : n === 4 ? '20%' : n === 3 ? '7%' : '2%'}</span>
+    </div>`).join('');
+
+  document.getElementById('reviews-list').innerHTML = allReviews.map(r => `
+    <div class="review-item">
+      <div class="review-header">
+        <div class="reviewer">
+          <div class="reviewer-av">👤</div>
+          <div><div style="font-weight:600;font-size:.9rem;">${r.client}</div><div style="font-size:.75rem;color:var(--text-muted);">${new Date(r.date).toLocaleDateString('fr-FR',{day:'numeric',month:'long',year:'numeric'})}</div></div>
+        </div>
+        <span style="color:#FFB547;font-size:1rem;">${'★'.repeat(r.rating)}</span>
+      </div>
+      <p style="font-size:.88rem;color:var(--text-secondary);line-height:1.6;">${r.comment}</p>
+    </div>`).join('');
+}
+
+function switchTab(name) {
+  document.querySelectorAll('.profile-tab').forEach((t,i) => {
+    const tabs = ['about','services','gallery','reviews'];
+    t.classList.toggle('active', tabs[i] === name);
+  });
+  document.querySelectorAll('.profile-tab-panel').forEach(p => p.classList.toggle('active', p.id === `tab-${name}`));
+}
+
+let favActive = false;
+function toggleFav() {
+  favActive = !favActive;
+  document.getElementById('fav-btn').textContent = favActive ? '♥ Sauvegardé' : '♡ Favori';
+  document.getElementById('fav-btn').style.color = favActive ? 'var(--brand-primary)' : '';
+  showToast(favActive ? 'Ajouté aux favoris !' : 'Retiré des favoris', favActive ? 'success' : 'info');
+}
+
+function showToast(msg, type='info') {
+  const c = document.querySelector('.toast-container');
+  const t = document.createElement('div');
+  t.className = `toast toast-${type}`;
+  t.innerHTML = `<span class="toast-icon">${{success:'✅',info:'ℹ️',warning:'⚠️',error:'❌'}[type]||'ℹ️'}</span><span class="toast-msg">${msg}</span><span class="toast-close" onclick="this.parentElement.remove()">✕</span>`;
+  c.appendChild(t);
+  setTimeout(() => t.remove(), 4000);
+}
+
+// Header scroll
+window.addEventListener('scroll', () => document.querySelector('.header')?.classList.toggle('scrolled', scrollY > 20));
+
+load();
+</script>
+</body>
+</html>

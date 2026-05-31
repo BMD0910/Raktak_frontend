@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" /><meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+  <title>Dashboard Client — Raktakk</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect fill='%23FF5A1F' width='100' height='100' rx='22'/><text y='.9em' font-size='70' x='12'>R</text></svg>"/>
+  <link rel="stylesheet" href="assets/css/style.css"/>
+  <link rel="stylesheet" href="assets/css/dashboard.css"/>
+</head>
+<body>
+<div class="dash-layout">
+<aside class="dash-sidebar" id="dash-sidebar">
+  <div class="sidebar-header"><a href="index.html" class="sidebar-logo"><div class="sidebar-logo-mark">R</div>Raktak<span>k</span></a></div>
+  <div class="sidebar-user">
+    <div class="sidebar-avatar">👤</div>
+    <div><div class="sidebar-user-name">Moussa Diallo</div><div class="sidebar-user-role">Client</div></div>
+  </div>
+  <nav class="sidebar-nav">
+    <div class="sidebar-section-label">Espace Client</div>
+    <a class="sidebar-link" data-page="overview"><span class="sidebar-icon">🏠</span><span>Accueil</span></a>
+    <a class="sidebar-link" data-page="requests"><span class="sidebar-icon">📋</span><span>Mes demandes</span><span class="sidebar-badge">3</span></a>
+    <a class="sidebar-link" data-page="favorites"><span class="sidebar-icon">❤️</span><span>Favoris</span></a>
+    <a class="sidebar-link" data-page="messages"><span class="sidebar-icon">💬</span><span>Messages</span><span class="sidebar-badge">2</span></a>
+    <a class="sidebar-link" data-page="history"><span class="sidebar-icon">🕐</span><span>Historique</span></a>
+    <div class="sidebar-section-label">Compte</div>
+    <a class="sidebar-link" data-page="settings"><span class="sidebar-icon">⚙️</span><span>Paramètres</span></a>
+    <a class="sidebar-link" href="index.html"><span class="sidebar-icon">🏠</span><span>Retour au site</span></a>
+    <a class="sidebar-link" href="login.html" style="margin-top:8px;"><span class="sidebar-icon">🚪</span><span>Déconnexion</span></a>
+  </nav>
+</aside>
+<main class="dash-main">
+  <div class="dash-topbar">
+    <div style="display:flex;align-items:center;gap:12px;">
+      <button style="display:none;background:none;border:none;font-size:1.3rem;cursor:pointer;" class="sidebar-toggle" onclick="document.getElementById('dash-sidebar').classList.toggle('open')">☰</button>
+      <span class="topbar-title" id="topbar-title">Mon espace client</span>
+    </div>
+    <div class="topbar-actions">
+      <a href="search.html" class="btn btn-primary btn-sm">🔍 Trouver un prestataire</a>
+      <div class="topbar-avatar">👤</div>
+    </div>
+  </div>
+  <div class="dash-content">
+
+    <!-- OVERVIEW -->
+    <div class="dash-page active" id="overview">
+      <div class="dash-welcome">
+        <div class="dash-welcome-emoji">👋</div>
+        <h2>Bonjour, Moussa !</h2>
+        <p>Vous avez <strong style="color:var(--brand-primary);">3 demandes en cours</strong> et <strong style="color:#FFB547;">2 messages</strong> non lus. Besoin d'un nouveau prestataire ?</p>
+      </div>
+      <div class="kpi-grid">
+        <div class="kpi-card"><div class="kpi-header"><div class="kpi-icon orange">📋</div></div><div class="kpi-value">8</div><div class="kpi-label">Demandes envoyées</div></div>
+        <div class="kpi-card"><div class="kpi-header"><div class="kpi-icon teal">❤️</div></div><div class="kpi-value">12</div><div class="kpi-label">Prestataires favoris</div></div>
+        <div class="kpi-card"><div class="kpi-header"><div class="kpi-icon blue">💬</div></div><div class="kpi-value">34</div><div class="kpi-label">Messages échangés</div></div>
+        <div class="kpi-card"><div class="kpi-header"><div class="kpi-icon amber">⭐</div></div><div class="kpi-value">5</div><div class="kpi-label">Avis laissés</div></div>
+      </div>
+      <div class="dash-panel">
+        <div class="panel-header"><span class="panel-title">🔍 Recherche rapide</span></div>
+        <div class="panel-body">
+          <div style="display:flex;gap:10px;flex-wrap:wrap;">
+            <input class="form-input" style="flex:1;" placeholder="Quel service cherchez-vous ?" id="q-input"/>
+            <select class="form-select" style="width:180px;"><option>Toutes les villes</option><option>Dakar</option><option>Abidjan</option><option>Bamako</option></select>
+            <button class="btn btn-primary" onclick="window.location.href='search.html?q='+document.getElementById('q-input').value">Rechercher →</button>
+          </div>
+          <div style="margin-top:12px;display:flex;flex-wrap:wrap;gap:8px;">
+            <span style="font-size:.78rem;color:var(--text-muted);">Tendances :</span>
+            <a href="search.html?q=Marketing Digital" class="tag">Marketing Digital</a>
+            <a href="search.html?q=BTP" class="tag">BTP & Construction</a>
+            <a href="search.html?q=Informatique" class="tag">Développement Web</a>
+            <a href="search.html?q=Événementiel" class="tag">Événementiel</a>
+          </div>
+        </div>
+      </div>
+      <div class="dash-panel">
+        <div class="panel-header"><span class="panel-title">📋 Demandes récentes</span><button class="btn btn-secondary btn-sm" onclick="switchPage('requests')">Voir toutes</button></div>
+        <div class="panel-body" style="padding:0;" id="requests-preview"></div>
+      </div>
+    </div>
+
+    <!-- REQUESTS -->
+    <div class="dash-page" id="requests">
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:24px;flex-wrap:wrap;gap:12px;">
+        <div><h2 style="font-family:var(--font-display);font-size:1.4rem;font-weight:800;">Mes demandes</h2><p style="color:var(--text-muted);font-size:.88rem;">Toutes vos demandes de devis et de contact</p></div>
+        <button class="btn btn-primary" onclick="showToast('Formulaire de nouvelle demande','info')">+ Nouvelle demande</button>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:14px;" id="requests-list"></div>
+    </div>
+
+    <!-- FAVORITES -->
+    <div class="dash-page" id="favorites">
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:24px;flex-wrap:wrap;gap:12px;">
+        <div><h2 style="font-family:var(--font-display);font-size:1.4rem;font-weight:800;">Prestataires favoris</h2><p style="color:var(--text-muted);font-size:.88rem;">12 prestataires sauvegardés</p></div>
+        <a href="search.html" class="btn btn-secondary">Explorer d'autres prestataires</a>
+      </div>
+      <div class="results-grid" id="favorites-grid" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:20px;"></div>
+    </div>
+
+    <!-- MESSAGES -->
+    <div class="dash-page" id="messages">
+      <h2 style="font-family:var(--font-display);font-size:1.4rem;font-weight:800;margin-bottom:20px;">Messages</h2>
+      <div style="display:grid;grid-template-columns:280px 1fr;gap:20px;height:calc(100vh - 200px);min-height:400px;">
+        <div class="dash-panel" style="overflow:hidden;margin-bottom:0;">
+          <div style="padding:16px 20px;border-bottom:1px solid var(--border-light);"><strong style="font-size:.9rem;">Conversations</strong></div>
+          <div id="msg-conversations"></div>
+        </div>
+        <div class="dash-panel" style="display:flex;flex-direction:column;margin-bottom:0;overflow:hidden;">
+          <div style="padding:16px 20px;border-bottom:1px solid var(--border-light);display:flex;align-items:center;gap:12px;">
+            <div class="msg-avatar">🏢</div>
+            <div><div style="font-weight:600;">Dakar Digital Studio</div><div style="font-size:.75rem;color:var(--brand-teal);">🟢 En ligne</div></div>
+          </div>
+          <div style="flex:1;padding:20px;display:flex;flex-direction:column;gap:12px;overflow-y:auto;" id="chat-area">
+            <div style="display:flex;justify-content:flex-end;"><div style="background:var(--brand-primary);color:#fff;border-radius:16px 16px 4px 16px;padding:12px 16px;max-width:70%;font-size:.88rem;">Bonjour, je cherche quelqu'un pour gérer mes réseaux sociaux.</div></div>
+            <div style="display:flex;justify-content:flex-start;"><div style="background:var(--bg-subtle);border-radius:16px 16px 16px 4px;padding:12px 16px;max-width:70%;font-size:.88rem;">Bonjour ! Bien sûr, nous proposons des packages complets. Quel est votre budget mensuel ?</div></div>
+          </div>
+          <div style="padding:16px;border-top:1px solid var(--border-light);display:flex;gap:10px;">
+            <input type="text" class="form-input" placeholder="Écrire..." id="msg-input" style="flex:1;" onkeydown="if(event.key==='Enter')sendMsg()"/>
+            <button class="btn btn-primary" onclick="sendMsg()">↗</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- HISTORY -->
+    <div class="dash-page" id="history">
+      <h2 style="font-family:var(--font-display);font-size:1.4rem;font-weight:800;margin-bottom:24px;">Historique</h2>
+      <div class="dash-panel">
+        <div class="panel-body" style="padding:0 24px;display:flex;flex-direction:column;gap:16px;padding-bottom:24px;">
+          ${[
+            {icon:'🎯',text:'Demande envoyée à Dakar Digital Studio',time:'Il y a 2 heures',color:'var(--brand-primary)'},
+            {icon:'💬',text:'Message reçu de BTP Sénégal',time:'Il y a 5 heures',color:'var(--brand-teal)'},
+            {icon:'⭐',text:'Vous avez laissé un avis 5 étoiles',time:'Hier'},
+            {icon:'❤️',text:'TechSolutions CI ajouté aux favoris',time:'Il y a 3 jours'},
+            {icon:'📋',text:'Devis accepté — Événement Koffi',time:'Il y a 5 jours'},
+          ].map(e => `<div style="display:flex;align-items:center;gap:12px;padding-top:16px;border-top:1px solid var(--border-light);">
+            <div style="width:36px;height:36px;border-radius:10px;background:var(--bg-subtle);display:flex;align-items:center;justify-content:center;font-size:1rem;flex-shrink:0;">${e.icon}</div>
+            <div style="flex:1;"><div style="font-size:.88rem;">${e.text}</div></div>
+            <div style="font-size:.75rem;color:var(--text-muted);flex-shrink:0;">${e.time}</div>
+          </div>`).join('')}
+        </div>
+      </div>
+    </div>
+
+    <!-- SETTINGS -->
+    <div class="dash-page" id="settings">
+      <h2 style="font-family:var(--font-display);font-size:1.4rem;font-weight:800;margin-bottom:24px;">Paramètres du compte</h2>
+      <div class="dash-panel">
+        <div class="panel-body">
+          <div class="form-row">
+            <div class="form-group"><label class="form-label">Prénom</label><input class="form-input" value="Moussa"/></div>
+            <div class="form-group"><label class="form-label">Nom</label><input class="form-input" value="Diallo"/></div>
+          </div>
+          <div class="form-group"><label class="form-label">Email</label><input class="form-input" type="email" value="moussa.diallo@email.com"/></div>
+          <div class="form-group"><label class="form-label">Téléphone</label><input class="form-input" value="+221 77 456 78 90"/></div>
+          <div class="form-group"><label class="form-label">Ville</label><input class="form-input" value="Dakar"/></div>
+          <div style="display:flex;justify-content:flex-end;gap:10px;margin-top:8px;">
+            <button class="btn btn-secondary">Annuler</button>
+            <button class="btn btn-primary" onclick="showToast('Profil mis à jour !','success')">Sauvegarder</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</main>
+</div>
+<div class="toast-container"></div>
+<script src="assets/data/mock-data.js"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="assets/js/supabase-config.js"></script>
+<script src="assets/js/supabase-client.js"></script>
+<script src="assets/js/pro-core.js"></script>
+<script src="assets/js/dashboard-access.js"></script>
+<script src="assets/js/dashboard.js"></script>
+<script>
+// Requests preview
+const reqPreview = document.getElementById('requests-preview');
+const reqList = document.getElementById('requests-list');
+RAKTAKK.requests.forEach((r, i) => {
+  const statuses = ['En attente','Répondu','En cours'];
+  const colors = ['var(--brand-accent)','var(--brand-teal)','var(--brand-primary)'];
+  const si = i % 3;
+  const html = `<div style="display:flex;align-items:center;justify-content:space-between;padding:16px 24px;border-bottom:1px solid var(--border-light);flex-wrap:wrap;gap:12px;">
+    <div><div style="font-weight:600;font-size:.9rem;">${r.description.slice(0,60)}...</div><div style="font-size:.75rem;color:var(--text-muted);margin-top:4px;">Budget: ${r.budget} · ${new Date(r.date).toLocaleDateString('fr-FR')}</div></div>
+    <div style="display:flex;align-items:center;gap:10px;"><span style="font-size:.75rem;font-weight:700;padding:4px 10px;background:rgba(0,0,0,.04);border-radius:20px;color:${colors[si]};">${statuses[si]}</span><button class="btn btn-secondary btn-sm" onclick="switchPage('messages')">Voir</button></div>
+  </div>`;
+  if (i < 3 && reqPreview) reqPreview.innerHTML += html;
+  if (reqList) reqList.innerHTML += `<div class="dash-panel" style="margin-bottom:0;">${html}</div>`;
+});
+
+// Favorites
+const favGrid = document.getElementById('favorites-grid');
+RAKTAKK.vendors.slice(0,6).forEach(v => {
+  favGrid.innerHTML += `<div class="card card-vendor">
+    <div class="card-vendor-banner" style="background:linear-gradient(135deg,#0D1B2A,#1a3a5c);"></div>
+    <div class="card-vendor-logo">${v.emoji}</div>
+    <div class="card-vendor-body">
+      <div class="card-vendor-name">${v.name} ${v.verified?'<span style="color:var(--brand-teal);">✓</span>':''}</div>
+      <div class="card-vendor-meta">📍 ${v.city}</div>
+      <div class="card-vendor-rating"><span class="stars">${'★'.repeat(Math.round(v.rating))}</span> ${v.rating}</div>
+      <div class="card-vendor-footer">
+        <span style="font-size:.8rem;color:var(--text-muted);">${v.category}</span>
+        <div style="display:flex;gap:6px;">
+          <button class="btn btn-ghost btn-sm" onclick="showToast('Retiré des favoris','info')" style="color:#EF4444;">♥</button>
+          <a href="profile.html?id=${v.id}" class="btn btn-primary btn-sm">Voir</a>
+        </div>
+      </div>
+    </div>
+  </div>`;
+});
+
+// Conversations
+const convDiv = document.getElementById('msg-conversations');
+RAKTAKK.vendors.slice(0,4).forEach((v,i) => {
+  convDiv.innerHTML += `<div style="display:flex;align-items:center;gap:10px;padding:12px 16px;cursor:pointer;border-bottom:1px solid var(--border-light);${i===0?'background:rgba(255,90,31,.04);':''}" onclick="this.closest('.dash-panel').querySelectorAll('[style]').forEach(e=>e.style.background='');this.style.background='rgba(255,90,31,.04)'">
+    <div class="msg-avatar">${v.emoji}</div>
+    <div style="flex:1;min-width:0;">
+      <div style="font-weight:600;font-size:.85rem;">${v.name}</div>
+      <div style="font-size:.75rem;color:var(--text-muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">Dernier message...</div>
+    </div>
+    ${i<2?`<span style="background:var(--brand-primary);color:#fff;font-size:.68rem;font-weight:700;padding:2px 6px;border-radius:10px;">${i+1}</span>`:''}
+  </div>`;
+});
+
+function sendMsg() {
+  const inp = document.getElementById('msg-input');
+  const val = inp.value.trim(); if(!val) return;
+  const chat = document.getElementById('chat-area');
+  const div = document.createElement('div');
+  div.style.cssText='display:flex;justify-content:flex-end;animation:fadeInUp .3s ease;';
+  div.innerHTML=`<div style="background:var(--brand-primary);color:#fff;border-radius:16px 16px 4px 16px;padding:12px 16px;max-width:70%;font-size:.88rem;">${val}</div>`;
+  chat.appendChild(div); inp.value=''; chat.scrollTop=chat.scrollHeight;
+  setTimeout(()=>{
+    const r=document.createElement('div');
+    r.style.cssText='display:flex;justify-content:flex-start;animation:fadeInUp .3s ease;';
+    r.innerHTML=`<div style="background:var(--bg-subtle);border-radius:16px 16px 16px 4px;padding:12px 16px;max-width:70%;font-size:.88rem;">Merci pour votre message, je reviens vers vous rapidement! 🙏</div>`;
+    chat.appendChild(r); chat.scrollTop=chat.scrollHeight;
+  },1200);
+}
+if(window.innerWidth<768){document.querySelector('.sidebar-toggle').style.display='block';}
+</script>
+</body>
+</html>

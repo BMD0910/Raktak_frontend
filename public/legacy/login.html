@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Connexion — Raktakk</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect fill='%23FF5A1F' width='100' height='100' rx='22'/><text y='.9em' font-size='70' x='12'>R</text></svg>" />
+  <link rel="stylesheet" href="assets/css/style.css" />
+  <style>
+    .auth-page { min-height:100vh; display:flex; }
+    .auth-left {
+      flex:1; background:var(--brand-secondary); position:relative;
+      display:flex; flex-direction:column; align-items:center; justify-content:center;
+      padding:60px 48px; overflow:hidden;
+    }
+    .auth-left::before {
+      content:''; position:absolute; inset:0;
+      background: radial-gradient(circle at 20% 80%,rgba(255,90,31,.2) 0%,transparent 50%),
+                  radial-gradient(circle at 80% 20%,rgba(0,201,167,.08) 0%,transparent 50%);
+    }
+    .auth-left-grid {
+      position:absolute; inset:0;
+      background-image: linear-gradient(rgba(255,255,255,.03) 1px,transparent 1px),
+                        linear-gradient(90deg,rgba(255,255,255,.03) 1px,transparent 1px);
+      background-size: 40px 40px;
+    }
+    .auth-right {
+      flex:1; display:flex; flex-direction:column; align-items:center;
+      justify-content:center; padding:60px 48px; overflow-y:auto; background:var(--bg-base);
+    }
+    .auth-form { width:100%; max-width:420px; }
+    .auth-card {
+      background:var(--bg-white); border-radius:var(--radius-xl);
+      border:1px solid var(--border-light); padding:40px;
+      box-shadow:var(--shadow-lg);
+    }
+    .type-selector { display:flex; gap:8px; margin-bottom:28px; background:var(--bg-subtle); border-radius:var(--radius-full); padding:4px; }
+    .type-btn { flex:1; padding:10px; border-radius:var(--radius-full); border:none; background:transparent; font-size:.85rem; font-weight:600; color:var(--text-muted); cursor:pointer; transition:var(--transition); }
+    .type-btn.active { background:var(--bg-white); color:var(--brand-primary); box-shadow:var(--shadow-xs); }
+    .testimonial {
+      background:rgba(255,255,255,.05); border:1px solid rgba(255,255,255,.1);
+      border-radius:var(--radius-xl); padding:28px; margin-top:32px; position:relative; z-index:1;
+    }
+    @media (max-width:768px) { .auth-left { display:none; } .auth-right { padding:40px 24px; } }
+  </style>
+</head>
+<body>
+<div class="auth-page">
+
+  <!-- LEFT — Brand panel -->
+  <div class="auth-left">
+    <div class="auth-left-grid"></div>
+    <div style="position:relative;z-index:1;text-align:center;max-width:400px;">
+      <a href="index.html" class="logo" style="color:#fff;justify-content:center;margin-bottom:40px;display:flex;">
+        <div class="logo-mark" style="width:48px;height:48px;font-size:1.6rem;">R</div>
+        <span style="font-size:1.8rem;">Raktak<span style="color:var(--brand-primary);">k</span></span>
+      </a>
+      <h2 style="color:#fff;font-size:1.8rem;font-weight:800;margin-bottom:16px;line-height:1.3;">Bienvenue sur la plateforme business #1 d'Afrique de l'Ouest</h2>
+      <p style="color:rgba(255,255,255,.6);line-height:1.7;margin-bottom:32px;">Connectez-vous pour accéder à votre espace personnel, gérer vos leads et développer votre activité.</p>
+
+      <!-- Features -->
+      <div style="display:flex;flex-direction:column;gap:14px;text-align:left;">
+        <div style="display:flex;align-items:center;gap:12px;"><span style="width:32px;height:32px;background:rgba(255,90,31,.15);border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:.9rem;flex-shrink:0;">🎯</span><span style="color:rgba(255,255,255,.75);font-size:.88rem;">Leads qualifiés chaque jour</span></div>
+        <div style="display:flex;align-items:center;gap:12px;"><span style="width:32px;height:32px;background:rgba(0,201,167,.15);border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:.9rem;flex-shrink:0;">📊</span><span style="color:rgba(255,255,255,.75);font-size:.88rem;">Dashboard analytics complet</span></div>
+        <div style="display:flex;align-items:center;gap:12px;"><span style="width:32px;height:32px;background:rgba(37,99,235,.15);border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:.9rem;flex-shrink:0;">💬</span><span style="color:rgba(255,255,255,.75);font-size:.88rem;">Messagerie et WhatsApp intégrés</span></div>
+        <div style="display:flex;align-items:center;gap:12px;"><span style="width:32px;height:32px;background:rgba(255,181,71,.15);border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:.9rem;flex-shrink:0;">⭐</span><span style="color:rgba(255,255,255,.75);font-size:.88rem;">Avis vérifiés et badge professionnel</span></div>
+      </div>
+
+      <!-- Testimonial -->
+      <div class="testimonial">
+        <p style="color:rgba(255,255,255,.75);font-size:.88rem;line-height:1.6;font-style:italic;margin-bottom:16px;">"Raktakk m'a permis de tripler mes leads en 2 mois. Je n'aurais pas cru qu'une plateforme pouvait autant transformer mon business."</p>
+        <div style="display:flex;align-items:center;gap:10px;">
+          <span style="font-size:1.5rem;">👨‍💼</span>
+          <div><div style="color:#fff;font-weight:600;font-size:.85rem;">Cheikh Ba</div><div style="color:rgba(255,255,255,.4);font-size:.75rem;">Dakar Digital Studio</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- RIGHT — Form -->
+  <div class="auth-right">
+    <div class="auth-form">
+      <div style="text-align:center;margin-bottom:32px;">
+        <a href="index.html" style="display:inline-flex;align-items:center;gap:8px;font-family:var(--font-display);font-size:1.4rem;font-weight:800;color:var(--text-primary);">
+          <div class="logo-mark">R</div>
+          Raktak<span style="color:var(--brand-primary);">k</span>
+        </a>
+      </div>
+
+      <div class="auth-card">
+        <h1 style="font-size:1.5rem;font-weight:800;margin-bottom:6px;">Connexion</h1>
+        <p style="color:var(--text-muted);font-size:.88rem;margin-bottom:24px;">Accédez à votre espace Raktakk</p>
+
+        <!-- Account type selector -->
+        <div class="type-selector">
+          <button class="type-btn active" onclick="selectType(this,'client')">👤 Client</button>
+          <button class="type-btn" onclick="selectType(this,'vendor')">🏢 Vendeur</button>
+          <button class="type-btn" onclick="selectType(this,'advertiser')">📢 Annonceur</button>
+          <button class="type-btn" onclick="selectType(this,'admin')">🛡️ Admin</button>
+        </div>
+
+        <!-- Social login -->
+        <div class="auth-social" style="display:flex;gap:10px;margin-bottom:20px;">
+          <button class="btn-social" onclick="socialLogin('Google')">
+            <span style="font-size:1.1rem;">G</span> Google
+          </button>
+          <button class="btn-social" onclick="socialLogin('Facebook')">
+            <span style="font-size:1.1rem;">f</span> Facebook
+          </button>
+        </div>
+
+        <div class="auth-divider">ou</div>
+
+        <!-- Form -->
+        <form id="login-form" onsubmit="handleLogin(event)">
+          <div class="form-group">
+            <label class="form-label" for="login-email">Email <span>*</span></label>
+            <input type="email" class="form-input" placeholder="votre@email.com" required id="login-email" />
+          </div>
+          <div class="form-group">
+            <label class="form-label" style="display:flex;justify-content:space-between;">
+              Mot de passe <span> <a href="reset-password.html" style="font-size:.8rem;color:var(--brand-primary);">Mot de passe oublié ?</a></span>
+            </label>
+            <div style="position:relative;">
+              <input type="password" class="form-input" placeholder="••••••••" required id="login-pass" style="padding-right:48px;" />
+              <button type="button" onclick="togglePass()" style="position:absolute;right:14px;top:50%;transform:translateY(-50%);background:none;border:none;color:var(--text-muted);cursor:pointer;font-size:1.1rem;" id="pass-eye">👁</button>
+            </div>
+          </div>
+
+          <div style="display:flex;align-items:center;gap:8px;margin-bottom:24px;">
+            <input type="checkbox" id="remember" style="accent-color:var(--brand-primary);width:16px;height:16px;" />
+            <label for="remember" style="font-size:.85rem;color:var(--text-secondary);cursor:pointer;">Se souvenir de moi</label>
+          </div>
+
+          <button type="submit" class="btn btn-primary w-full btn-lg" id="login-btn">
+            Se connecter
+          </button>
+        </form>
+
+        <div style="text-align:center;margin-top:20px;font-size:.88rem;color:var(--text-muted);">
+          Pas encore de compte ?
+          <a href="register-client.html" style="color:var(--brand-primary);font-weight:600;" id="register-link">S'inscrire gratuitement</a>
+        </div>
+      </div>
+
+      <!-- Quick access demo -->
+      <p style="text-align:center;font-size:.75rem;color:var(--text-muted);margin-top:24px;">
+        En vous connectant, vous acceptez nos <a href="terms.html" style="color:var(--brand-primary);">CGU</a> et notre <a href="privacy.html" style="color:var(--brand-primary);">Politique de confidentialité</a>.
+      </p>
+    </div>
+  </div>
+</div>
+
+<div class="toast-container"></div>
+
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="assets/js/supabase-config.js"></script>
+<script src="assets/js/supabase-client.js"></script>
+<script src="assets/js/pro-core.js"></script>
+<script src="assets/js/pro-auth.js"></script>
+</body>
+</html>

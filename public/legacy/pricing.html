@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Tarifs — Raktakk</title>
+  <meta name="description" content="Plans et tarifs Raktakk — Gratuit, Pro, Business ou Sponsorisé. Commencez gratuitement et évoluez selon vos besoins." />
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect fill='%23FF5A1F' width='100' height='100' rx='22'/><text y='.9em' font-size='70' x='12'>R</text></svg>" />
+  <link rel="stylesheet" href="assets/css/style.css" />
+  <style>
+    .pricing-page { padding-top: var(--header-h); }
+    .pricing-hero { background: var(--brand-secondary); padding: 72px 0; text-align: center; position: relative; overflow: hidden; }
+    .pricing-hero::before { content:''; position:absolute; inset:0; background: radial-gradient(circle at 50% 100%, rgba(255,90,31,.12), transparent 60%); }
+    .faq-item { border: 1px solid var(--border-light); border-radius: var(--radius-lg); overflow: hidden; margin-bottom: 10px; }
+    .faq-q { padding: 20px 24px; font-weight: 600; cursor: pointer; display: flex; align-items: center; justify-content: space-between; transition: var(--transition); font-size: .95rem; }
+    .faq-q:hover { background: var(--bg-subtle); }
+    .faq-a { padding: 0 24px; max-height: 0; overflow: hidden; transition: max-height .35s ease, padding .3s; font-size: .9rem; color: var(--text-secondary); line-height: 1.7; }
+    .faq-a.open { max-height: 300px; padding: 0 24px 20px; }
+    .faq-icon { transition: transform .3s; flex-shrink: 0; }
+    .faq-item.open .faq-icon { transform: rotate(45deg); }
+    .compare-table { width: 100%; border-collapse: collapse; }
+    .compare-table th { padding: 16px; text-align: center; background: var(--bg-white); font-family: var(--font-display); font-size: .9rem; }
+    .compare-table td { padding: 14px 16px; border-bottom: 1px solid var(--border-light); font-size: .88rem; text-align: center; }
+    .compare-table tr:last-child td { border-bottom: none; }
+    .compare-table tr:hover td { background: rgba(255,90,31,.02); }
+    .compare-table .feature-name { text-align: left; font-weight: 500; }
+    .check { color: var(--brand-teal); font-size: 1.1rem; }
+    .cross { color: var(--text-muted); }
+  </style>
+</head>
+<body>
+
+<header class="header">
+  <div class="container">
+    <div class="header-inner">
+      <a href="index.html" class="logo"><div class="logo-mark">R</div>Raktak<span>k</span></a>
+      <nav class="nav">
+        <a href="search.html">Rechercher</a>
+        <a href="categories.html">Catégories</a>
+        <a href="listing.html">Prestataires</a>
+        <a href="pricing.html" class="active">Tarifs</a>
+        <a href="contact.html">Contact</a>
+      </nav>
+      <div class="header-actions">
+        <a href="login.html" class="btn btn-ghost btn-sm">Connexion</a>
+        <a href="register-vendor.html" class="btn btn-primary btn-sm">Inscrire mon entreprise</a>
+      </div>
+      <button class="mobile-toggle"><span></span><span></span><span></span></button>
+    </div>
+  </div>
+</header>
+
+<div class="pricing-page">
+  <!-- Hero -->
+  <div class="pricing-hero">
+    <div class="container" style="position:relative;z-index:1;">
+      <span class="section-label" style="color:#FF8A5B;background:rgba(255,90,31,.15);">💰 Tarification transparente</span>
+      <h1 style="color:#fff;font-size:2.5rem;font-weight:800;margin:16px auto 16px;max-width:600px;line-height:1.2;">Plans simples, résultats puissants</h1>
+      <p style="color:rgba(255,255,255,.6);font-size:1.05rem;margin-bottom:32px;">Commencez gratuitement. Passez à un plan supérieur quand vous êtes prêt. Aucun engagement.</p>
+      <!-- Toggle monthly/annual -->
+      <div style="display:inline-flex;align-items:center;gap:12px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);border-radius:var(--radius-full);padding:6px 16px;">
+        <span style="color:rgba(255,255,255,.7);font-size:.88rem;" id="toggle-monthly" onclick="setBilling('monthly')" style="cursor:pointer;">Mensuel</span>
+        <div style="width:44px;height:24px;background:var(--brand-primary);border-radius:20px;position:relative;cursor:pointer;" onclick="toggleBilling()" id="billing-toggle">
+          <div style="width:18px;height:18px;background:#fff;border-radius:50%;position:absolute;top:3px;left:3px;transition:transform .25s;" id="billing-knob"></div>
+        </div>
+        <span style="color:rgba(255,255,255,.7);font-size:.88rem;">Annuel <span style="color:var(--brand-teal);font-weight:700;">-20%</span></span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Plans grid -->
+  <section>
+    <div class="container">
+      <div class="pricing-grid" id="plans-grid"></div>
+    </div>
+  </section>
+
+  <!-- Comparison table -->
+  <section style="background:var(--bg-white);padding:80px 0;">
+    <div class="container">
+      <div class="section-header text-center">
+        <h2 class="display-sm">Comparaison détaillée des plans</h2>
+      </div>
+      <div style="overflow-x:auto;">
+        <table class="compare-table">
+          <thead>
+            <tr>
+              <th style="text-align:left;width:35%;">Fonctionnalité</th>
+              <th>Gratuit</th><th>Pro</th>
+              <th style="color:var(--brand-primary);">Business ⭐</th>
+              <th>Sponsorisé</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td class="feature-name"><strong>Leads par mois</strong></td><td>10</td><td>50</td><td><strong>Illimités</strong></td><td><strong>Illimités</strong></td></tr>
+            <tr><td class="feature-name">Profil public</td><td>Basique</td><td class="check">✓ Complet</td><td class="check">✓ Premium</td><td class="check">✓ Premium+</td></tr>
+            <tr><td class="feature-name">Badge Vérifié</td><td class="cross">✕</td><td class="check">✓</td><td class="check">✓</td><td class="check">✓</td></tr>
+            <tr><td class="feature-name">Badge Top Vendeur</td><td class="cross">✕</td><td class="cross">✕</td><td class="check">✓</td><td class="check">✓</td></tr>
+            <tr><td class="feature-name">Services publiés</td><td>3 max</td><td>20 max</td><td>Illimités</td><td>Illimités</td></tr>
+            <tr><td class="feature-name">Galerie photos</td><td class="cross">✕</td><td>5 photos</td><td class="check">✓ Illimitées</td><td class="check">✓ Illimitées</td></tr>
+            <tr><td class="feature-name">Messagerie</td><td>Limitée</td><td class="check">✓ Complète</td><td class="check">✓ Complète</td><td class="check">✓ Complète</td></tr>
+            <tr><td class="feature-name">WhatsApp Business</td><td class="cross">✕</td><td class="check">✓</td><td class="check">✓</td><td class="check">✓</td></tr>
+            <tr><td class="feature-name">Statistiques</td><td>Basiques</td><td>Avancées</td><td class="check">✓ Complètes</td><td class="check">✓ Temps réel</td></tr>
+            <tr><td class="feature-name">Mise en avant homepage</td><td class="cross">✕</td><td class="cross">✕</td><td>Partielle</td><td class="check">✓ Premium</td></tr>
+            <tr><td class="feature-name">Bannière dédiée</td><td class="cross">✕</td><td class="cross">✕</td><td class="cross">✕</td><td class="check">✓</td></tr>
+            <tr><td class="feature-name">Newsletter incluse</td><td class="cross">✕</td><td class="cross">✕</td><td class="cross">✕</td><td class="check">✓</td></tr>
+            <tr><td class="feature-name">Export données (PDF)</td><td class="cross">✕</td><td class="cross">✕</td><td class="check">✓</td><td class="check">✓</td></tr>
+            <tr><td class="feature-name">Account Manager dédié</td><td class="cross">✕</td><td class="cross">✕</td><td class="check">✓</td><td class="check">✓</td></tr>
+            <tr><td class="feature-name">Support</td><td>Email 48h</td><td>Email 24h</td><td>Prioritaire</td><td>24/7 dédié</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section>
+    <div class="container-sm">
+      <div class="section-header text-center">
+        <span class="section-label">❓ Questions fréquentes</span>
+        <h2 class="display-sm">Tout ce que vous devez savoir</h2>
+      </div>
+      <div id="faq-list"></div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section style="background:var(--brand-secondary);padding:80px 0;text-align:center;">
+    <div class="container">
+      <h2 style="color:#fff;font-size:2rem;font-weight:800;margin-bottom:12px;">Prêt à développer votre business ?</h2>
+      <p style="color:rgba(255,255,255,.6);margin-bottom:32px;">Rejoignez 3 420 prestataires qui font confiance à Raktakk. Aucune carte bancaire requise pour commencer.</p>
+      <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap;">
+        <a href="register-vendor.html" class="btn btn-primary btn-xl">Commencer gratuitement →</a>
+        <a href="contact.html" class="btn btn-secondary btn-xl" style="color:#fff;border-color:rgba(255,255,255,.2);">Nous contacter</a>
+      </div>
+    </div>
+  </section>
+</div>
+
+<footer style="background:#060e18;padding:32px 0;">
+  <div class="container">
+    <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:16px;">
+      <a href="index.html" class="logo" style="color:#fff;"><div class="logo-mark">R</div>Raktak<span>k</span></a>
+      <div style="display:flex;gap:20px;font-size:.82rem;color:rgba(255,255,255,.35);">
+        <a href="terms.html" style="color:rgba(255,255,255,.4);">CGU</a>
+        <a href="privacy.html" style="color:rgba(255,255,255,.4);">Confidentialité</a>
+        <a href="contact.html" style="color:rgba(255,255,255,.4);">Contact</a>
+      </div>
+      <p style="font-size:.78rem;color:rgba(255,255,255,.3);">© 2024 Raktakk</p>
+    </div>
+  </div>
+</footer>
+
+<div class="toast-container"></div>
+
+<script src="assets/data/mock-data.js"></script>
+<script>
+// Plans
+let isAnnual = false;
+function toggleBilling() {
+  isAnnual = !isAnnual;
+  document.getElementById('billing-knob').style.transform = isAnnual ? 'translateX(20px)' : 'translateX(0)';
+  renderPlans();
+}
+
+function renderPlans() {
+  const grid = document.getElementById('plans-grid');
+  if (!grid || typeof RAKTAKK === 'undefined') return;
+  grid.innerHTML = RAKTAKK.plans.map((p, i) => {
+    const price = isAnnual && p.price > 0 ? Math.round(p.price * 0.8) : p.price;
+    return `<div class="pricing-card ${p.highlighted ? 'highlighted' : ''}">
+      ${p.highlighted ? '<div class="plan-badge-popular">Le plus populaire</div>' : ''}
+      <div class="plan-name">${p.name}</div>
+      <div class="plan-price">${price === 0 ? 'Gratuit' : price.toLocaleString('fr-FR') + ' FCFA'}<small>/${p.period}</small></div>
+      ${isAnnual && p.price > 0 ? '<div style="font-size:.72rem;color:var(--brand-teal);margin-top:4px;">économisez ' + (p.price * 0.2).toLocaleString('fr-FR') + ' FCFA/mois</div>' : ''}
+      <div class="plan-desc">${i === 0 ? 'Pour démarrer sans risque' : i === 1 ? 'Pour les indépendants actifs' : i === 2 ? 'Pour les entreprises ambitieuses' : 'Pour une visibilité maximale'}</div>
+      <div class="plan-divider"></div>
+      <div class="plan-features">
+        ${p.features.map(f => `<div class="plan-feature"><div class="feature-icon">✓</div><span>${f}</span></div>`).join('')}
+      </div>
+      <a href="register-vendor.html" class="btn ${p.highlighted ? 'btn-primary' : 'btn-secondary'} w-full">${p.cta}</a>
+    </div>`;
+  }).join('');
+}
+renderPlans();
+
+// FAQ
+const faqs = [
+  {q:'Est-ce vraiment gratuit de commencer ?', a:'Oui, totalement. Le plan gratuit vous permet de créer un profil, publier 3 services et recevoir jusqu\'à 10 leads par mois, sans carte bancaire.'},
+  {q:'Comment sont vérifiés les prestataires ?', a:'Notre équipe vérifie manuellement chaque demande de badge "Vérifié". Nous contrôlons la pièce d\'identité, l\'adresse et le registre de commerce de l\'entreprise.'},
+  {q:'Comment fonctionne le paiement ?', a:'Nous acceptons les virements bancaires, Mobile Money (Orange Money, Wave, Free Money) et les cartes bancaires. Les paiements sont 100% sécurisés.'},
+  {q:'Puis-je annuler mon abonnement à tout moment ?', a:'Oui. Vous pouvez annuler ou rétrograder votre plan à tout moment depuis votre dashboard. Il n\'y a aucun frais d\'annulation.'},
+  {q:'Quelle est la différence entre un lead et un message ?', a:'Un lead est une demande client qui correspond à votre profil et que nous vous envoyons directement. Un message est une communication directe initiée par un client depuis votre profil.'},
+  {q:'Combien de temps pour être visible sur la plateforme ?', a:'Votre profil est visible dès la création de votre compte. La vérification KYC peut prendre 24 à 48 heures ouvrables pour obtenir le badge Vérifié.'},
+  {q:'Y a-t-il des commissions sur les ventes ?', a:'Non. Raktakk ne prend aucune commission sur vos ventes ou contrats. Vous payez uniquement votre abonnement mensuel ou vos leads optionnels.'},
+  {q:'Puis-je passer d\'un plan à l\'autre ?', a:'Oui. Vous pouvez upgrader ou downgrader votre plan à tout moment depuis votre dashboard. Le changement prend effet immédiatement.'},
+];
+
+const faqList = document.getElementById('faq-list');
+faqList.innerHTML = faqs.map((f, i) => `
+  <div class="faq-item" id="faq-${i}">
+    <div class="faq-q" onclick="toggleFaq(${i})">
+      <span>${f.q}</span>
+      <span class="faq-icon">✕</span>
+    </div>
+    <div class="faq-a" id="faq-a-${i}">${f.a}</div>
+  </div>`).join('');
+
+function toggleFaq(i) {
+  const item = document.getElementById(`faq-${i}`);
+  const ans = document.getElementById(`faq-a-${i}`);
+  const isOpen = item.classList.contains('open');
+  document.querySelectorAll('.faq-item').forEach(el => { el.classList.remove('open'); el.querySelector('.faq-a').classList.remove('open'); });
+  if (!isOpen) { item.classList.add('open'); ans.classList.add('open'); }
+}
+
+function showToast(msg, type='info') {
+  const c = document.querySelector('.toast-container');
+  const t = document.createElement('div');
+  t.className = `toast toast-${type}`;
+  t.innerHTML = `<span class="toast-icon">${{success:'✅',info:'ℹ️',warning:'⚠️',error:'❌'}[type]}</span><span class="toast-msg">${msg}</span><span class="toast-close" onclick="this.parentElement.remove()">✕</span>`;
+  c.appendChild(t);
+  setTimeout(() => t.remove(), 4000);
+}
+
+window.addEventListener('scroll', () => document.querySelector('.header')?.classList.toggle('scrolled', scrollY > 20));
+</script>
+</body>
+</html>

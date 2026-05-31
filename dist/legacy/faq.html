@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8"/><meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+  <title>FAQ — Raktakk</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect fill='%23FF5A1F' width='100' height='100' rx='22'/><text y='.9em' font-size='70' x='12'>R</text></svg>"/>
+  <link rel="stylesheet" href="assets/css/style.css"/>
+  <style>
+    .page-wrap{padding-top:var(--header-h);}
+    .page-hero{background:var(--brand-secondary);padding:60px 0;text-align:center;position:relative;overflow:hidden;}
+    .page-hero::before{content:'';position:absolute;inset:0;background:radial-gradient(circle at 50% 100%,rgba(255,90,31,.12),transparent 60%);}
+    .faq-page{padding:60px 0 80px;}
+    .faq-cats{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:40px;justify-content:center;}
+    .faq-cat{padding:8px 20px;border-radius:var(--radius-full);border:1.5px solid var(--border-light);font-size:.85rem;font-weight:600;cursor:pointer;transition:var(--transition);background:var(--bg-white);}
+    .faq-cat.active{border-color:var(--brand-primary);background:rgba(255,90,31,.06);color:var(--brand-primary);}
+    .faq-item{border:1px solid var(--border-light);border-radius:var(--radius-lg);overflow:hidden;margin-bottom:10px;}
+    .faq-q{padding:20px 24px;font-weight:600;cursor:pointer;display:flex;align-items:center;justify-content:space-between;transition:var(--transition);font-size:.95rem;}
+    .faq-q:hover{background:var(--bg-subtle);}
+    .faq-a{padding:0 24px;max-height:0;overflow:hidden;transition:max-height .35s ease,padding .3s;font-size:.9rem;color:var(--text-secondary);line-height:1.7;}
+    .faq-a.open{max-height:400px;padding:0 24px 20px;}
+    .faq-icon{transition:transform .3s;flex-shrink:0;font-size:.8rem;}
+    .faq-item.open .faq-icon{transform:rotate(45deg);}
+  </style>
+</head>
+<body>
+<header class="header">
+  <div class="container">
+    <div class="header-inner">
+      <a href="index.html" class="logo"><div class="logo-mark">R</div>Raktak<span>k</span></a>
+      <nav class="nav"><a href="search.html">Rechercher</a><a href="categories.html">Catégories</a><a href="pricing.html">Tarifs</a><a href="contact.html">Contact</a></nav>
+      <div class="header-actions"><a href="login.html" class="btn btn-ghost btn-sm">Connexion</a><a href="register-vendor.html" class="btn btn-primary btn-sm">Inscrire mon entreprise</a></div>
+      <button class="mobile-toggle"><span></span><span></span><span></span></button>
+    </div>
+  </div>
+</header>
+
+<div class="page-wrap">
+  <div class="page-hero">
+    <div class="container" style="position:relative;z-index:1;">
+      <span class="section-label" style="color:#FF8A5B;background:rgba(255,90,31,.15);">❓ Centre d'aide</span>
+      <h1 style="color:#fff;font-size:2rem;font-weight:800;margin:16px 0 8px;">Questions fréquemment posées</h1>
+      <p style="color:rgba(255,255,255,.6);margin-bottom:24px;">Trouvez rapidement une réponse à votre question</p>
+      <div style="display:flex;max-width:500px;margin:0 auto;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.12);border-radius:var(--radius-full);padding:8px 8px 8px 20px;">
+        <input type="text" placeholder="Rechercher dans la FAQ..." style="flex:1;background:transparent;border:none;color:#fff;font-size:.9rem;" id="faq-search" oninput="filterFaqs(this.value)"/>
+        <button class="btn btn-primary btn-sm" style="flex-shrink:0;">🔍</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="faq-page">
+    <div class="container-sm">
+      <div class="faq-cats">
+        <div class="faq-cat active" onclick="filterCat('all',this)">Tout</div>
+        <div class="faq-cat" onclick="filterCat('general',this)">Général</div>
+        <div class="faq-cat" onclick="filterCat('vendors',this)">Prestataires</div>
+        <div class="faq-cat" onclick="filterCat('clients',this)">Clients</div>
+        <div class="faq-cat" onclick="filterCat('payment',this)">Paiement</div>
+        <div class="faq-cat" onclick="filterCat('security',this)">Sécurité</div>
+      </div>
+      <div id="faq-list"></div>
+    </div>
+  </div>
+
+  <!-- Still need help CTA -->
+  <div style="background:var(--bg-white);border-top:1px solid var(--border-light);padding:60px 0;text-align:center;">
+    <div class="container">
+      <h2 style="font-size:1.5rem;font-weight:800;margin-bottom:8px;">Vous n'avez pas trouvé votre réponse ?</h2>
+      <p style="color:var(--text-muted);margin-bottom:24px;">Notre équipe est disponible du lundi au vendredi, 8h–18h</p>
+      <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap;">
+        <a href="contact.html" class="btn btn-primary btn-lg">📧 Nous contacter</a>
+        <a href="https://wa.me/221770000000" target="_blank" class="btn btn-secondary btn-lg">💬 WhatsApp</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<footer style="background:var(--brand-secondary);padding:32px 0;">
+  <div class="container"><div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:16px;">
+    <a href="index.html" class="logo" style="color:#fff;"><div class="logo-mark">R</div>Raktak<span>k</span></a>
+    <p style="font-size:.82rem;color:rgba(255,255,255,.4);">© 2024 Raktakk. Tous droits réservés.</p>
+  </div></div>
+</footer>
+
+<script>
+const allFaqs = [
+  {cat:'general',q:'Qu\'est-ce que Raktakk ?',a:'Raktakk est la plateforme B2B/B2C n°1 d\'Afrique de l\'Ouest qui connecte clients et prestataires professionnels vérifiés. Vous pouvez trouver un prestataire dans plus de 18 catégories dans 8 pays.'},
+  {cat:'general',q:'Dans quels pays Raktakk est-il disponible ?',a:'Raktakk est actuellement disponible au Sénégal, en Côte d\'Ivoire, au Mali, au Togo, au Bénin, en Guinée, au Burkina Faso et en Mauritanie. Nous continuons notre expansion.'},
+  {cat:'general',q:'Comment fonctionne la plateforme ?',a:'Les clients recherchent un prestataire par catégorie ou ville, consultent les profils vérifiés et contactent directement via messagerie ou WhatsApp. Les prestataires reçoivent des leads qualifiés selon leur profil et leur plan.'},
+  {cat:'vendors',q:'Comment inscrire mon entreprise ?',a:'Rendez-vous sur la page d\'inscription vendeur, remplissez vos informations en 3 étapes (profil, services, plan) et publiez votre profil en moins de 5 minutes. C\'est gratuit pour commencer.'},
+  {cat:'vendors',q:'Comment obtenir le badge Vérifié ?',a:'Le badge Vérifié est accordé après validation de votre pièce d\'identité, de votre adresse et de votre registre de commerce par notre équipe. La vérification prend 24 à 48 heures.'},
+  {cat:'vendors',q:'Qu\'est-ce qu\'un lead ?',a:'Un lead est une demande d\'un client potentiel qui correspond à votre profil et vos services. Vous recevez les coordonnées du client et pouvez le contacter directement pour proposer vos services.'},
+  {cat:'vendors',q:'Puis-je modifier mon profil après inscription ?',a:'Oui, vous pouvez modifier votre profil, vos services, vos photos et vos coordonnées à tout moment depuis votre dashboard.'},
+  {cat:'vendors',q:'Comment augmenter ma visibilité ?',a:'Completez votre profil à 100%, obtenez des avis de clients satisfaits, passez au plan Business ou Sponsorisé et assurez-vous d\'avoir un temps de réponse rapide. Les profils les mieux notés apparaissent en premier.'},
+  {cat:'clients',q:'L\'utilisation est-elle gratuite pour les clients ?',a:'Oui, totalement. Les clients peuvent rechercher des prestataires, consulter les profils, envoyer des messages et obtenir des devis gratuitement.'},
+  {cat:'clients',q:'Comment contacter un prestataire ?',a:'Depuis le profil d\'un prestataire, vous pouvez envoyer un message via notre messagerie interne, contacter via WhatsApp direct ou appeler le numéro professionnel indiqué.'},
+  {cat:'clients',q:'Comment savoir si un prestataire est fiable ?',a:'Recherchez le badge ✓ Vérifié qui indique que le profil a été vérifié manuellement par notre équipe. Lisez également les avis de clients précédents et vérifiez la note et le nombre de leads reçus.'},
+  {cat:'payment',q:'Quels modes de paiement sont acceptés ?',a:'Nous acceptons les paiements par Mobile Money (Orange Money, Wave, Free Money), carte bancaire (Visa, Mastercard) et virement bancaire. Tous les paiements sont sécurisés SSL.'},
+  {cat:'payment',q:'Puis-je annuler mon abonnement ?',a:'Oui. Vous pouvez annuler votre abonnement à tout moment depuis votre dashboard. Il n\'y a aucun frais d\'annulation. Votre plan reste actif jusqu\'à la fin de la période payée.'},
+  {cat:'payment',q:'Y a-t-il une période d\'essai ?',a:'Oui, le plan gratuit vous permet de tester la plateforme sans limite de temps. Vous pouvez passer à un plan payant quand vous êtes prêt.'},
+  {cat:'security',q:'Comment mes données sont-elles protégées ?',a:'Raktakk respecte le RGPD et la réglementation locale sur la protection des données. Vos données sont chiffrées, hébergées de manière sécurisée et ne sont jamais vendues à des tiers.'},
+  {cat:'security',q:'Comment signaler un profil frauduleux ?',a:'Sur chaque profil, vous trouverez un lien "Signaler ce profil". Notre équipe examine chaque signalement sous 24 heures et prend les mesures nécessaires.'},
+  {cat:'security',q:'Que faire si je suis victime d\'une arnaque ?',a:'Contactez immédiatement notre équipe à support@raktakk.com ou via WhatsApp. Nous avons une politique de tolérance zéro envers les arnaques et collaborons avec les autorités si nécessaire.'},
+];
+
+let currentCat = 'all';
+let currentSearch = '';
+
+function renderFaqs() {
+  const filtered = allFaqs.filter(f =>
+    (currentCat === 'all' || f.cat === currentCat) &&
+    (!currentSearch || f.q.toLowerCase().includes(currentSearch) || f.a.toLowerCase().includes(currentSearch))
+  );
+  const list = document.getElementById('faq-list');
+  if (!filtered.length) { list.innerHTML = '<div style="text-align:center;padding:40px;color:var(--text-muted);">Aucun résultat trouvé.</div>'; return; }
+  list.innerHTML = filtered.map((f,i) => `
+    <div class="faq-item" id="faq-${i}">
+      <div class="faq-q" onclick="toggleFaq(${i})">
+        <span>${f.q}</span>
+        <span class="faq-icon" style="font-size:.7rem;">✕</span>
+      </div>
+      <div class="faq-a" id="faq-a-${i}">${f.a}</div>
+    </div>`).join('');
+}
+
+function toggleFaq(i) {
+  const item = document.getElementById(`faq-${i}`);
+  const ans = document.getElementById(`faq-a-${i}`);
+  const isOpen = item.classList.contains('open');
+  document.querySelectorAll('.faq-item').forEach(el => { el.classList.remove('open'); el.querySelector('.faq-a').classList.remove('open'); });
+  if (!isOpen) { item.classList.add('open'); ans.classList.add('open'); }
+}
+
+function filterCat(cat, el) {
+  currentCat = cat;
+  document.querySelectorAll('.faq-cat').forEach(c => c.classList.remove('active'));
+  el.classList.add('active');
+  renderFaqs();
+}
+
+function filterFaqs(val) {
+  currentSearch = val.toLowerCase();
+  renderFaqs();
+}
+
+renderFaqs();
+window.addEventListener('scroll', () => document.querySelector('.header')?.classList.toggle('scrolled', scrollY > 20));
+</script>
+</body>
+</html>

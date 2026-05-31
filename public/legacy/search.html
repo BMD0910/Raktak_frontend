@@ -1,0 +1,469 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Recherche — Raktakk</title>
+  <meta name="description" content="Trouvez le meilleur prestataire, vendeur ou entreprise près de vous en Afrique de l'Ouest." />
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect fill='%23FF5A1F' width='100' height='100' rx='22'/><text y='.9em' font-size='70' x='12'>R</text></svg>" />
+  <link rel="stylesheet" href="assets/css/style.css" />
+  <style>
+    .search-page { padding-top: var(--header-h); min-height: 100vh; }
+    .search-hero { background: var(--brand-secondary); padding: 40px 0; }
+    .search-hero-inner { display: flex; flex-direction: column; gap: 16px; }
+    .search-bar-lg {
+      display: flex; align-items: center; gap: 12px;
+      background: rgba(255,255,255,.07); border: 1px solid rgba(255,255,255,.12);
+      border-radius: var(--radius-xl); padding: 10px 10px 10px 24px;
+      backdrop-filter: blur(10px);
+    }
+    .search-bar-lg input {
+      flex: 1; background: transparent; border: none; color: #fff;
+      font-size: 1rem;
+    }
+    .search-bar-lg input::placeholder { color: rgba(255,255,255,.4); }
+
+    .search-layout { display: grid; grid-template-columns: 280px 1fr; gap: 28px; padding: 32px 0; }
+    .filters-panel {
+      background: var(--bg-white); border-radius: var(--radius-xl);
+      border: 1px solid var(--border-light); padding: 24px;
+      height: fit-content; position: sticky; top: calc(var(--header-h) + 16px);
+    }
+    .filter-title { font-family: var(--font-display); font-weight: 700; font-size: .95rem; margin-bottom: 20px; display: flex; justify-content: space-between; align-items: center; }
+    .filter-section { margin-bottom: 24px; padding-bottom: 24px; border-bottom: 1px solid var(--border-light); }
+    .filter-section:last-child { border-bottom: none; margin-bottom: 0; padding-bottom: 0; }
+    .filter-section-title { font-size: .8rem; font-weight: 700; text-transform: uppercase; letter-spacing: .08em; color: var(--text-muted); margin-bottom: 12px; }
+    .filter-option {
+      display: flex; align-items: center; gap: 10px; padding: 8px 0; cursor: pointer;
+      font-size: .88rem; color: var(--text-secondary); transition: var(--transition);
+    }
+    .filter-option:hover { color: var(--brand-primary); }
+    .filter-option input[type=checkbox] { accent-color: var(--brand-primary); width: 16px; height: 16px; }
+    .filter-option .count { margin-left: auto; font-size: .75rem; color: var(--text-muted); background: var(--bg-subtle); padding: 2px 8px; border-radius: 20px; }
+
+    .results-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 20px; flex-wrap: wrap; gap: 12px; }
+    .results-count { font-size: .9rem; color: var(--text-muted); }
+    .results-count strong { color: var(--text-primary); }
+    .sort-select { padding: 8px 16px; border: 1.5px solid var(--border-light); border-radius: var(--radius-full); font-size: .85rem; background: var(--bg-white); cursor: pointer; }
+
+    .results-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 20px; }
+
+    .active-filters { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 16px; }
+    .active-filter {
+      display: flex; align-items: center; gap: 6px;
+      background: rgba(255,90,31,.08); color: var(--brand-primary);
+      border: 1px solid rgba(255,90,31,.2); border-radius: var(--radius-full);
+      font-size: .78rem; font-weight: 600; padding: 4px 12px; cursor: pointer;
+    }
+    .active-filter:hover { background: rgba(255,90,31,.15); }
+
+    .view-toggle { display: flex; gap: 4px; }
+    .view-btn {
+      width: 36px; height: 36px; border-radius: 8px; border: 1.5px solid var(--border-light);
+      background: var(--bg-white); cursor: pointer; display: flex; align-items: center; justify-content: center;
+      font-size: .9rem; transition: var(--transition);
+    }
+    .view-btn.active { border-color: var(--brand-primary); background: rgba(255,90,31,.06); color: var(--brand-primary); }
+
+    .list-view .results-grid { grid-template-columns: 1fr; }
+    .list-view .card-vendor { display: flex; }
+    .list-view .card-vendor-banner { width: 120px; flex-shrink: 0; height: auto; min-height: 100px; }
+    .list-view .card-vendor-logo { top: 50%; transform: translateY(-50%); left: 90px; }
+
+    .load-more { text-align: center; margin-top: 40px; }
+
+    .map-btn {
+      display: flex; align-items: center; gap: 8px; padding: 10px 20px;
+      background: var(--bg-white); border: 1.5px solid var(--border-light);
+      border-radius: var(--radius-full); font-size: .85rem; font-weight: 600;
+      cursor: pointer; transition: var(--transition);
+    }
+    .map-btn:hover { border-color: var(--brand-primary); color: var(--brand-primary); }
+
+    @media (max-width: 900px) {
+      .search-layout { grid-template-columns: 1fr; }
+      .filters-panel { position: static; display: none; }
+      .filters-panel.open { display: block; }
+    }
+  </style>
+</head>
+<body>
+
+<header class="header" id="header">
+  <div class="container">
+    <div class="header-inner">
+      <a href="index.html" class="logo">
+        <div class="logo-mark">R</div>
+        Raktak<span>k</span>
+      </a>
+      <nav class="nav">
+        <a href="search.html" class="active">Rechercher</a>
+        <a href="categories.html">Catégories</a>
+        <a href="listing.html">Prestataires</a>
+        <a href="pricing.html">Tarifs</a>
+        <a href="contact.html">Contact</a>
+      </nav>
+      <div class="header-actions">
+        <a href="login.html" class="btn btn-ghost btn-sm">Connexion</a>
+        <a href="register-vendor.html" class="btn btn-primary btn-sm">Inscrire mon entreprise</a>
+      </div>
+      <button class="mobile-toggle"><span></span><span></span><span></span></button>
+    </div>
+  </div>
+</header>
+
+<div class="search-page">
+  <!-- Search Hero -->
+  <div class="search-hero">
+    <div class="container">
+      <div class="search-hero-inner">
+        <div style="display:flex;align-items:center;gap:12px;flex-wrap:wrap;">
+          <h1 style="color:#fff;font-size:1.4rem;font-weight:700;flex-shrink:0;" id="search-heading">Résultats de recherche</h1>
+          <span id="search-query-badge" style="background:rgba(255,90,31,.2);color:#FF8A5B;padding:4px 14px;border-radius:20px;font-size:.82rem;font-weight:600;"></span>
+        </div>
+        <div class="search-bar-lg">
+          <span style="color:rgba(255,255,255,.5);font-size:1.1rem;">🔍</span>
+          <input type="text" id="search-input-main" placeholder="Rechercher un service, une entreprise..." />
+          <select id="search-city" class="search-select" style="background:rgba(255,255,255,.08);color:rgba(255,255,255,.7);border:1px solid rgba(255,255,255,.12);border-radius:12px;padding:8px 14px;">
+            <option value="">Toutes les villes</option>
+            <option>Dakar</option><option>Abidjan</option><option>Bamako</option>
+            <option>Lomé</option><option>Cotonou</option><option>Conakry</option>
+            <option>Thiès</option><option>Saint-Louis</option><option>Kaolack</option>
+          </select>
+          <button class="btn btn-primary" onclick="runSearch()">Rechercher</button>
+        </div>
+        <div style="display:flex;flex-wrap:wrap;gap:8px;">
+          <span style="font-size:.78rem;color:rgba(255,255,255,.4);">Suggestions :</span>
+          <a href="?q=marketing" style="font-size:.78rem;color:rgba(255,255,255,.6);padding:3px 10px;background:rgba(255,255,255,.06);border-radius:20px;">Marketing Digital</a>
+          <a href="?q=btp" style="font-size:.78rem;color:rgba(255,255,255,.6);padding:3px 10px;background:rgba(255,255,255,.06);border-radius:20px;">BTP</a>
+          <a href="?q=informatique" style="font-size:.78rem;color:rgba(255,255,255,.6);padding:3px 10px;background:rgba(255,255,255,.06);border-radius:20px;">Informatique</a>
+          <a href="?q=traiteur" style="font-size:.78rem;color:rgba(255,255,255,.6);padding:3px 10px;background:rgba(255,255,255,.06);border-radius:20px;">Traiteur</a>
+          <a href="?q=immobilier" style="font-size:.78rem;color:rgba(255,255,255,.6);padding:3px 10px;background:rgba(255,255,255,.06);border-radius:20px;">Immobilier</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Main Content -->
+  <div class="container">
+    <div class="search-layout" id="search-layout">
+
+      <!-- Filters -->
+      <aside class="filters-panel" id="filters-panel">
+        <div class="filter-title">
+          Filtres
+          <button onclick="clearFilters()" style="font-size:.75rem;color:var(--brand-primary);background:none;border:none;cursor:pointer;font-weight:600;">Réinitialiser</button>
+        </div>
+
+        <div class="filter-section">
+          <div class="filter-section-title">Catégorie</div>
+          <div id="cat-filters">
+            <label class="filter-option"><input type="checkbox" onchange="applyFilters()" value="Marketing Digital"> Marketing Digital <span class="count">234</span></label>
+            <label class="filter-option"><input type="checkbox" onchange="applyFilters()" value="BTP"> BTP & Construction <span class="count">187</span></label>
+            <label class="filter-option"><input type="checkbox" onchange="applyFilters()" value="Informatique"> Informatique & Tech <span class="count">312</span></label>
+            <label class="filter-option"><input type="checkbox" onchange="applyFilters()" value="Restauration"> Restauration <span class="count">156</span></label>
+            <label class="filter-option"><input type="checkbox" onchange="applyFilters()" value="Immobilier"> Immobilier <span class="count">143</span></label>
+            <label class="filter-option"><input type="checkbox" onchange="applyFilters()" value="Santé"> Santé & Médecine <span class="count">89</span></label>
+            <label class="filter-option"><input type="checkbox" onchange="applyFilters()" value="Formation"> Formation <span class="count">201</span></label>
+            <label class="filter-option"><input type="checkbox" onchange="applyFilters()" value="Beauté"> Beauté & Bien-être <span class="count">178</span></label>
+          </div>
+        </div>
+
+        <div class="filter-section">
+          <div class="filter-section-title">Ville</div>
+          <label class="filter-option"><input type="checkbox" onchange="applyFilters()" value="Dakar"> Dakar <span class="count">1 240</span></label>
+          <label class="filter-option"><input type="checkbox" onchange="applyFilters()" value="Abidjan"> Abidjan <span class="count">890</span></label>
+          <label class="filter-option"><input type="checkbox" onchange="applyFilters()" value="Bamako"> Bamako <span class="count">567</span></label>
+          <label class="filter-option"><input type="checkbox" onchange="applyFilters()" value="Lomé"> Lomé <span class="count">345</span></label>
+          <label class="filter-option"><input type="checkbox" onchange="applyFilters()" value="Cotonou"> Cotonou <span class="count">312</span></label>
+          <label class="filter-option"><input type="checkbox" onchange="applyFilters()" value="Thiès"> Thiès <span class="count">234</span></label>
+        </div>
+
+        <div class="filter-section">
+          <div class="filter-section-title">Note minimale</div>
+          <label class="filter-option"><input type="radio" name="rating" onchange="applyFilters()" value="4.5"> ★★★★★ 4.5 et + <span class="count">890</span></label>
+          <label class="filter-option"><input type="radio" name="rating" onchange="applyFilters()" value="4"> ★★★★☆ 4.0 et + <span class="count">2 100</span></label>
+          <label class="filter-option"><input type="radio" name="rating" onchange="applyFilters()" value="3"> ★★★☆☆ 3.0 et + <span class="count">3 100</span></label>
+          <label class="filter-option"><input type="radio" name="rating" onchange="applyFilters()" value=""> Toutes les notes <span class="count">3 420</span></label>
+        </div>
+
+        <div class="filter-section">
+          <div class="filter-section-title">Statut</div>
+          <label class="filter-option"><input type="checkbox" onchange="applyFilters()" value="verified"> ✓ Profils vérifiés seulement</label>
+          <label class="filter-option"><input type="checkbox" onchange="applyFilters()" value="available"> 🟢 Disponible maintenant</label>
+          <label class="filter-option"><input type="checkbox" onchange="applyFilters()" value="whatsapp"> 💬 WhatsApp disponible</label>
+        </div>
+
+        <div class="filter-section">
+          <div class="filter-section-title">Plan</div>
+          <label class="filter-option"><input type="checkbox" onchange="applyFilters()" value="sponsored"> 🏆 Sponsorisé</label>
+          <label class="filter-option"><input type="checkbox" onchange="applyFilters()" value="business"> 💼 Business</label>
+          <label class="filter-option"><input type="checkbox" onchange="applyFilters()" value="pro"> ⭐ Pro</label>
+          <label class="filter-option"><input type="checkbox" onchange="applyFilters()" value="free"> Gratuit</label>
+        </div>
+
+        <button class="btn btn-primary w-full" onclick="applyFilters()" style="margin-top:8px;">Appliquer les filtres</button>
+      </aside>
+
+      <!-- Results -->
+      <div>
+        <!-- Active filters -->
+        <div class="active-filters" id="active-filters"></div>
+
+        <!-- Results header -->
+        <div class="results-header">
+          <div>
+            <div class="results-count" id="results-count">Affichage de <strong>20</strong> résultats</div>
+          </div>
+          <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap;">
+            <button class="map-btn" onclick="showToast('Carte disponible prochainement','info')">
+              🗺️ Voir sur la carte
+            </button>
+            <button class="mobile-toggle" id="filter-toggle-btn" onclick="toggleFilters()" style="display:none;background:var(--bg-white);border:1.5px solid var(--border-light);border-radius:var(--radius-full);padding:8px 16px;font-size:.85rem;font-weight:600;gap:6px;">
+              🔧 Filtres
+            </button>
+            <select class="sort-select" id="sort-select" onchange="sortResults()">
+              <option value="rating">Mieux notés</option>
+              <option value="leads">Plus de leads</option>
+              <option value="newest">Plus récents</option>
+              <option value="views">Plus vus</option>
+            </select>
+            <div class="view-toggle">
+              <button class="view-btn active" id="grid-btn" onclick="setView('grid')" title="Grille">⊞</button>
+              <button class="view-btn" id="list-btn" onclick="setView('list')" title="Liste">☰</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Results Grid -->
+        <div class="results-grid" id="results-grid">
+          <!-- Rendered by JS -->
+        </div>
+
+        <!-- Sponsored result -->
+        <div id="sponsored-result" style="margin:24px 0;"></div>
+
+        <!-- Load more -->
+        <div class="load-more">
+          <button class="btn btn-secondary btn-lg" id="load-more-btn" onclick="loadMore()">
+            Charger plus de résultats
+          </button>
+          <p style="font-size:.78rem;color:var(--text-muted);margin-top:12px;" id="load-more-count"></p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Footer minimal -->
+<footer style="background:var(--brand-secondary);padding:32px 0;margin-top:60px;">
+  <div class="container">
+    <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:16px;">
+      <a href="index.html" class="logo" style="color:#fff;"><div class="logo-mark">R</div>Raktak<span>k</span></a>
+      <p style="font-size:.82rem;color:rgba(255,255,255,.4);">© 2024 Raktakk. Tous droits réservés.</p>
+    </div>
+  </div>
+</footer>
+
+<div class="toast-container"></div>
+
+<script src="assets/data/mock-data.js"></script>
+<script>
+// ── SEARCH PAGE LOGIC ─────────────────────────────────────────
+let allVendors = [];
+let displayedCount = 0;
+const PER_PAGE = 9;
+let currentView = 'grid';
+
+function getParams() {
+  const p = new URLSearchParams(window.location.search);
+  return { q: p.get('q') || '', city: p.get('city') || '', cat: p.get('cat') || '' };
+}
+
+function init() {
+  const { q, city, cat } = getParams();
+  const input = document.getElementById('search-input-main');
+  const citySelect = document.getElementById('search-city');
+  if (input) input.value = q;
+  if (citySelect && city) citySelect.value = city;
+
+  // Badge
+  const badge = document.getElementById('search-query-badge');
+  if (q && badge) badge.textContent = `"${q}"`;
+  if (cat && badge) badge.textContent = cat;
+
+  // Filter vendors
+  allVendors = RAKTAKK.vendors.filter(v => {
+    const matchQ = !q || v.name.toLowerCase().includes(q.toLowerCase()) || v.category.toLowerCase().includes(q.toLowerCase()) || v.services.some(s => s.toLowerCase().includes(q.toLowerCase()));
+    const matchCity = !city || v.city === city;
+    const matchCat = !cat || v.category.toLowerCase().includes(cat.toLowerCase());
+    return matchQ && matchCity && matchCat;
+  });
+
+  // If no results, show all
+  if (allVendors.length === 0) allVendors = [...RAKTAKK.vendors];
+
+  displayedCount = 0;
+  document.getElementById('results-grid').innerHTML = '';
+  renderResults();
+  renderSponsored();
+}
+
+function renderResults() {
+  const grid = document.getElementById('results-grid');
+  const batch = allVendors.slice(displayedCount, displayedCount + PER_PAGE);
+  batch.forEach(v => {
+    const el = document.createElement('div');
+    el.innerHTML = renderVendorCard(v);
+    grid.appendChild(el.firstElementChild);
+  });
+  displayedCount += batch.length;
+  updateLoadMore();
+}
+
+function renderVendorCard(v) {
+  return `
+    <div class="card card-vendor">
+      <div class="card-vendor-banner" style="background:linear-gradient(135deg,#0D1B2A,#1a3a5c);">
+        ${v.sponsored ? '<div style="position:absolute;top:8px;left:8px;"><span class="badge badge-sponsored">Sponsorisé</span></div>' : ''}
+      </div>
+      <div class="card-vendor-logo">${v.emoji}</div>
+      <div class="card-vendor-body">
+        <div class="card-vendor-name">
+          ${v.name}
+          ${v.verified ? '<span style="color:var(--brand-teal);font-size:.85rem;">✓</span>' : ''}
+        </div>
+        <div class="card-vendor-meta">📍 ${v.city}, ${v.country} &nbsp;·&nbsp; ${v.category}</div>
+        <div class="card-vendor-rating">
+          <span class="stars">${'★'.repeat(Math.round(v.rating))}</span>
+          <span class="rating-num">${v.rating}</span>
+          <span class="review-count">(${v.reviews} avis)</span>
+        </div>
+        <div class="card-vendor-tags">
+          ${v.services.slice(0,3).map(s => `<span class="tag">${s}</span>`).join('')}
+        </div>
+        <div class="card-vendor-footer">
+          <span style="font-size:.82rem;color:var(--text-muted);">${v.price}</span>
+          <div style="display:flex;gap:8px;">
+            <a href="https://wa.me/${v.whatsapp?.replace(/\s/g,'')}" target="_blank" class="btn btn-secondary btn-sm" title="WhatsApp" onclick="event.stopPropagation()">💬</a>
+            <a href="profile.html?id=${v.id}" class="btn btn-primary btn-sm">Voir →</a>
+          </div>
+        </div>
+      </div>
+      ${v.badge ? `<div style="position:absolute;top:12px;right:12px;z-index:2;"><span class="badge badge-${v.badge === 'Top' ? 'top' : v.badge === 'Vérifié' ? 'verified' : v.badge === 'Nouveau' ? 'new' : 'popular'}">${v.badge}</span></div>` : ''}
+    </div>`;
+}
+
+function renderSponsored() {
+  const v = RAKTAKK.vendors.find(v => v.plan === 'sponsored');
+  if (!v) return;
+  document.getElementById('sponsored-result').innerHTML = `
+    <div style="background:linear-gradient(135deg,#0D1B2A,#1a2e45);border-radius:var(--radius-xl);padding:28px;display:flex;gap:20px;align-items:center;border:1px solid rgba(255,90,31,.2);">
+      <div style="font-size:3rem;background:rgba(255,255,255,.05);border-radius:14px;width:64px;height:64px;display:flex;align-items:center;justify-content:center;flex-shrink:0;">${v.emoji}</div>
+      <div style="flex:1;">
+        <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px;">
+          <span style="color:#fff;font-family:var(--font-display);font-weight:700;font-size:1.05rem;">${v.name}</span>
+          <span class="badge badge-sponsored">Sponsorisé</span>
+          <span class="badge badge-verified">Vérifié</span>
+        </div>
+        <p style="color:rgba(255,255,255,.6);font-size:.88rem;margin-bottom:12px;">${v.description}</p>
+        <div style="display:flex;gap:8px;flex-wrap:wrap;">
+          ${v.services.map(s => `<span style="background:rgba(255,255,255,.06);color:rgba(255,255,255,.7);font-size:.75rem;padding:3px 10px;border-radius:20px;">${s}</span>`).join('')}
+        </div>
+      </div>
+      <div style="text-align:center;flex-shrink:0;">
+        <div style="color:rgba(255,255,255,.5);font-size:.75rem;margin-bottom:4px;">📍 ${v.city}</div>
+        <div style="color:#FFB547;font-size:.9rem;margin-bottom:12px;">${'★'.repeat(Math.round(v.rating))} ${v.rating}</div>
+        <a href="profile.html?id=${v.id}" class="btn btn-primary btn-sm">Voir le profil</a>
+      </div>
+    </div>`;
+}
+
+function updateLoadMore() {
+  const btn = document.getElementById('load-more-btn');
+  const count = document.getElementById('load-more-count');
+  const total = allVendors.length;
+  document.getElementById('results-count').innerHTML = `Affichage de <strong>${Math.min(displayedCount, total)}</strong> sur <strong>${total}</strong> résultats`;
+  if (displayedCount >= total) {
+    btn.style.display = 'none';
+    if (count) count.textContent = 'Tous les résultats affichés';
+  } else {
+    btn.style.display = 'inline-flex';
+    if (count) count.textContent = `${total - displayedCount} résultats supplémentaires`;
+  }
+}
+
+function loadMore() {
+  renderResults();
+}
+
+function runSearch() {
+  const q = document.getElementById('search-input-main').value.trim();
+  const city = document.getElementById('search-city').value;
+  let url = 'search.html?';
+  if (q) url += `q=${encodeURIComponent(q)}&`;
+  if (city) url += `city=${encodeURIComponent(city)}`;
+  window.location.href = url;
+}
+
+function applyFilters() {
+  showToast('Filtres appliqués', 'success');
+  // In a real app, filter allVendors and re-render
+}
+
+function clearFilters() {
+  document.querySelectorAll('.filters-panel input').forEach(i => i.checked = false);
+  document.getElementById('active-filters').innerHTML = '';
+  showToast('Filtres réinitialisés', 'info');
+}
+
+function sortResults() {
+  const val = document.getElementById('sort-select').value;
+  if (val === 'rating') allVendors.sort((a,b) => b.rating - a.rating);
+  if (val === 'leads') allVendors.sort((a,b) => b.leads - a.leads);
+  if (val === 'views') allVendors.sort((a,b) => b.views - a.views);
+  if (val === 'newest') allVendors.sort((a,b) => new Date(b.joined) - new Date(a.joined));
+  displayedCount = 0;
+  document.getElementById('results-grid').innerHTML = '';
+  renderResults();
+}
+
+function setView(v) {
+  currentView = v;
+  const layout = document.getElementById('search-layout');
+  document.getElementById('grid-btn').classList.toggle('active', v === 'grid');
+  document.getElementById('list-btn').classList.toggle('active', v === 'list');
+  layout.classList.toggle('list-view', v === 'list');
+}
+
+function toggleFilters() {
+  document.getElementById('filters-panel').classList.toggle('open');
+}
+
+function showToast(msg, type='info') {
+  const c = document.querySelector('.toast-container');
+  const t = document.createElement('div');
+  t.className = `toast toast-${type}`;
+  t.innerHTML = `<span class="toast-icon">${{success:'✅',error:'❌',info:'ℹ️',warning:'⚠️'}[type]||'ℹ️'}</span><span class="toast-msg">${msg}</span><span class="toast-close" onclick="this.parentElement.remove()">✕</span>`;
+  c.appendChild(t);
+  setTimeout(() => t.remove(), 3500);
+}
+
+// Mobile filter btn
+if (window.innerWidth < 900) {
+  document.getElementById('filter-toggle-btn').style.display = 'flex';
+}
+window.addEventListener('resize', () => {
+  const btn = document.getElementById('filter-toggle-btn');
+  if (btn) btn.style.display = window.innerWidth < 900 ? 'flex' : 'none';
+});
+
+document.getElementById('search-input-main').addEventListener('keydown', e => {
+  if (e.key === 'Enter') runSearch();
+});
+
+// Init
+init();
+</script>
+</body>
+</html>

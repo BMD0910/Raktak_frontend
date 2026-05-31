@@ -1,0 +1,479 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Dashboard Vendeur — Raktakk</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect fill='%23FF5A1F' width='100' height='100' rx='22'/><text y='.9em' font-size='70' x='12'>R</text></svg>" />
+  <link rel="stylesheet" href="assets/css/style.css" />
+  <link rel="stylesheet" href="assets/css/dashboard.css" />
+</head>
+<body>
+<div class="dash-layout">
+
+<!-- ── SIDEBAR ─────────────────────────────────────────────── -->
+<aside class="dash-sidebar" id="dash-sidebar">
+  <div class="sidebar-header">
+    <a href="index.html" class="sidebar-logo">
+      <div class="sidebar-logo-mark">R</div>
+      Raktak<span>k</span>
+    </a>
+  </div>
+  <div class="sidebar-user">
+    <div class="sidebar-avatar">🏢</div>
+    <div>
+      <div class="sidebar-user-name">Dakar Digital Studio</div>
+      <div class="sidebar-user-role">Vendeur Pro</div>
+      <div class="sidebar-plan">Business ✓</div>
+    </div>
+  </div>
+  <nav class="sidebar-nav">
+    <div class="sidebar-section-label">Principal</div>
+    <a class="sidebar-link" data-page="overview"><span class="sidebar-icon">📊</span><span>Vue d'ensemble</span></a>
+    <a class="sidebar-link" data-page="leads"><span class="sidebar-icon">🎯</span><span>Mes leads</span><span class="sidebar-badge">8</span></a>
+    <a class="sidebar-link" data-page="messages"><span class="sidebar-icon">💬</span><span>Messages</span><span class="sidebar-badge">3</span></a>
+    <a class="sidebar-link" data-page="analytics"><span class="sidebar-icon">📈</span><span>Statistiques</span></a>
+
+    <div class="sidebar-section-label">Mon profil</div>
+    <a class="sidebar-link" data-page="profile"><span class="sidebar-icon">👤</span><span>Profil public</span></a>
+    <a class="sidebar-link" data-page="services"><span class="sidebar-icon">🛠️</span><span>Mes services</span></a>
+    <a class="sidebar-link" data-page="gallery"><span class="sidebar-icon">📸</span><span>Galerie</span></a>
+    <a class="sidebar-link" data-page="reviews"><span class="sidebar-icon">⭐</span><span>Avis clients</span></a>
+
+    <div class="sidebar-section-label">Business</div>
+    <a class="sidebar-link" data-page="subscription"><span class="sidebar-icon">💳</span><span>Mon abonnement</span></a>
+    <a class="sidebar-link" data-page="kyc"><span class="sidebar-icon">🛡️</span><span>Vérification KYC</span></a>
+    <a class="sidebar-link" data-page="payments"><span class="sidebar-icon">💰</span><span>Paiements</span></a>
+
+    <div class="sidebar-section-label">Compte</div>
+    <a class="sidebar-link" data-page="settings"><span class="sidebar-icon">⚙️</span><span>Paramètres</span></a>
+    <a class="sidebar-link" href="index.html"><span class="sidebar-icon">🏠</span><span>Retour au site</span></a>
+    <a class="sidebar-link" href="login.html" style="margin-top:8px;"><span class="sidebar-icon">🚪</span><span>Déconnexion</span></a>
+  </nav>
+</aside>
+
+<!-- ── MAIN ────────────────────────────────────────────────── -->
+<main class="dash-main">
+  <!-- Topbar -->
+  <div class="dash-topbar">
+    <div style="display:flex;align-items:center;gap:12px;">
+      <button class="sidebar-toggle" onclick="document.getElementById('dash-sidebar').classList.toggle('open')" style="display:none;background:none;border:none;cursor:pointer;font-size:1.4rem;padding:4px;">☰</button>
+      <span class="topbar-title" id="topbar-title">Vue d'ensemble</span>
+    </div>
+    <div class="topbar-search">
+      <span class="topbar-search-icon">🔍</span>
+      <input type="text" placeholder="Rechercher..." />
+    </div>
+    <div class="topbar-actions">
+      <button class="notif-btn notif-btn" id="notif-btn">🔔<span class="notif-dot"></span></button>
+      <div class="topbar-avatar">🏢</div>
+      <a href="profile.html" class="btn btn-primary btn-sm" target="_blank">Voir mon profil →</a>
+    </div>
+  </div>
+
+  <!-- Content -->
+  <div class="dash-content">
+
+    <!-- ── PAGE: OVERVIEW ───────────────────────────────────── -->
+    <div class="dash-page active" id="overview">
+      <div class="dash-welcome">
+        <div class="dash-welcome-emoji">🏢</div>
+        <h2>Bonjour, Dakar Digital Studio ! 👋</h2>
+        <p>Vous avez <strong style="color:var(--brand-primary);">8 nouveaux leads</strong> aujourd'hui et <strong style="color:#FFB547;">3 messages</strong> non lus. Votre profil est vu <strong id="live-views" style="color:var(--brand-teal);">1 247</strong> fois cette semaine.</p>
+      </div>
+
+      <!-- KPI -->
+      <div class="kpi-grid">
+        <div class="kpi-card">
+          <div class="kpi-header">
+            <div class="kpi-icon orange">🎯</div>
+            <span class="kpi-trend up">↑ 23%</span>
+          </div>
+          <div class="kpi-value">342</div>
+          <div class="kpi-label">Total leads reçus</div>
+        </div>
+        <div class="kpi-card">
+          <div class="kpi-header">
+            <div class="kpi-icon teal">👁️</div>
+            <span class="kpi-trend up">↑ 18%</span>
+          </div>
+          <div class="kpi-value">8.9k</div>
+          <div class="kpi-label">Vues du profil</div>
+        </div>
+        <div class="kpi-card">
+          <div class="kpi-header">
+            <div class="kpi-icon blue">⭐</div>
+            <span class="kpi-trend up">↑ 5%</span>
+          </div>
+          <div class="kpi-value">4.9</div>
+          <div class="kpi-label">Note moyenne</div>
+        </div>
+        <div class="kpi-card">
+          <div class="kpi-header">
+            <div class="kpi-icon amber">💬</div>
+            <span class="kpi-trend up">↑ 12%</span>
+          </div>
+          <div class="kpi-value">127</div>
+          <div class="kpi-label">Avis reçus</div>
+        </div>
+      </div>
+
+      <!-- Profile completion -->
+      <div class="profile-completion">
+        <div class="completion-pct">72%</div>
+        <div class="completion-info">
+          <div class="completion-title">Profil complété à 72%</div>
+          <div class="completion-desc">Ajoutez votre logo et vos photos pour augmenter vos chances de conversion de 45%</div>
+          <div class="progress-bar" style="margin-top:10px;max-width:400px;">
+            <div class="progress-fill" style="width:72%;"></div>
+          </div>
+        </div>
+        <button class="btn btn-primary btn-sm" onclick="switchPage('profile')">Compléter →</button>
+      </div>
+
+      <!-- Grid: Chart + Activity -->
+      <div class="flex gap-24" style="flex-wrap:wrap;">
+        <div class="dash-panel" style="flex:1;min-width:300px;">
+          <div class="panel-header">
+            <span class="panel-title">📈 Leads reçus (7 derniers mois)</span>
+            <select style="font-size:.78rem;border:1px solid var(--border-light);border-radius:8px;padding:4px 8px;background:var(--bg-white);">
+              <option>7 mois</option><option>30 jours</option><option>12 mois</option>
+            </select>
+          </div>
+          <div class="panel-body">
+            <div id="revenue-chart"></div>
+          </div>
+        </div>
+        <div class="dash-panel" style="width:320px;flex-shrink:0;">
+          <div class="panel-header"><span class="panel-title">⚡ Activité récente</span></div>
+          <div class="panel-body" style="padding:0;">
+            <div style="padding:0 24px;" id="activity-feed"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Recent leads preview -->
+      <div class="dash-panel">
+        <div class="panel-header">
+          <span class="panel-title">🎯 Derniers leads</span>
+          <button class="btn btn-secondary btn-sm" onclick="switchPage('leads')">Voir tous</button>
+        </div>
+        <div class="panel-body" style="padding:0;">
+          <table class="data-table">
+            <thead><tr><th>Client</th><th>Demande</th><th>Budget</th><th>Date</th><th>Action</th></tr></thead>
+            <tbody id="leads-preview-tbody"></tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── PAGE: LEADS ───────────────────────────────────────── -->
+    <div class="dash-page" id="leads">
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:24px;flex-wrap:wrap;gap:12px;">
+        <div>
+          <h2 style="font-family:var(--font-display);font-size:1.4rem;font-weight:800;">Mes leads</h2>
+          <p style="color:var(--text-muted);font-size:.88rem;">Demandes de clients qui correspondent à votre profil</p>
+        </div>
+        <div style="display:flex;gap:10px;flex-wrap:wrap;">
+          <select class="form-select" style="width:auto;font-size:.85rem;padding:8px 14px;">
+            <option>Tous les leads</option><option>Nouveaux</option><option>Répondus</option><option>Archivés</option>
+          </select>
+          <button class="btn btn-secondary btn-sm" onclick="showToast('Export téléchargé!','success')">⬇ Exporter</button>
+        </div>
+      </div>
+      <div id="leads-list"></div>
+    </div>
+
+    <!-- ── PAGE: MESSAGES ──────────────────────────────────── -->
+    <div class="dash-page" id="messages">
+      <h2 style="font-family:var(--font-display);font-size:1.4rem;font-weight:800;margin-bottom:20px;">Messages</h2>
+      <div style="display:grid;grid-template-columns:320px 1fr;gap:20px;height:calc(100vh - 200px);min-height:400px;">
+        <div class="dash-panel" style="overflow:hidden;margin-bottom:0;">
+          <div style="padding:16px 20px;border-bottom:1px solid var(--border-light);display:flex;align-items:center;justify-content:space-between;">
+            <strong style="font-size:.9rem;">Conversations</strong>
+            <span style="background:var(--brand-primary);color:#fff;font-size:.68rem;font-weight:700;padding:2px 8px;border-radius:20px;">3</span>
+          </div>
+          <div id="messages-list"></div>
+        </div>
+        <div class="dash-panel" style="display:flex;flex-direction:column;margin-bottom:0;overflow:hidden;">
+          <div style="padding:16px 20px;border-bottom:1px solid var(--border-light);display:flex;align-items:center;gap:12px;">
+            <div class="msg-avatar">👤</div>
+            <div><div style="font-weight:600;">Moussa Diallo</div><div style="font-size:.75rem;color:var(--brand-teal);">🟢 En ligne</div></div>
+          </div>
+          <div style="flex:1;padding:20px;display:flex;flex-direction:column;gap:12px;overflow-y:auto;" id="chat-area">
+            <div style="display:flex;justify-content:flex-start;"><div style="background:var(--bg-subtle);border-radius:16px 16px 16px 4px;padding:12px 16px;max-width:70%;font-size:.88rem;">Bonjour, je voudrais un devis pour la gestion de mes réseaux sociaux pendant 3 mois.</div></div>
+            <div style="display:flex;justify-content:flex-end;"><div style="background:var(--brand-primary);color:#fff;border-radius:16px 16px 4px 16px;padding:12px 16px;max-width:70%;font-size:.88rem;">Bonjour ! Bien sûr, voici notre offre sur 3 mois : gestion complète des pages Facebook, Instagram et LinkedIn pour 180 000 FCFA/mois.</div></div>
+            <div style="display:flex;justify-content:flex-start;"><div style="background:var(--bg-subtle);border-radius:16px 16px 16px 4px;padding:12px 16px;max-width:70%;font-size:.88rem;">C'est dans mon budget. Quand pouvons-nous démarrer ?</div></div>
+          </div>
+          <div style="padding:16px;border-top:1px solid var(--border-light);display:flex;gap:10px;">
+            <input type="text" class="form-input" placeholder="Écrire un message..." style="flex:1;" id="msg-input" onkeydown="if(event.key==='Enter')sendMsg()" />
+            <button class="btn btn-primary" onclick="sendMsg()">Envoyer ↗</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── PAGE: ANALYTICS ─────────────────────────────────── -->
+    <div class="dash-page" id="analytics">
+      <h2 style="font-family:var(--font-display);font-size:1.4rem;font-weight:800;margin-bottom:24px;">Statistiques avancées</h2>
+      <div class="kpi-grid">
+        <div class="kpi-card"><div class="kpi-header"><div class="kpi-icon orange">👁️</div><span class="kpi-trend up">↑ 34%</span></div><div class="kpi-value">8 920</div><div class="kpi-label">Vues totales</div></div>
+        <div class="kpi-card"><div class="kpi-header"><div class="kpi-icon teal">🔗</div><span class="kpi-trend up">↑ 22%</span></div><div class="kpi-value">3.8%</div><div class="kpi-label">Taux de conversion</div></div>
+        <div class="kpi-card"><div class="kpi-header"><div class="kpi-icon blue">📞</div><span class="kpi-trend up">↑ 15%</span></div><div class="kpi-value">89</div><div class="kpi-label">Contacts WhatsApp</div></div>
+        <div class="kpi-card"><div class="kpi-header"><div class="kpi-icon amber">❤️</div><span class="kpi-trend up">↑ 8%</span></div><div class="kpi-value">47</div><div class="kpi-label">Ajouts aux favoris</div></div>
+      </div>
+      <div class="flex gap-24" style="flex-wrap:wrap;">
+        <div class="dash-panel" style="flex:1;min-width:300px;">
+          <div class="panel-header"><span class="panel-title">📊 Trafic mensuel</span></div>
+          <div class="panel-body"><div id="traffic-chart"></div></div>
+        </div>
+        <div class="dash-panel" style="flex:1;min-width:300px;">
+          <div class="panel-header"><span class="panel-title">🌍 Sources de trafic</span></div>
+          <div class="panel-body">
+            <div style="display:flex;flex-direction:column;gap:12px;">
+              <div><div style="display:flex;justify-content:space-between;font-size:.85rem;margin-bottom:6px;"><span>Recherche Raktakk</span><strong>45%</strong></div><div class="progress-bar"><div class="progress-fill" style="width:45%;"></div></div></div>
+              <div><div style="display:flex;justify-content:space-between;font-size:.85rem;margin-bottom:6px;"><span>WhatsApp</span><strong>28%</strong></div><div class="progress-bar"><div class="progress-fill" style="width:28%;background:var(--brand-teal);"></div></div></div>
+              <div><div style="display:flex;justify-content:space-between;font-size:.85rem;margin-bottom:6px;"><span>Facebook</span><strong>15%</strong></div><div class="progress-bar"><div class="progress-fill" style="width:15%;background:var(--brand-blue);"></div></div></div>
+              <div><div style="display:flex;justify-content:space-between;font-size:.85rem;margin-bottom:6px;"><span>Google</span><strong>12%</strong></div><div class="progress-bar"><div class="progress-fill" style="width:12%;background:var(--brand-accent);"></div></div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── PAGE: PROFILE ──────────────────────────────────── -->
+    <div class="dash-page" id="profile">
+      <h2 style="font-family:var(--font-display);font-size:1.4rem;font-weight:800;margin-bottom:24px;">Mon profil public</h2>
+      <div class="profile-card">
+        <div class="profile-banner" style="background:linear-gradient(135deg,var(--brand-secondary),#1a3a5c);"></div>
+        <div class="profile-body">
+          <div class="profile-avatar-wrap">
+            <div class="profile-avatar">🏢</div>
+            <button class="btn btn-secondary btn-sm" onclick="showToast('Upload disponible avec le plan Pro','info')">Modifier la bannière</button>
+          </div>
+          <div class="profile-name">Dakar Digital Studio</div>
+          <div class="profile-meta">📍 Dakar, Sénégal · Marketing Digital</div>
+          <div class="profile-badges">
+            <span class="badge badge-top">Top</span>
+            <span class="badge badge-verified">✓ Vérifié</span>
+            <span class="badge badge-pro">Business</span>
+          </div>
+        </div>
+      </div>
+      <div class="dash-panel">
+        <div class="panel-header"><span class="panel-title">✏️ Modifier le profil</span></div>
+        <div class="panel-body">
+          <div class="form-row">
+            <div class="form-group"><label class="form-label">Nom de l'entreprise</label><input class="form-input" value="Dakar Digital Studio" /></div>
+            <div class="form-group"><label class="form-label">Catégorie</label><select class="form-select"><option selected>Marketing Digital</option></select></div>
+          </div>
+          <div class="form-group"><label class="form-label">Description</label><textarea class="form-input form-textarea">Agence marketing digitale spécialisée en stratégie web, SEO et réseaux sociaux pour les entreprises africaines.</textarea></div>
+          <div class="form-row">
+            <div class="form-group"><label class="form-label">Téléphone</label><input class="form-input" value="+221 77 123 45 67" /></div>
+            <div class="form-group"><label class="form-label">WhatsApp</label><input class="form-input" value="+221 77 123 45 67" /></div>
+          </div>
+          <div class="form-group"><label class="form-label">Email</label><input class="form-input" value="contact@dakardigital.sn" /></div>
+          <div style="display:flex;gap:10px;justify-content:flex-end;margin-top:8px;">
+            <button class="btn btn-secondary">Annuler</button>
+            <button class="btn btn-primary" onclick="showToast('Profil mis à jour !','success')">Sauvegarder</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── PAGE: SERVICES ─────────────────────────────────── -->
+    <div class="dash-page" id="services">
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:24px;">
+        <h2 style="font-family:var(--font-display);font-size:1.4rem;font-weight:800;">Mes services</h2>
+        <button class="btn btn-primary btn-sm" id="add-service-btn">+ Ajouter un service</button>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:14px;" id="my-services">
+        <div class="dash-panel" style="margin-bottom:0;"><div class="panel-body" style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;"><div><strong>SEO & Référencement</strong><div style="font-size:.82rem;color:var(--text-muted);margin-top:4px;">Optimisation pour les moteurs de recherche</div></div><div style="display:flex;align-items:center;gap:10px;"><span class="status status-active">Actif</span><span style="font-weight:700;color:var(--brand-primary);">150 000 FCFA</span><button class="btn btn-secondary btn-sm">Modifier</button><button class="btn btn-ghost btn-sm" style="color:#EF4444;" onclick="showToast('Service supprimé','warning')">✕</button></div></div></div>
+        <div class="dash-panel" style="margin-bottom:0;"><div class="panel-body" style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;"><div><strong>Community Management</strong><div style="font-size:.82rem;color:var(--text-muted);margin-top:4px;">Gestion Facebook, Instagram, LinkedIn</div></div><div style="display:flex;align-items:center;gap:10px;"><span class="status status-active">Actif</span><span style="font-weight:700;color:var(--brand-primary);">200 000 FCFA/mois</span><button class="btn btn-secondary btn-sm">Modifier</button><button class="btn btn-ghost btn-sm" style="color:#EF4444;" onclick="showToast('Service supprimé','warning')">✕</button></div></div></div>
+        <div class="dash-panel" style="margin-bottom:0;"><div class="panel-body" style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;"><div><strong>Publicité Facebook & Instagram</strong><div style="font-size:.82rem;color:var(--text-muted);margin-top:4px;">Campagnes publicitaires ciblées</div></div><div style="display:flex;align-items:center;gap:10px;"><span class="status status-active">Actif</span><span style="font-weight:700;color:var(--brand-primary);">Depuis 100 000 FCFA</span><button class="btn btn-secondary btn-sm">Modifier</button><button class="btn btn-ghost btn-sm" style="color:#EF4444;" onclick="showToast('Service supprimé','warning')">✕</button></div></div></div>
+      </div>
+    </div>
+
+    <!-- ── PAGE: REVIEWS ──────────────────────────────────── -->
+    <div class="dash-page" id="reviews">
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:24px;">
+        <div><h2 style="font-family:var(--font-display);font-size:1.4rem;font-weight:800;">Avis clients</h2><p style="color:var(--text-muted);font-size:.88rem;">127 avis · Moyenne 4.9★</p></div>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:14px;" id="my-reviews"></div>
+    </div>
+
+    <!-- ── PAGE: SUBSCRIPTION ──────────────────────────────── -->
+    <div class="dash-page" id="subscription">
+      <h2 style="font-family:var(--font-display);font-size:1.4rem;font-weight:800;margin-bottom:24px;">Mon abonnement</h2>
+      <div style="background:linear-gradient(135deg,var(--brand-secondary),#1a3a5c);border-radius:var(--radius-xl);padding:32px;margin-bottom:24px;position:relative;overflow:hidden;">
+        <div style="position:absolute;top:-20px;right:-20px;width:150px;height:150px;border-radius:50%;background:rgba(255,90,31,.08);"></div>
+        <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:20px;position:relative;">
+          <div>
+            <div style="font-size:.72rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:rgba(255,255,255,.4);margin-bottom:8px;">Plan actuel</div>
+            <h3 style="color:#fff;font-size:1.6rem;font-weight:800;margin-bottom:6px;">💼 Business</h3>
+            <p style="color:rgba(255,255,255,.6);font-size:.88rem;">Renouvellement le <strong style="color:#fff;">15 Février 2024</strong></p>
+          </div>
+          <div style="text-align:right;">
+            <div style="font-size:2rem;font-weight:800;font-family:var(--font-display);color:#fff;">79 900 <span style="font-size:1rem;font-weight:400;opacity:.6;">FCFA/mois</span></div>
+            <button class="btn btn-primary btn-sm" style="margin-top:8px;" onclick="showToast('Contactez-nous pour passer au plan Sponsorisé','info')">Passer au Sponsorisé</button>
+          </div>
+        </div>
+      </div>
+      <div class="pricing-grid" style="grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:16px;" id="plans-grid"></div>
+    </div>
+
+    <!-- ── PAGE: KYC ───────────────────────────────────────── -->
+    <div class="dash-page" id="kyc">
+      <h2 style="font-family:var(--font-display);font-size:1.4rem;font-weight:800;margin-bottom:8px;">Vérification KYC</h2>
+      <p style="color:var(--text-muted);margin-bottom:24px;">Complétez votre vérification pour obtenir le badge <span class="badge badge-verified">✓ Vérifié</span> et augmenter votre crédibilité.</p>
+      <div class="dash-panel">
+        <div class="panel-header"><span class="panel-title">🛡️ Statut de vérification — 3/5 étapes</span><div class="progress-bar" style="width:200px;"><div class="progress-fill" style="width:60%;"></div></div></div>
+        <div class="panel-body"><div class="kyc-steps" id="kyc-steps"></div></div>
+      </div>
+    </div>
+
+    <!-- ── PAGE: PAYMENTS ──────────────────────────────────── -->
+    <div class="dash-page" id="payments">
+      <h2 style="font-family:var(--font-display);font-size:1.4rem;font-weight:800;margin-bottom:24px;">Historique des paiements</h2>
+      <div class="dash-panel">
+        <div class="panel-header">
+          <span class="panel-title">💳 Transactions</span>
+          <button class="btn btn-secondary btn-sm" onclick="showToast('Export téléchargé!','success')">⬇ Exporter CSV</button>
+        </div>
+        <div class="panel-body" style="padding:0 24px;" id="payment-history"></div>
+      </div>
+    </div>
+
+    <!-- ── PAGE: SETTINGS ──────────────────────────────────── -->
+    <div class="dash-page" id="settings">
+      <h2 style="font-family:var(--font-display);font-size:1.4rem;font-weight:800;margin-bottom:24px;">Paramètres</h2>
+      <div class="dash-panel">
+        <div class="panel-header"><span class="panel-title">⚙️ Paramètres du compte</span></div>
+        <div class="panel-body">
+          <div class="form-row">
+            <div class="form-group"><label class="form-label">Prénom</label><input class="form-input" value="Cheikh" /></div>
+            <div class="form-group"><label class="form-label">Nom</label><input class="form-input" value="Abdoulaye Ba" /></div>
+          </div>
+          <div class="form-group"><label class="form-label">Email</label><input class="form-input" type="email" value="cheikh@dakardigital.sn" /></div>
+          <div class="form-group"><label class="form-label">Nouveau mot de passe</label><input class="form-input" type="password" placeholder="Laisser vide pour ne pas changer" /></div>
+          <div class="form-group"><label class="form-label" style="display:flex;align-items:center;justify-content:space-between;">Notifications email <label class="toggle-switch"><input type="checkbox" checked /><span class="toggle-slider"></span></label></label></div>
+          <div class="form-group"><label class="form-label" style="display:flex;align-items:center;justify-content:space-between;">Notifications WhatsApp <label class="toggle-switch"><input type="checkbox" checked /><span class="toggle-slider"></span></label></label></div>
+          <div class="form-group"><label class="form-label" style="display:flex;align-items:center;justify-content:space-between;">Profil visible publiquement <label class="toggle-switch"><input type="checkbox" checked /><span class="toggle-slider"></span></label></label></div>
+          <div style="display:flex;justify-content:flex-end;gap:10px;">
+            <button class="btn btn-secondary">Annuler</button>
+            <button class="btn btn-primary" onclick="showToast('Paramètres sauvegardés !','success')">Sauvegarder</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div><!-- /dash-content -->
+</main>
+</div><!-- /dash-layout -->
+
+<div class="toast-container"></div>
+
+<script src="assets/data/mock-data.js"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="assets/js/supabase-config.js"></script>
+<script src="assets/js/supabase-client.js"></script>
+<script src="assets/js/pro-core.js"></script>
+<script src="assets/js/dashboard-access.js"></script>
+<script src="assets/js/dashboard.js"></script>
+<script>
+// Additional vendor-specific logic
+
+// Leads preview table
+const tbody = document.getElementById('leads-preview-tbody');
+if (tbody && typeof RAKTAKK !== 'undefined') {
+  RAKTAKK.requests.slice(0, 5).forEach(l => {
+    tbody.innerHTML += `<tr>
+      <td><strong>${l.client}</strong></td>
+      <td style="max-width:200px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">${l.description}</td>
+      <td><strong style="color:var(--brand-primary);">${l.budget}</strong></td>
+      <td style="color:var(--text-muted);font-size:.78rem;">${new Date(l.date).toLocaleDateString('fr-FR')}</td>
+      <td><button class="btn btn-primary btn-sm" onclick="switchPage('leads')">Répondre</button></td>
+    </tr>`;
+  });
+}
+
+// Traffic chart
+function renderTrafficChart() {
+  const data = [
+    {label:'Jul',value:1240},{label:'Aoû',value:1890},{label:'Sep',value:1560},
+    {label:'Oct',value:2340},{label:'Nov',value:3100},{label:'Déc',value:4200},{label:'Jan',value:4800}
+  ];
+  const max = Math.max(...data.map(d => d.value));
+  const container = document.getElementById('traffic-chart');
+  if (!container) return;
+  container.innerHTML = `<div class="chart-container">${data.map(d => `<div class="chart-bar" data-val="${d.value.toLocaleString('fr-FR')}" style="height:${(d.value/max)*100}%;background:linear-gradient(180deg,var(--brand-blue),rgba(37,99,235,.3));"></div>`).join('')}</div><div class="chart-labels">${data.map(d => `<div class="chart-label">${d.label}</div>`).join('')}</div>`;
+}
+renderTrafficChart();
+
+// Reviews
+const myReviews = document.getElementById('my-reviews');
+if (myReviews && typeof RAKTAKK !== 'undefined') {
+  RAKTAKK.reviews.slice(0,5).forEach(r => {
+    myReviews.innerHTML += `<div class="dash-panel" style="margin-bottom:0;">
+      <div class="panel-body">
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;flex-wrap:wrap;gap:8px;">
+          <div style="display:flex;align-items:center;gap:10px;"><div class="review-avatar">👤</div><div><strong>${r.client}</strong><div style="font-size:.75rem;color:var(--text-muted);">${new Date(r.date).toLocaleDateString('fr-FR',{day:'numeric',month:'long',year:'numeric'})}</div></div></div>
+          <span style="color:#FFB547;">${'★'.repeat(r.rating)}</span>
+        </div>
+        <p style="font-size:.88rem;color:var(--text-secondary);line-height:1.6;">${r.comment}</p>
+        <button class="btn btn-secondary btn-sm" style="margin-top:12px;" onclick="showToast('Réponse envoyée!','success')">↩ Répondre</button>
+      </div>
+    </div>`;
+  });
+}
+
+// Plans grid
+const plansGrid = document.getElementById('plans-grid');
+if (plansGrid && typeof RAKTAKK !== 'undefined') {
+  RAKTAKK.plans.forEach(p => {
+    const isCurrentPlan = p.id === 'business';
+    plansGrid.innerHTML += `<div class="pricing-card ${p.highlighted ? 'highlighted' : ''}">
+      <div class="plan-name">${p.name}</div>
+      <div class="plan-price">${p.price === 0 ? 'Gratuit' : p.price.toLocaleString('fr-FR') + ' FCFA'}<small>/${p.period}</small></div>
+      <div class="plan-features" style="margin-top:16px;">
+        ${p.features.slice(0,4).map(f => `<div class="plan-feature"><div class="feature-icon">✓</div><span style="font-size:.8rem;">${f}</span></div>`).join('')}
+      </div>
+      <button class="btn ${isCurrentPlan ? 'btn-secondary' : 'btn-primary'} w-full btn-sm" style="margin-top:16px;" onclick="showToast('${isCurrentPlan ? 'Plan actuel' : 'Passage au plan ' + p.name + ' en cours...'}','${isCurrentPlan ? 'info' : 'success'}')">
+        ${isCurrentPlan ? '✓ Plan actuel' : p.cta}
+      </button>
+    </div>`;
+  });
+}
+
+function sendMsg() {
+  const inp = document.getElementById('msg-input');
+  const val = inp.value.trim();
+  if (!val) return;
+  const chat = document.getElementById('chat-area');
+  const div = document.createElement('div');
+  div.style.cssText = 'display:flex;justify-content:flex-end;animation:fadeInUp .3s ease;';
+  div.innerHTML = `<div style="background:var(--brand-primary);color:#fff;border-radius:16px 16px 4px 16px;padding:12px 16px;max-width:70%;font-size:.88rem;">${val}</div>`;
+  chat.appendChild(div);
+  inp.value = '';
+  chat.scrollTop = chat.scrollHeight;
+  setTimeout(() => {
+    const reply = document.createElement('div');
+    reply.style.cssText = 'display:flex;justify-content:flex-start;animation:fadeInUp .3s ease;';
+    reply.innerHTML = `<div style="background:var(--bg-subtle);border-radius:16px 16px 16px 4px;padding:12px 16px;max-width:70%;font-size:.88rem;">Merci pour votre message ! Je reviens vers vous rapidement. 🙏</div>`;
+    chat.appendChild(reply);
+    chat.scrollTop = chat.scrollHeight;
+  }, 1200);
+}
+
+// Mobile sidebar
+if (window.innerWidth < 768) {
+  document.querySelector('.sidebar-toggle')?.style && (document.querySelector('.sidebar-toggle').style.display = 'block');
+}
+window.addEventListener('resize', () => {
+  const btn = document.querySelector('.sidebar-toggle');
+  if (btn) btn.style.display = window.innerWidth < 768 ? 'block' : 'none';
+});
+</script>
+</body>
+</html>

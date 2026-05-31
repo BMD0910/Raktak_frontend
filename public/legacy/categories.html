@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Catégories — Raktakk</title>
+  <meta name="description" content="Explorez toutes les catégories de prestataires et d'entreprises disponibles sur Raktakk en Afrique de l'Ouest." />
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect fill='%23FF5A1F' width='100' height='100' rx='22'/><text y='.9em' font-size='70' x='12'>R</text></svg>" />
+  <link rel="stylesheet" href="assets/css/style.css" />
+  <style>
+    .categories-page { padding-top: var(--header-h); }
+    .categories-hero { background: var(--brand-secondary); padding: 60px 0; text-align: center; }
+    .cat-card {
+      background: var(--bg-white); border-radius: var(--radius-xl);
+      border: 1.5px solid var(--border-light); padding: 28px 20px;
+      text-align: center; cursor: pointer; transition: var(--transition);
+      text-decoration: none; display: block; color: inherit;
+    }
+    .cat-card:hover {
+      border-color: var(--brand-primary); transform: translateY(-4px);
+      box-shadow: 0 12px 40px rgba(255,90,31,.1);
+    }
+    .cat-icon-lg { font-size: 2.8rem; margin-bottom: 12px; display: block; }
+    .cat-name-lg { font-family: var(--font-display); font-weight: 700; font-size: 1rem; margin-bottom: 6px; }
+    .cat-count-lg { font-size: .82rem; color: var(--text-muted); }
+    .sub-tag {
+      display: inline-block; font-size: .72rem; padding: 3px 10px;
+      background: var(--bg-subtle); border-radius: var(--radius-full);
+      color: var(--text-secondary); margin: 2px;
+    }
+    .letter-nav { display: flex; justify-content: center; flex-wrap: wrap; gap: 6px; margin: 32px 0; }
+    .letter-btn { width: 36px; height: 36px; border-radius: 8px; border: 1.5px solid var(--border-light); background: var(--bg-white); cursor: pointer; font-weight: 700; font-size: .88rem; transition: var(--transition); display: flex; align-items: center; justify-content: center; }
+    .letter-btn:hover { border-color: var(--brand-primary); color: var(--brand-primary); }
+  </style>
+</head>
+<body>
+
+<header class="header">
+  <div class="container">
+    <div class="header-inner">
+      <a href="index.html" class="logo"><div class="logo-mark">R</div>Raktak<span>k</span></a>
+      <nav class="nav">
+        <a href="search.html">Rechercher</a>
+        <a href="categories.html" class="active">Catégories</a>
+        <a href="listing.html">Prestataires</a>
+        <a href="pricing.html">Tarifs</a>
+        <a href="contact.html">Contact</a>
+      </nav>
+      <div class="header-actions">
+        <a href="login.html" class="btn btn-ghost btn-sm">Connexion</a>
+        <a href="register-vendor.html" class="btn btn-primary btn-sm">Inscrire mon entreprise</a>
+      </div>
+      <button class="mobile-toggle"><span></span><span></span><span></span></button>
+    </div>
+  </div>
+</header>
+
+<div class="categories-page">
+  <div class="categories-hero">
+    <div class="container">
+      <span class="section-label" style="color:#FF8A5B;background:rgba(255,90,31,.15);">🗂️ Explorer</span>
+      <h1 style="color:#fff;font-size:2.2rem;font-weight:800;margin:12px 0 12px;">Toutes les catégories</h1>
+      <p style="color:rgba(255,255,255,.6);">18 secteurs d'activité · 3 420 prestataires vérifiés à travers l'Afrique de l'Ouest</p>
+      <div style="max-width:500px;margin:24px auto 0;display:flex;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.12);border-radius:var(--radius-full);padding:6px 6px 6px 20px;">
+        <input type="text" placeholder="Chercher une catégorie..." id="cat-search" style="flex:1;background:transparent;border:none;color:#fff;font-size:.95rem;" oninput="filterCats()" />
+        <button class="btn btn-primary btn-sm" style="border-radius:var(--radius-full);">Chercher</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="container" style="padding-top:48px;padding-bottom:80px;">
+    <!-- Stats bar -->
+    <div style="display:flex;gap:24px;flex-wrap:wrap;justify-content:center;margin-bottom:48px;padding:20px;background:var(--bg-white);border-radius:var(--radius-xl);border:1px solid var(--border-light);">
+      <div style="text-align:center;"><div style="font-family:var(--font-display);font-size:1.5rem;font-weight:800;">18</div><div style="font-size:.78rem;color:var(--text-muted);">Catégories</div></div>
+      <div style="width:1px;background:var(--border-light);"></div>
+      <div style="text-align:center;"><div style="font-family:var(--font-display);font-size:1.5rem;font-weight:800;">3 420</div><div style="font-size:.78rem;color:var(--text-muted);">Prestataires</div></div>
+      <div style="width:1px;background:var(--border-light);"></div>
+      <div style="text-align:center;"><div style="font-family:var(--font-display);font-size:1.5rem;font-weight:800;">8</div><div style="font-size:.78rem;color:var(--text-muted);">Pays couverts</div></div>
+      <div style="width:1px;background:var(--border-light);"></div>
+      <div style="text-align:center;"><div style="font-family:var(--font-display);font-size:1.5rem;font-weight:800;">89k</div><div style="font-size:.78rem;color:var(--text-muted);">Leads/mois</div></div>
+    </div>
+
+    <!-- Categories grid -->
+    <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:16px;" id="cats-grid"></div>
+
+    <!-- All subcategories reference -->
+    <div style="margin-top:60px;">
+      <h2 style="font-family:var(--font-display);font-size:1.3rem;font-weight:800;margin-bottom:24px;">Toutes les sous-catégories</h2>
+      <div id="sub-cats-list"></div>
+    </div>
+  </div>
+</div>
+
+<!-- Footer mini -->
+<footer style="background:var(--brand-secondary);padding:32px 0;">
+  <div class="container">
+    <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:16px;">
+      <a href="index.html" class="logo" style="color:#fff;"><div class="logo-mark">R</div>Raktak<span>k</span></a>
+      <p style="font-size:.82rem;color:rgba(255,255,255,.4);">© 2024 Raktakk</p>
+    </div>
+  </div>
+</footer>
+
+<script src="assets/data/mock-data.js"></script>
+<script>
+const subcats = {
+  'Marketing Digital': ['SEO','SEM','Réseaux sociaux','Email marketing','Content marketing','Google Ads','Facebook Ads','Stratégie digitale'],
+  'BTP & Construction': ['Maçonnerie','Électricité','Plomberie','Menuiserie','Carrelage','Peinture','Architecture','Génie civil'],
+  'Informatique & Tech': ['Développement web','Application mobile','Cloud','Cybersécurité','Data','IA & Machine Learning','Support IT','Réseau'],
+  'Restauration & Traiteur': ['Traiteur événements','Restauration rapide','Cuisine africaine','Livraison','Catering d\'entreprise','Pâtisserie','Boissons'],
+  'Automobile & Mécanique': ['Réparation auto','Vidange','Carrosserie','Pneus','Climatisation','Diagnostic','Pièces détachées'],
+  'Immobilier': ['Location','Vente','Gestion locative','Promotion immobilière','Expertise','Construction','Architecture intérieure'],
+  'Santé & Médecine': ['Médecin généraliste','Dentiste','Pharmacie','Kinésithérapie','Opticien','Laboratoire','Sage-femme'],
+  'Formation & Éducation': ['Cours particuliers','Formation professionnelle','Langues','Informatique','Coaching','MBA','Certifications'],
+  'Photographie & Vidéo': ['Mariage','Événements','Portrait','Publicité','Vidéo corporate','Drone','Montage vidéo'],
+  'Événementiel': ['Organisation mariage','Baptême','Anniversaire','Conférence','Concert','DJ','Décoration','Tente & mobilier'],
+  'Mode & Couture': ['Couture sur mesure','Prêt-à-porter','Broderie','Teinture','Accessoires','Mode africaine','Design textile'],
+  'Agriculture': ['Maraîchage','Élevage','Irrigation','Intrants agricoles','Agro-transformation','Exportation','Conseil agricole'],
+  'Transport & Logistique': ['Transport de marchandises','Déménagement','Livraison locale','Logistique import/export','Location véhicule'],
+  'Beauté & Bien-être': ['Coiffure','Maquillage','Massage','Esthétique','Spa','Soins du visage','Manucure'],
+  'Énergie & Solaire': ['Panneaux solaires','Installation électrique','Groupe électrogène','Éclairage LED','Maintenance'],
+  'Finance & Comptabilité': ['Comptabilité','Audit','Fiscalité','Micro-finance','Assurance','Conseil financier'],
+  'Juridique & Notariat': ['Avocat','Notaire','Huissier','Conseil juridique','Droit des affaires','Propriété intellectuelle'],
+  'Électronique & High-Tech': ['Réparation téléphone','Vente électronique','Domotique','Alarme & sécurité','Imprimante & bureau'],
+};
+
+let allCats = [];
+
+function initCats() {
+  if (typeof RAKTAKK === 'undefined') return;
+  allCats = RAKTAKK.categories;
+  renderCats(allCats);
+  renderSubcats();
+}
+
+function renderCats(cats) {
+  const grid = document.getElementById('cats-grid');
+  grid.innerHTML = cats.map(c => `
+    <a href="search.html?cat=${encodeURIComponent(c.name)}" class="cat-card">
+      <span class="cat-icon-lg">${c.icon}</span>
+      <div class="cat-name-lg">${c.name}</div>
+      <div class="cat-count-lg">${c.count} prestataires</div>
+      <div style="margin-top:10px;display:flex;flex-wrap:wrap;justify-content:center;gap:2px;">
+        ${(subcats[c.name] || []).slice(0,3).map(s => `<span class="sub-tag">${s}</span>`).join('')}
+      </div>
+    </a>`).join('');
+}
+
+function renderSubcats() {
+  const list = document.getElementById('sub-cats-list');
+  list.innerHTML = Object.entries(subcats).map(([cat, subs]) => `
+    <div style="margin-bottom:32px;">
+      <div style="display:flex;align-items:center;gap:12px;margin-bottom:12px;">
+        <a href="search.html?cat=${encodeURIComponent(cat)}" style="font-weight:700;font-size:.95rem;color:var(--brand-primary);">${cat}</a>
+        <span style="font-size:.75rem;color:var(--text-muted);">(${(RAKTAKK?.categories.find(c=>c.name===cat)?.count||0)} prestataires)</span>
+      </div>
+      <div style="display:flex;flex-wrap:wrap;gap:8px;">
+        ${subs.map(s => `<a href="search.html?q=${encodeURIComponent(s)}" style="display:inline-block;padding:6px 16px;background:var(--bg-white);border:1.5px solid var(--border-light);border-radius:var(--radius-full);font-size:.82rem;color:var(--text-secondary);text-decoration:none;transition:all .2s;" onmouseover="this.style.borderColor='var(--brand-primary)';this.style.color='var(--brand-primary)'" onmouseout="this.style.borderColor='var(--border-light)';this.style.color='var(--text-secondary)'">${s}</a>`).join('')}
+      </div>
+    </div>`).join('');
+}
+
+function filterCats() {
+  const q = document.getElementById('cat-search').value.toLowerCase();
+  if (!q) { renderCats(allCats); return; }
+  renderCats(allCats.filter(c => c.name.toLowerCase().includes(q)));
+}
+
+window.addEventListener('scroll', () => document.querySelector('.header')?.classList.toggle('scrolled', scrollY > 20));
+document.querySelector('.mobile-toggle')?.addEventListener('click', () => document.querySelector('.nav')?.classList.toggle('open'));
+
+initCats();
+</script>
+</body>
+</html>

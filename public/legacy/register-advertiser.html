@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Créer un compte annonceur — Raktakk</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect fill='%23FF5A1F' width='100' height='100' rx='22'/><text y='.9em' font-size='70' x='12'>R</text></svg>" />
+  <link rel="stylesheet" href="assets/css/style.css" />
+  <style>
+    body { background: var(--bg-base); min-height: 100vh; display: flex; flex-direction: column; }
+    .reg-wrapper { flex: 1; padding: 100px 20px 60px; }
+    .reg-card { background: var(--bg-white); border-radius: var(--radius-xl); border: 1px solid var(--border-light); padding: 48px 40px; width: 100%; max-width: 640px; margin: 0 auto; box-shadow: var(--shadow-xl); }
+    .format-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; }
+    .format-card { border: 2px solid var(--border-light); border-radius: var(--radius-lg); padding: 16px; cursor: pointer; transition: var(--transition); }
+    .format-card:hover, .format-card.selected { border-color: var(--brand-primary); background: rgba(255,90,31,.04); }
+    .format-card input { position: absolute; opacity: 0; }
+  </style>
+</head>
+<body>
+
+<header class="header" style="position:fixed;top:0;left:0;right:0;z-index:100;">
+  <div class="container">
+    <div class="header-inner">
+      <a href="index.html" class="logo"><div class="logo-mark">R</div>Raktak<span>k</span></a>
+      <div class="header-actions">
+        <a href="login.html" class="btn btn-ghost btn-sm">Connexion</a>
+      </div>
+    </div>
+  </div>
+</header>
+
+<div class="reg-wrapper">
+  <div class="reg-card">
+    <div style="text-align:center;margin-bottom:32px;">
+      <div style="font-size:2.5rem;margin-bottom:8px;">📢</div>
+      <h1 style="font-size:1.4rem;font-weight:800;margin-bottom:6px;">Créer un compte annonceur</h1>
+      <p style="color:var(--text-muted);font-size:.88rem;">Atteignez des milliers de clients qualifiés en Afrique de l'Ouest.</p>
+    </div>
+
+    <!-- Stats trust bar -->
+    <div style="display:flex;gap:16px;justify-content:center;flex-wrap:wrap;margin-bottom:28px;padding:16px;background:var(--bg-subtle);border-radius:var(--radius-lg);">
+      <div style="text-align:center;"><div style="font-weight:800;color:var(--brand-primary);">987k</div><div style="font-size:.72rem;color:var(--text-muted);">Impressions/mois</div></div>
+      <div style="text-align:center;"><div style="font-weight:800;color:var(--brand-primary);">48k</div><div style="font-size:.72rem;color:var(--text-muted);">Utilisateurs actifs</div></div>
+      <div style="text-align:center;"><div style="font-weight:800;color:var(--brand-primary);">8</div><div style="font-size:.72rem;color:var(--text-muted);">Pays</div></div>
+      <div style="text-align:center;"><div style="font-weight:800;color:var(--brand-primary);">6.4%</div><div style="font-size:.72rem;color:var(--text-muted);">CTR moyen</div></div>
+    </div>
+
+    <div id="form-content">
+      <h3 style="font-weight:700;margin-bottom:20px;">Informations de votre organisation</h3>
+      <div class="form-row">
+        <div class="form-group">
+          <label class="form-label">Nom de l'organisation <span>*</span></label>
+          <input class="form-input" type="text" placeholder="ex: Orange Sénégal" required />
+        </div>
+        <div class="form-group">
+          <label class="form-label">Secteur d'activité</label>
+          <select class="form-select">
+            <option>Télécommunications</option><option>Banque & Finance</option>
+            <option>Commerce</option><option>Industrie</option><option>Services</option>
+            <option>Autre</option>
+          </select>
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label class="form-label">Prénom contact <span>*</span></label>
+          <input class="form-input" type="text" placeholder="Prénom" required />
+        </div>
+        <div class="form-group">
+          <label class="form-label">Nom contact <span>*</span></label>
+          <input class="form-input" type="text" placeholder="Nom" required />
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label class="form-label">Email <span>*</span></label>
+          <input class="form-input" type="email" placeholder="marketing@société.com" required />
+        </div>
+        <div class="form-group">
+          <label class="form-label">Téléphone</label>
+          <input class="form-input" type="tel" placeholder="+221 33 000 00 00" />
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Budget mensuel estimé</label>
+        <select class="form-select">
+          <option>Moins de 100 000 FCFA</option>
+          <option>100 000 – 500 000 FCFA</option>
+          <option selected>500 000 – 2 000 000 FCFA</option>
+          <option>Plus de 2 000 000 FCFA</option>
+          <option>Sur mesure — nous contacter</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label class="form-label">Format publicitaire préféré</label>
+        <div class="format-grid">
+          <div class="format-card selected" onclick="selectFormat(this)">
+            <input type="radio" name="format" value="banner" />
+            <div style="font-size:1.4rem;margin-bottom:6px;">🖼️</div>
+            <div style="font-weight:700;font-size:.88rem;">Bannière homepage</div>
+            <div style="font-size:.75rem;color:var(--text-muted);">Visibilité maximale</div>
+          </div>
+          <div class="format-card" onclick="selectFormat(this)">
+            <input type="radio" name="format" value="sponsored" />
+            <div style="font-size:1.4rem;margin-bottom:6px;">⭐</div>
+            <div style="font-weight:700;font-size:.88rem;">Résultat sponsorisé</div>
+            <div style="font-size:.75rem;color:var(--text-muted);">Dans les recherches</div>
+          </div>
+          <div class="format-card" onclick="selectFormat(this)">
+            <input type="radio" name="format" value="newsletter" />
+            <div style="font-size:1.4rem;margin-bottom:6px;">📧</div>
+            <div style="font-weight:700;font-size:.88rem;">Newsletter</div>
+            <div style="font-size:.75rem;color:var(--text-muted);">Email ciblé</div>
+          </div>
+          <div class="format-card" onclick="selectFormat(this)">
+            <input type="radio" name="format" value="whatsapp" />
+            <div style="font-size:1.4rem;margin-bottom:6px;">💬</div>
+            <div style="font-weight:700;font-size:.88rem;">WhatsApp Blast</div>
+            <div style="font-size:.75rem;color:var(--text-muted);">Envoi ciblé</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label class="form-label">Mot de passe <span>*</span></label>
+          <input class="form-input" type="password" placeholder="••••••••" required />
+        </div>
+        <div class="form-group">
+          <label class="form-label">Confirmer <span>*</span></label>
+          <input class="form-input" type="password" placeholder="Confirmer..." required />
+        </div>
+      </div>
+
+      <div style="display:flex;align-items:center;gap:8px;margin-bottom:24px;">
+        <input type="checkbox" id="tos-adv" style="accent-color:var(--brand-primary);width:16px;height:16px;" />
+        <label for="tos-adv" style="font-size:.82rem;color:var(--text-secondary);cursor:pointer;">J'accepte les <a href="terms.html" style="color:var(--brand-primary);">CGU</a> et la <a href="privacy.html" style="color:var(--brand-primary);">Politique de confidentialité</a></label>
+      </div>
+
+      <button class="btn btn-primary w-full btn-lg" onclick="submitAdv()">
+        Créer mon compte annonceur →
+      </button>
+    </div>
+
+    <!-- Success -->
+    <div id="success-content" style="display:none;text-align:center;padding:20px 0;">
+      <div style="font-size:3rem;margin-bottom:16px;">🎉</div>
+      <h2 style="font-size:1.3rem;font-weight:800;margin-bottom:8px;">Compte créé avec succès !</h2>
+      <p style="color:var(--text-muted);margin-bottom:28px;">Notre équipe vous contactera dans les 24 heures pour configurer votre première campagne.</p>
+      <a href="dashboard-advertiser.html" class="btn btn-primary btn-lg">Accéder à mon dashboard →</a>
+    </div>
+
+    <p style="text-align:center;font-size:.78rem;color:var(--text-muted);margin-top:20px;">
+      Déjà inscrit ? <a href="login.html" style="color:var(--brand-primary);">Se connecter</a>
+    </p>
+  </div>
+</div>
+
+<div class="toast-container"></div>
+
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="assets/js/supabase-config.js"></script>
+<script src="assets/js/supabase-client.js"></script>
+<script src="assets/js/pro-core.js"></script>
+<script src="assets/js/pro-auth.js"></script>
+</body>
+</html>

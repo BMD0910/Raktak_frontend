@@ -1,0 +1,476 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Raktakk — Trouvez le bon prestataire en Afrique de l'Ouest</title>
+  <meta name="description" content="Raktakk connecte clients, prestataires et entreprises en Afrique de l'Ouest. Trouvez rapidement un professionnel vérifié près de vous — Dakar, Abidjan, Bamako et bien plus." />
+  <meta property="og:title" content="Raktakk — Marketplace professionnelle en Afrique" />
+  <meta property="og:description" content="Trouvez. Connectez. Grandissez. La plateforme de mise en relation #1 en Afrique de l'Ouest." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://raktakk.com" />
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect fill='%23FF5A1F' width='100' height='100' rx='22'/><text y='.9em' font-size='70' x='12'>R</text></svg>" />
+  <link rel="stylesheet" href="assets/css/style.css" />
+</head>
+<body>
+
+<!-- ── HEADER ─────────────────────────────────────────────── -->
+<header class="header" id="header">
+  <div class="container">
+    <div class="header-inner">
+      <a href="index.html" class="logo">
+        <div class="logo-mark">R</div>
+        Raktak<span>k</span>
+      </a>
+      <nav class="nav" aria-label="Navigation principale">
+        <a href="search.html">Rechercher</a>
+        <a href="categories.html">Catégories</a>
+        <a href="listing.html">Prestataires</a>
+        <a href="pricing.html">Tarifs</a>
+        <a href="contact.html">Contact</a>
+      </nav>
+      <div class="header-actions">
+        <a href="login.html" class="btn btn-ghost btn-sm">Connexion</a>
+        <a href="register-vendor.html" class="btn btn-primary btn-sm">Inscrire mon entreprise</a>
+      </div>
+      <button class="mobile-toggle" aria-label="Menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>
+  <nav class="mobile-menu" aria-label="Menu mobile">
+    <a href="search.html">🔍 Rechercher</a>
+    <a href="categories.html">🗂️ Catégories</a>
+    <a href="listing.html">🏢 Prestataires</a>
+    <a href="pricing.html">💰 Tarifs</a>
+    <a href="contact.html">📧 Contact</a>
+    <div style="padding:16px 0;display:flex;flex-direction:column;gap:10px;margin-top:8px;">
+      <a href="login.html" class="btn btn-secondary">Se connecter</a>
+      <a href="register-vendor.html" class="btn btn-primary">Inscrire mon entreprise</a>
+    </div>
+  </nav>
+</header>
+
+<!-- ── HERO ───────────────────────────────────────────────── -->
+<section class="hero" aria-label="Bannière principale">
+  <div class="hero-bg-pattern"></div>
+  <div class="hero-grid"></div>
+  <div class="container" style="width:100%;">
+    <div class="hero-content">
+      <div class="hero-badge">
+        🌍 &nbsp; La plateforme business #1 en Afrique de l'Ouest
+      </div>
+      <h1 class="display-xl">
+        Trouvez le bon <em>prestataire</em><br>proche de vous, maintenant
+      </h1>
+      <p>Raktakk connecte instantanément des milliers de clients avec les meilleurs vendeurs, entreprises et professionnels vérifiés de toute l'Afrique de l'Ouest.</p>
+
+      <!-- Search Bar -->
+      <div class="search-bar" role="search">
+        <span style="font-size:1.1rem;color:rgba(255,255,255,.5);">🔍</span>
+        <input type="text" class="hero-search-input" placeholder="Chercher un service, une entreprise..." aria-label="Recherche" />
+        <div class="search-divider"></div>
+        <select class="search-select" aria-label="Ville">
+          <option value="">Toutes les villes</option>
+          <option>Dakar</option>
+          <option>Abidjan</option>
+          <option>Bamako</option>
+          <option>Lomé</option>
+          <option>Cotonou</option>
+          <option>Conakry</option>
+          <option>Thiès</option>
+          <option>Saint-Louis</option>
+        </select>
+        <button class="btn btn-primary" data-search-btn style="flex-shrink:0;">Chercher</button>
+      </div>
+
+      <div style="display:flex;flex-wrap:wrap;gap:10px;justify-content:center;margin-bottom:48px;">
+        <span style="font-size:.8rem;color:rgba(255,255,255,.5);">Populaire :</span>
+        <a href="search.html?q=marketing" style="font-size:.8rem;color:rgba(255,255,255,.65);padding:4px 12px;background:rgba(255,255,255,.06);border-radius:20px;border:1px solid rgba(255,255,255,.1);">Marketing Digital</a>
+        <a href="search.html?q=btp" style="font-size:.8rem;color:rgba(255,255,255,.65);padding:4px 12px;background:rgba(255,255,255,.06);border-radius:20px;border:1px solid rgba(255,255,255,.1);">BTP</a>
+        <a href="search.html?q=informatique" style="font-size:.8rem;color:rgba(255,255,255,.65);padding:4px 12px;background:rgba(255,255,255,.06);border-radius:20px;border:1px solid rgba(255,255,255,.1);">Informatique</a>
+        <a href="search.html?q=traiteur" style="font-size:.8rem;color:rgba(255,255,255,.65);padding:4px 12px;background:rgba(255,255,255,.06);border-radius:20px;border:1px solid rgba(255,255,255,.1);">Traiteur</a>
+        <a href="search.html?q=immobilier" style="font-size:.8rem;color:rgba(255,255,255,.65);padding:4px 12px;background:rgba(255,255,255,.06);border-radius:20px;border:1px solid rgba(255,255,255,.1);">Immobilier</a>
+      </div>
+
+      <!-- Stats -->
+      <div class="hero-stats">
+        <div class="hero-stat">
+          <span class="num"><span data-target="48234" data-suffix="">48 234</span></span>
+          <div class="label">Utilisateurs actifs</div>
+        </div>
+        <div class="hero-stat">
+          <span class="num"><span data-target="3420" data-suffix="">3 420</span></span>
+          <div class="label">Prestataires vérifiés</div>
+        </div>
+        <div class="hero-stat">
+          <span class="num"><span data-target="89450" data-suffix="">89 450</span></span>
+          <div class="label">Leads générés</div>
+        </div>
+        <div class="hero-stat">
+          <span class="num"><span data-target="4.7" data-suffix="★">4.7★</span></span>
+          <div class="label">Note moyenne</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── SPONSOR BANNER ──────────────────────────────────────── -->
+<div class="container" style="margin-top:40px;">
+  <div class="sponsor-banner">
+    <div>
+      <p style="font-size:.72rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:rgba(255,255,255,.4);margin-bottom:10px;">Annonce sponsorisée</p>
+      <h3 style="color:#fff;font-size:1.3rem;font-family:var(--font-display);margin-bottom:8px;">Orange Money Pro — Encaissez en ligne en 5 minutes</h3>
+      <p style="color:rgba(255,255,255,.6);font-size:.9rem;margin-bottom:16px;">Solution de paiement mobile pour votre business. 0% commission les 3 premiers mois.</p>
+      <a href="login.html" class="btn btn-primary btn-sm">Découvrir l'offre →</a>
+    </div>
+    <div style="text-align:center;">
+      <span style="font-size:5rem;">🟠</span>
+    </div>
+  </div>
+</div>
+
+<!-- ── CATEGORIES ──────────────────────────────────────────── -->
+<section aria-labelledby="categories-title">
+  <div class="container">
+    <div class="section-header text-center">
+      <span class="section-label">📂 Explorer</span>
+      <h2 class="display-sm" id="categories-title">Toutes les catégories</h2>
+      <p class="text-muted" style="max-width:520px;margin:0 auto;">Trouvez exactement le type de prestataire dont vous avez besoin parmi nos 18 secteurs d'activité.</p>
+    </div>
+    <div class="cat-grid" id="categories-grid">
+      <!-- Rendered by JS -->
+      <a href="search.html?cat=Marketing+Digital" class="cat-card"><span class="cat-icon">🚀</span><div class="cat-name">Marketing Digital</div><div class="cat-count">234 prestataires</div></a>
+      <a href="search.html?cat=BTP" class="cat-card"><span class="cat-icon">🏗️</span><div class="cat-name">BTP & Construction</div><div class="cat-count">187 prestataires</div></a>
+      <a href="search.html?cat=Informatique" class="cat-card"><span class="cat-icon">💻</span><div class="cat-name">Informatique & Tech</div><div class="cat-count">312 prestataires</div></a>
+      <a href="search.html?cat=Restauration" class="cat-card"><span class="cat-icon">🍽️</span><div class="cat-name">Restauration</div><div class="cat-count">156 prestataires</div></a>
+      <a href="search.html?cat=Immobilier" class="cat-card"><span class="cat-icon">🏠</span><div class="cat-name">Immobilier</div><div class="cat-count">143 prestataires</div></a>
+      <a href="search.html?cat=Sante" class="cat-card"><span class="cat-icon">🏥</span><div class="cat-name">Santé & Médecine</div><div class="cat-count">89 prestataires</div></a>
+      <a href="search.html?cat=Formation" class="cat-card"><span class="cat-icon">🎓</span><div class="cat-name">Formation</div><div class="cat-count">201 prestataires</div></a>
+      <a href="search.html?cat=Evenementiel" class="cat-card"><span class="cat-icon">🎉</span><div class="cat-name">Événementiel</div><div class="cat-count">134 prestataires</div></a>
+      <a href="search.html?cat=Mode" class="cat-card"><span class="cat-icon">👗</span><div class="cat-name">Mode & Couture</div><div class="cat-count">112 prestataires</div></a>
+      <a href="search.html?cat=Transport" class="cat-card"><span class="cat-icon">🚚</span><div class="cat-name">Transport</div><div class="cat-count">89 prestataires</div></a>
+      <a href="search.html?cat=Beaute" class="cat-card"><span class="cat-icon">💅</span><div class="cat-name">Beauté & Bien-être</div><div class="cat-count">178 prestataires</div></a>
+      <a href="categories.html" class="cat-card" style="background:var(--brand-primary);border-color:transparent;"><span class="cat-icon" style="filter:brightness(10);">➕</span><div class="cat-name" style="color:#fff;">Voir tout</div><div class="cat-count" style="color:rgba(255,255,255,.7);">18 catégories</div></a>
+    </div>
+  </div>
+</section>
+
+<!-- ── HOW IT WORKS ────────────────────────────────────────── -->
+<section style="background:var(--bg-white);" aria-labelledby="how-title">
+  <div class="container">
+    <div class="section-header text-center">
+      <span class="section-label">💡 Simple & rapide</span>
+      <h2 class="display-sm" id="how-title">Comment ça marche ?</h2>
+      <p class="text-muted">En 3 étapes, trouvez le bon prestataire et développez votre activité.</p>
+    </div>
+    <div class="steps-grid">
+      <div class="step-card animate-scroll">
+        <div class="step-num">1</div>
+        <h3 class="step-title">Décrivez votre besoin</h3>
+        <p class="step-desc">Publiez votre demande gratuitement en 2 minutes. Précisez votre budget, votre ville et vos critères. Aucune inscription requise pour chercher.</p>
+      </div>
+      <div class="step-card animate-scroll" style="animation-delay:.1s">
+        <div class="step-num">2</div>
+        <h3 class="step-title">Recevez des offres</h3>
+        <p class="step-desc">Les meilleurs prestataires de votre région vous contactent directement via la messagerie Raktakk ou WhatsApp. Comparez et choisissez sereinement.</p>
+      </div>
+      <div class="step-card animate-scroll" style="animation-delay:.2s">
+        <div class="step-num">3</div>
+        <h3 class="step-title">Travaillez en confiance</h3>
+        <p class="step-desc">Tous les profils sont vérifiés. Consultez les avis, notez votre prestataire après la mission. 96,8% de clients satisfaits.</p>
+      </div>
+    </div>
+    <div style="text-align:center;margin-top:40px;">
+      <a href="register-client.html" class="btn btn-primary btn-lg">Publier ma demande gratuitement →</a>
+    </div>
+  </div>
+</section>
+
+<!-- ── TOP VENDORS ─────────────────────────────────────────── -->
+<section aria-labelledby="vendors-title">
+  <div class="container">
+    <div class="section-header flex justify-between items-center" style="flex-wrap:wrap;gap:16px;">
+      <div>
+        <span class="section-label">⭐ Sélection premium</span>
+        <h2 class="display-sm" id="vendors-title" style="margin-top:8px;">Top prestataires du moment</h2>
+      </div>
+      <a href="listing.html" class="btn btn-secondary">Voir tous →</a>
+    </div>
+    <div class="grid grid-3 gap-24" id="vendors-grid" style="grid-template-columns:repeat(auto-fill,minmax(280px,1fr));">
+      <!-- Rendered by JS -->
+    </div>
+  </div>
+</section>
+
+<!-- ── STATS ───────────────────────────────────────────────── -->
+<section class="stats-section" aria-labelledby="stats-title">
+  <div class="container">
+    <div class="section-header text-center" style="margin-bottom:56px;">
+      <span class="section-label" style="color:#FF8A5B;background:rgba(255,90,31,0.15);">📊 Impact réel</span>
+      <h2 class="display-sm" id="stats-title" style="color:#fff;margin-top:12px;">Raktakk en chiffres</h2>
+    </div>
+    <div class="stats-grid">
+      <div class="stat-item animate-scroll">
+        <div class="stat-value"><em data-target="48234">48 234</em></div>
+        <div class="stat-label">Utilisateurs inscrits</div>
+      </div>
+      <div class="stat-item animate-scroll">
+        <div class="stat-value"><em data-target="3420">3 420</em></div>
+        <div class="stat-label">Prestataires vérifiés</div>
+      </div>
+      <div class="stat-item animate-scroll">
+        <div class="stat-value"><em data-target="89450">89 450</em></div>
+        <div class="stat-label">Leads générés</div>
+      </div>
+      <div class="stat-item animate-scroll">
+        <div class="stat-value"><em data-target="8">8</em></div>
+        <div class="stat-label">Pays couverts</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── TOP CITIES ─────────────────────────────────────────── -->
+<section aria-labelledby="cities-title">
+  <div class="container">
+    <div class="section-header text-center">
+      <span class="section-label">📍 Couverture</span>
+      <h2 class="display-sm" id="cities-title">Top villes actives</h2>
+      <p class="text-muted">Présents dans les principales métropoles d'Afrique de l'Ouest.</p>
+    </div>
+    <div class="cities-grid" id="cities-grid">
+      <!-- Rendered by JS -->
+    </div>
+  </div>
+</section>
+
+<!-- ── TRENDS ──────────────────────────────────────────────── -->
+<section style="background:var(--bg-white);">
+  <div class="container">
+    <div class="flex gap-40" style="flex-wrap:wrap;">
+      <!-- Trending Categories -->
+      <div style="flex:1;min-width:280px;">
+        <span class="section-label">🔥 Tendances</span>
+        <h2 class="display-sm" style="margin:12px 0 28px;">Ce qui buzze en ce moment</h2>
+        <div>
+          <div class="trend-item">
+            <div class="trend-rank">1</div>
+            <div class="trend-info"><div class="trend-name">Marketing des réseaux sociaux</div><div class="trend-meta">+128 nouvelles demandes cette semaine</div></div>
+            <div class="trend-growth">↑ 34%</div>
+          </div>
+          <div class="trend-item">
+            <div class="trend-rank">2</div>
+            <div class="trend-info"><div class="trend-name">Développement d'applications mobile</div><div class="trend-meta">+97 nouvelles demandes cette semaine</div></div>
+            <div class="trend-growth">↑ 28%</div>
+          </div>
+          <div class="trend-item">
+            <div class="trend-rank">3</div>
+            <div class="trend-info"><div class="trend-name">Construction résidentielle</div><div class="trend-meta">+85 nouvelles demandes cette semaine</div></div>
+            <div class="trend-growth">↑ 22%</div>
+          </div>
+          <div class="trend-item">
+            <div class="trend-rank">4</div>
+            <div class="trend-info"><div class="trend-name">Organisation de mariages</div><div class="trend-meta">+73 nouvelles demandes cette semaine</div></div>
+            <div class="trend-growth">↑ 19%</div>
+          </div>
+          <div class="trend-item">
+            <div class="trend-rank">5</div>
+            <div class="trend-info"><div class="trend-name">Installation panneaux solaires</div><div class="trend-meta">+61 nouvelles demandes cette semaine</div></div>
+            <div class="trend-growth">↑ 45%</div>
+          </div>
+        </div>
+      </div>
+      <!-- Why Raktakk -->
+      <div style="flex:1;min-width:280px;">
+        <span class="section-label">✅ Pourquoi nous choisir</span>
+        <h2 class="display-sm" style="margin:12px 0 28px;">Raktakk, la différence</h2>
+        <div style="display:flex;flex-direction:column;gap:16px;">
+          <div style="display:flex;gap:16px;align-items:flex-start;">
+            <div style="width:48px;height:48px;border-radius:14px;background:rgba(255,90,31,.08);display:flex;align-items:center;justify-content:center;font-size:1.4rem;flex-shrink:0;">🛡️</div>
+            <div><h4 style="font-weight:700;margin-bottom:4px;">Prestataires 100% vérifiés</h4><p style="font-size:.88rem;color:var(--text-muted);line-height:1.5;">Chaque profil est contrôlé par notre équipe. Documents, identité et références vérifiés.</p></div>
+          </div>
+          <div style="display:flex;gap:16px;align-items:flex-start;">
+            <div style="width:48px;height:48px;border-radius:14px;background:rgba(0,201,167,.08);display:flex;align-items:center;justify-content:center;font-size:1.4rem;flex-shrink:0;">⚡</div>
+            <div><h4 style="font-weight:700;margin-bottom:4px;">Réponse en moins de 2h</h4><p style="font-size:.88rem;color:var(--text-muted);line-height:1.5;">Les prestataires reçoivent vos demandes en temps réel et répondent rapidement.</p></div>
+          </div>
+          <div style="display:flex;gap:16px;align-items:flex-start;">
+            <div style="width:48px;height:48px;border-radius:14px;background:rgba(37,99,235,.08);display:flex;align-items:center;justify-content:center;font-size:1.4rem;flex-shrink:0;">💬</div>
+            <div><h4 style="font-weight:700;margin-bottom:4px;">Messagerie intégrée + WhatsApp</h4><p style="font-size:.88rem;color:var(--text-muted);line-height:1.5;">Communiquez directement via notre plateforme ou sur WhatsApp en un clic.</p></div>
+          </div>
+          <div style="display:flex;gap:16px;align-items:flex-start;">
+            <div style="width:48px;height:48px;border-radius:14px;background:rgba(255,181,71,.08);display:flex;align-items:center;justify-content:center;font-size:1.4rem;flex-shrink:0;">⭐</div>
+            <div><h4 style="font-weight:700;margin-bottom:4px;">Système d'avis transparent</h4><p style="font-size:.88rem;color:var(--text-muted);line-height:1.5;">Consultez les avis réels des clients précédents avant de faire votre choix.</p></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── REVIEWS ─────────────────────────────────────────────── -->
+<section aria-labelledby="reviews-title">
+  <div class="container">
+    <div class="section-header text-center">
+      <span class="section-label">❤️ Ils nous font confiance</span>
+      <h2 class="display-sm" id="reviews-title">Ce que disent nos utilisateurs</h2>
+    </div>
+    <div class="reviews-grid">
+      <div class="review-card animate-scroll">
+        <div class="review-stars">★★★★★</div>
+        <p class="review-text">"Raktakk a transformé mon business. En 3 mois, j'ai reçu plus de 40 leads qualifiés et mon chiffre d'affaires a augmenté de 60%. La plateforme est intuitive et les clients sont sérieux."</p>
+        <div class="review-author">
+          <div class="review-avatar">👨‍💼</div>
+          <div><div class="review-name">Cheikh Abdoulaye Ba</div><div class="review-city">🏢 Dakar Digital Studio — Dakar</div></div>
+        </div>
+      </div>
+      <div class="review-card animate-scroll">
+        <div class="review-stars">★★★★★</div>
+        <p class="review-text">"J'ai trouvé le meilleur traiteur pour mon mariage en 24h ! Les avis m'ont rassurée et Mama Africa Traiteur a dépassé toutes mes attentes. Je recommande Raktakk à tout le monde."</p>
+        <div class="review-author">
+          <div class="review-avatar">👩</div>
+          <div><div class="review-name">Aïssatou Konaré</div><div class="review-city">📍 Cliente — Thiès, Sénégal</div></div>
+        </div>
+      </div>
+      <div class="review-card animate-scroll">
+        <div class="review-stars">★★★★★</div>
+        <p class="review-text">"Notre campagne sur Raktakk a généré 345 leads qualifiés en un mois. Le ROI est exceptionnel comparé aux autres plateformes. C'est devenu notre canal d'acquisition principal en Afrique."</p>
+        <div class="review-author">
+          <div class="review-avatar">🏦</div>
+          <div><div class="review-name">Direction Marketing</div><div class="review-city">🟠 Ecobank Sénégal — Annonceur</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── CTA VENDOR ──────────────────────────────────────────── -->
+<section style="background:var(--brand-secondary);padding:80px 0;position:relative;overflow:hidden;">
+  <div style="position:absolute;inset:0;background:radial-gradient(circle at 80% 50%,rgba(255,90,31,.1),transparent 60%);"></div>
+  <div class="container" style="position:relative;z-index:1;">
+    <div class="flex gap-40 items-center" style="flex-wrap:wrap;">
+      <div style="flex:1;min-width:280px;">
+        <span class="section-label" style="color:#FF8A5B;background:rgba(255,90,31,.15);">🚀 Pour les professionnels</span>
+        <h2 class="display-md" style="color:#fff;margin:16px 0 16px;">Développez votre<br>business avec Raktakk</h2>
+        <p style="color:rgba(255,255,255,.65);margin-bottom:28px;font-size:1rem;line-height:1.7;">Rejoignez 3 420 entreprises qui génèrent des leads qualifiés chaque jour. Créez votre profil gratuit en 5 minutes et commencez à recevoir des demandes clients immédiatement.</p>
+        <div class="flex gap-12" style="flex-wrap:wrap;">
+          <a href="register-vendor.html" class="btn btn-primary btn-lg">Créer mon profil gratuitement</a>
+          <a href="pricing.html" class="btn btn-secondary btn-lg">Voir les offres</a>
+        </div>
+      </div>
+      <div style="flex:1;min-width:280px;display:grid;grid-template-columns:1fr 1fr;gap:16px;">
+        <div style="background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.08);border-radius:16px;padding:20px;text-align:center;">
+          <div style="font-size:2rem;font-family:var(--font-display);font-weight:800;color:#fff;">3 420</div>
+          <div style="font-size:.82rem;color:rgba(255,255,255,.5);margin-top:4px;">Prestataires inscrits</div>
+        </div>
+        <div style="background:rgba(255,90,31,.1);border:1px solid rgba(255,90,31,.2);border-radius:16px;padding:20px;text-align:center;">
+          <div style="font-size:2rem;font-family:var(--font-display);font-weight:800;color:var(--brand-primary);">89k+</div>
+          <div style="font-size:.82rem;color:rgba(255,255,255,.5);margin-top:4px;">Leads générés</div>
+        </div>
+        <div style="background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.08);border-radius:16px;padding:20px;text-align:center;">
+          <div style="font-size:2rem;font-family:var(--font-display);font-weight:800;color:#fff;">4.7★</div>
+          <div style="font-size:.82rem;color:rgba(255,255,255,.5);margin-top:4px;">Note moyenne</div>
+        </div>
+        <div style="background:rgba(0,201,167,.1);border:1px solid rgba(0,201,167,.2);border-radius:16px;padding:20px;text-align:center;">
+          <div style="font-size:2rem;font-family:var(--font-display);font-weight:800;color:var(--brand-teal);">97%</div>
+          <div style="font-size:.82rem;color:rgba(255,255,255,.5);margin-top:4px;">Satisfaction client</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── CTA ADVERTISER ──────────────────────────────────────── -->
+<section>
+  <div class="container">
+    <div style="background:linear-gradient(135deg,#fff,var(--bg-subtle));border:1.5px solid var(--border-light);border-radius:var(--radius-xl);padding:48px;display:flex;gap:32px;align-items:center;flex-wrap:wrap;">
+      <div style="font-size:4rem;">📢</div>
+      <div style="flex:1;min-width:240px;">
+        <span class="section-label">💡 Pour les annonceurs</span>
+        <h2 class="display-sm" style="margin:12px 0 12px;">Touchez des milliers de professionnels et clients actifs</h2>
+        <p style="color:var(--text-muted);font-size:.95rem;line-height:1.7;margin-bottom:20px;">Bannières, emplacements premium, newsletters ciblées — Votre marque devant une audience qualifiée et engagée en Afrique de l'Ouest.</p>
+        <a href="register-advertiser.html" class="btn btn-dark">Lancer une campagne →</a>
+      </div>
+      <div style="text-align:center;padding:24px;background:var(--bg-white);border-radius:var(--radius-lg);border:1px solid var(--border-light);min-width:160px;">
+        <div style="font-size:1.8rem;font-weight:800;font-family:var(--font-display);color:var(--brand-primary);">145k</div>
+        <div style="font-size:.78rem;color:var(--text-muted);margin-top:4px;">Impressions/mois</div>
+        <div style="margin:12px 0;height:1px;background:var(--border-light);"></div>
+        <div style="font-size:1.8rem;font-weight:800;font-family:var(--font-display);color:var(--brand-teal);">6.1%</div>
+        <div style="font-size:.78rem;color:var(--text-muted);margin-top:4px;">Taux de clic moyen</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── FOOTER ──────────────────────────────────────────────── -->
+<footer class="footer" role="contentinfo">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <a href="index.html" class="logo" style="color:#fff;">
+          <div class="logo-mark">R</div>
+          Raktak<span>k</span>
+        </a>
+        <p>La plateforme de mise en relation professionnelle #1 en Afrique de l'Ouest. Connectez-vous, grandissez, réussissez.</p>
+        <div class="footer-social">
+          <a href="login.html" class="social-btn" aria-label="Facebook">f</a>
+          <a href="login.html" class="social-btn" aria-label="Twitter">𝕏</a>
+          <a href="login.html" class="social-btn" aria-label="Instagram">ig</a>
+          <a href="login.html" class="social-btn" aria-label="LinkedIn">in</a>
+          <a href="login.html" class="social-btn" aria-label="WhatsApp">wa</a>
+        </div>
+      </div>
+      <div class="footer-col">
+        <h4>Plateforme</h4>
+        <div class="footer-links">
+          <a href="search.html">Rechercher</a>
+          <a href="categories.html">Catégories</a>
+          <a href="listing.html">Prestataires</a>
+          <a href="pricing.html">Tarifs</a>
+          <a href="register-advertiser.html">Espace annonceurs</a>
+        </div>
+      </div>
+      <div class="footer-col">
+        <h4>Compte</h4>
+        <div class="footer-links">
+          <a href="login.html">Se connecter</a>
+          <a href="register-client.html">Créer un compte client</a>
+          <a href="register-vendor.html">Inscrire mon entreprise</a>
+          <a href="dashboard-vendor.html">Dashboard vendeur</a>
+          <a href="dashboard-client.html">Dashboard client</a>
+        </div>
+      </div>
+      <div class="footer-col">
+        <h4>Aide</h4>
+        <div class="footer-links">
+          <a href="faq.html">FAQ</a>
+          <a href="contact.html">Contact</a>
+          <a href="terms.html">Conditions d'utilisation</a>
+          <a href="privacy.html">Politique de confidentialité</a>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p style="font-size:.82rem;color:rgba(255,255,255,.35);">© 2024 Raktakk. Tous droits réservés. Fait avec ❤️ pour l'Afrique.</p>
+      <div style="display:flex;gap:16px;font-size:.78rem;color:rgba(255,255,255,.35);">
+        <a href="terms.html" style="color:rgba(255,255,255,.4);">CGU</a>
+        <a href="privacy.html" style="color:rgba(255,255,255,.4);">Confidentialité</a>
+        <a href="contact.html" style="color:rgba(255,255,255,.4);">Contact</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<!-- ── BACK TO TOP ──────────────────────────────────────────── -->
+<button class="back-to-top" aria-label="Retour en haut" style="position:fixed;bottom:24px;right:24px;width:44px;height:44px;border-radius:50%;background:var(--brand-primary);color:#fff;border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:1.2rem;box-shadow:var(--shadow-brand);opacity:0;visibility:hidden;transition:var(--transition);z-index:500;">↑</button>
+
+<style>
+.back-to-top.visible { opacity:1;visibility:visible; }
+.back-to-top:hover { transform:translateY(-2px);box-shadow:0 12px 30px rgba(255,90,31,.4); }
+</style>
+
+<script src="assets/data/mock-data.js"></script>
+<script src="assets/js/app.js"></script>
+</body>
+</html>

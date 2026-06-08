@@ -34,6 +34,36 @@ export const adminService = {
     const { data } = await api.get('/api/admin/stats.php');
     return data.data || {};
   },
+  async getCategories() {
+    const { data } = await api.get('/api/admin/categories.php');
+    return data.data || [];
+  },
+  async saveCategory(payload) {
+    const { data } = await api.post('/api/admin/categories-save.php', payload);
+    if (!data.ok) throw new Error(data.message || 'Erreur');
+    return data.data;
+  },
+  async toggleCategory(id, active) {
+    const { data } = await api.post('/api/admin/categories-toggle.php', { id, active });
+    if (!data.ok) throw new Error(data.message || 'Erreur');
+    return data.data;
+  },
+  async getSubcategories(categoryId = null) {
+    const query = new URLSearchParams();
+    if (categoryId) query.append('categoryId', categoryId);
+    const { data } = await api.get(`/api/admin/subcategories.php?${query.toString()}`);
+    return data.data || [];
+  },
+  async saveSubcategory(payload) {
+    const { data } = await api.post('/api/admin/subcategories-save.php', payload);
+    if (!data.ok) throw new Error(data.message || 'Erreur');
+    return data.data;
+  },
+  async toggleSubcategory(id, active) {
+    const { data } = await api.post('/api/admin/subcategories-toggle.php', { id, active });
+    if (!data.ok) throw new Error(data.message || 'Erreur');
+    return data.data;
+  },
   async getSettings() {
     const { data } = await api.get('/api/admin/settings.php');
     return data.data || {};

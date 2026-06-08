@@ -1,1 +1,0 @@
-import{j as e,f as i}from"./index-CTHpUGHD.js";function n(){return e.jsx("div",{style:{padding:"2rem",minHeight:"60vh",display:"grid",placeItems:"center"},children:e.jsxs("div",{style:{textAlign:"center"},children:[e.jsx("h1",{children:"404"}),e.jsx("p",{children:"Page introuvable."}),e.jsx(i,{to:"/",children:"Retour à l'accueil"})]})})}export{n as default};

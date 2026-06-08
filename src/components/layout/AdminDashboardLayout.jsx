@@ -20,6 +20,7 @@ export default function AdminDashboardLayout() {
           <NavLink className="sidebar-link" to="/dashboard/admin/vendors"><FaIcon name="building" style={{ marginRight: 8 }} />Prestataires</NavLink>
           <NavLink className="sidebar-link" to="/dashboard/admin/clients"><FaIcon name="users" style={{ marginRight: 8 }} />Clients</NavLink>
           <NavLink className="sidebar-link" to="/dashboard/admin/services"><FaIcon name="screwdriver-wrench" style={{ marginRight: 8 }} />Services</NavLink>
+          <NavLink className="sidebar-link" to="/dashboard/admin/categories"><FaIcon name="layer-group" style={{ marginRight: 8 }} />Catégories</NavLink>
           <NavLink className="sidebar-link" to="/dashboard/admin/requests"><FaIcon name="clipboard-list" style={{ marginRight: 8 }} />Demandes</NavLink>
           <NavLink className="sidebar-link" to="/dashboard/admin/admins"><FaIcon name="user-shield" style={{ marginRight: 8 }} />Administrateurs</NavLink>
           <NavLink className="sidebar-link" to="/dashboard/admin/audit"><FaIcon name="file-lines" style={{ marginRight: 8 }} />Historique</NavLink>

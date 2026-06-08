@@ -26,6 +26,7 @@ const SearchPage = lazy(() => import('../pages/SearchPage'));
 const TermsPage = lazy(() => import('../pages/TermsPage'));
 const DashboardAdminPage = lazy(() => import('../pages/DashboardAdminPage'));
 const AdminSubscriptionPlansPage = lazy(() => import('../pages/AdminSubscriptionPlansPage'));
+const AdminCategoriesPage = lazy(() => import('../pages/AdminCategoriesPage'));
 const AdminSubscribersPage = lazy(() => import('../pages/AdminSubscribersPage'));
 const AdminDashboardLayout = lazy(() => import('../components/layout/AdminDashboardLayout'));
 const AdminMainDashboard = lazy(() => import('../pages/AdminMainDashboard'));
@@ -151,6 +152,7 @@ export const router = createBrowserRouter([
           { path: 'vendors', element: withSuspense(<AdminVendorsList />) },
           { path: 'clients', element: withSuspense(<AdminClientsList />) },
           { path: 'services', element: withSuspense(<AdminServicesList />) },
+          { path: 'categories', element: withSuspense(<AdminCategoriesPage />) },
           { path: 'requests', element: withSuspense(<AdminRequestsPage />) },
           { path: 'settings', element: withSuspense(<AdminSettings />) },
           { path: 'admins', element: withSuspense(<AdminsManagement />) },

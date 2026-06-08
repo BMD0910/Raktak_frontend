@@ -92,6 +92,18 @@ export default function DashboardAdminPage() {
         <div className="col-12 col-lg-6">
           <div className="card">
             <div className="card-header d-flex justify-content-between align-items-center">
+              <div className="d-flex align-items-center gap-2"><FaIcon name="layer-group" /> <strong>Catégories</strong></div>
+              <Link className="btn btn-sm btn-primary" to="/dashboard/admin/categories">Gérer les catégories</Link>
+            </div>
+            <div className="card-body d-flex justify-content-between align-items-center flex-wrap">
+              <p className="mb-0 text-muted">Créez et organisez les catégories et sous-catégories visibles dans tout le site.</p>
+            </div>
+          </div>
+        </div>
+
+        <div className="col-12 col-lg-6">
+          <div className="card">
+            <div className="card-header d-flex justify-content-between align-items-center">
               <div className="d-flex align-items-center gap-2"><FaIcon name="users" /> <strong>Utilisateurs récents</strong></div>
               <Link className="btn btn-sm btn-ghost" to="/dashboard/admin/clients">Voir la liste complète</Link>
             </div>

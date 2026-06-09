@@ -1,1 +1,0 @@
-import{u as s,r as t,k as o,j as n}from"./index-_EdUw2aD.js";function i(){const e=s();return t.useEffect(()=>{const a=new URLSearchParams(window.location.search).get("token");a&&o(a),e("/dashboard",{replace:!0})},[e]),n.jsx("div",{style:{padding:"2rem"},children:"Connexion Google en cours…"})}export{i as default};

@@ -10,9 +10,19 @@ export function setSpringUnauthorizedHandler(handler) {
 
 const springApi = axios.create({
   baseURL: environment.apiUrl,
-  timeout: 30000,
+  timeout: 60000,
   withCredentials: true
 });
+
+function isTimeoutError(error) {
+  return error?.code === 'ECONNABORTED' || String(error?.message || '').toLowerCase().includes('timeout');
+}
+
+async function retryOnceOnTimeout(instance, originalRequest) {
+  originalRequest._timeoutRetry = true;
+  await new Promise((resolve) => setTimeout(resolve, 4000));
+  return instance(originalRequest);
+}
 
 let refreshPromise = null;
 
@@ -54,6 +64,10 @@ springApi.interceptors.response.use(
   async (error) => {
     const status = error.response?.status;
     const originalRequest = error.config || {};
+
+    if (isTimeoutError(error) && !originalRequest._timeoutRetry) {
+      return retryOnceOnTimeout(springApi, originalRequest);
+    }
 
     const isAuthEndpoint = (originalRequest.url || '').startsWith('/api/auth/login')
       || (originalRequest.url || '').startsWith('/api/auth/register')

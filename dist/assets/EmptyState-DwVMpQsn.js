@@ -1,1 +1,0 @@
-import{j as t}from"./index-_EdUw2aD.js";function n({title:e,message:r}){return t.jsxs("div",{className:"card",style:{padding:"2rem",textAlign:"center"},children:[t.jsx("h3",{style:{fontWeight:700,marginBottom:8},children:e}),t.jsx("p",{style:{color:"var(--text-muted)"},children:r})]})}export{n as E};

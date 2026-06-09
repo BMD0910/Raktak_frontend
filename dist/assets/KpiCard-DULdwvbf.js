@@ -1,1 +1,0 @@
-import{j as i}from"./index-_EdUw2aD.js";function d({icon:s,value:a,label:e,tone:r="orange"}){return i.jsxs("div",{className:"kpi-card",children:[i.jsx("div",{className:"kpi-header",children:i.jsx("div",{className:`kpi-icon ${r}`,children:s})}),i.jsx("div",{className:"kpi-value",children:a}),i.jsx("div",{className:"kpi-label",children:e})]})}export{d as K};

@@ -1,1 +1,0 @@
-import{u as o,b as u,r as c}from"./index-_EdUw2aD.js";function f(){const e=o(),{user:t,profile:a,resolveDashboardPath:r}=u();return c.useEffect(()=>{const s=r(t,a);e(s,{replace:!0})},[e,t,a,r]),null}export{f as default};
